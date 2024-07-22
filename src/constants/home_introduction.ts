@@ -13,6 +13,8 @@ export const HOME_INTRODUCTION: IFeatureIntroduction[] = [
 			},
 			{
 				displayName: "Xem bảng xếp hạng các môn học",
+				description:
+					"Xem danh sách môn học và điểm đánh giá của từng môn theo thứ tự giảm dần",
 				link: "/subject/average-point",
 			},
 		],

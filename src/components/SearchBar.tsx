@@ -11,13 +11,10 @@ import {
 	useDisclosure,
 } from "@nextui-org/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { useDebounce } from "react-use";
 
 export default function SearchBar() {
-	const router = useRouter();
 	const ref = useRef<HTMLInputElement>(null);
 
 	const [keyword, setKeyword] = useState("");
@@ -28,6 +25,7 @@ export default function SearchBar() {
 
 	useEffect(() => {
 		if (isOpen) {
+			setKeyword("");
 			ref?.current?.focus();
 		}
 	}, [isOpen]);

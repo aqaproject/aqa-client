@@ -18,7 +18,6 @@ export function searchFeature(
 				"ig"
 			);
 			const regex2 = new RegExp(`\\s${keyword}|^${keyword}`, "ig");
-			console.log({ regex2, keyword });
 			if (
 				// keyword.match(regex1) ||
 				toSearchString(displayName).match(regex2) ||
