@@ -4,14 +4,17 @@ import BreadCrumb from "@/components/BreadCrumb";
 import PageTabs from "@/components/PageTabs";
 import { FilterProvider } from "@/contexts/FilterContext";
 import { useDetailFacultyQuery } from "@/gql/graphql";
-import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
 import { ReactNode } from "react";
 
-export default function Layout({ children }: { children: ReactNode }) {
-	const { query } = useFilterUrlQuery();
-
+export default function Layout({
+	children,
+	params,
+}: {
+	children: ReactNode;
+	params: any;
+}) {
 	const { data: faculty } = useDetailFacultyQuery({
-		variables: { id: query?.faculty_id || "" },
+		variables: { id: params.id || "" },
 	});
 
 	return (
@@ -22,7 +25,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 			<BreadCrumb />
 			<PageTabs
 				lastIndex={3}
-				defaultPath={`faculty/${query.faculty_id}`}
+				defaultPath={`faculty/${params.id}`}
 				tabs={[
 					{
 						link: "",
