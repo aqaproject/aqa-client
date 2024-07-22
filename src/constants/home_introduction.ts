@@ -8,6 +8,7 @@ export const HOME_INTRODUCTION: IFeatureIntroduction[] = [
 		navigation_links: [
 			{
 				displayName: "Tìm kiếm môn học",
+				description: "Tìm kiếm môn học theo tên, xem danh sách môn học",
 				link: "/subject",
 			},
 			{
@@ -42,6 +43,8 @@ export const HOME_INTRODUCTION: IFeatureIntroduction[] = [
 			},
 			{
 				displayName: "Điểm đánh giá qua từng học kỳ",
+				description:
+					"Xem điểm đánh giá từng tiêu chí và điểm đánh giá tổng qua từng học kỳ",
 				link: "/criteria/detail",
 			},
 		],
@@ -56,6 +59,7 @@ export interface IFeatureIntroduction {
 	description: string;
 	navigation_links: {
 		displayName: string;
+		description?: string;
 		link: string;
 	}[];
 }
