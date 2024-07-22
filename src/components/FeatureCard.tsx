@@ -2,8 +2,7 @@
 
 import { IFeatureIntroduction } from "@/constants/home_introduction";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
-
-import NextLink from "next/link";
+import Link from "next/link";
 
 export default function FeatureCard({
 	introduction: { title, description, navigation_links },
@@ -24,14 +23,19 @@ export default function FeatureCard({
 								key={link}
 								className="hover:underline cursor-pointer py-1"
 							>
-								{displayName}
+								<Link href={link}>{displayName}</Link>
 							</li>
 						))}
 					</ul>
 				</CardBody>
 			) : null}
 			<CardFooter>
-				<NextLink href={title.link}>Xem chi tiết</NextLink>
+				<Link
+					href={title.link}
+					className=" hover:font-semibold hover:text-foreground-900 duration-200"
+				>
+					Xem chi tiết
+				</Link>
 			</CardFooter>
 		</Card>
 	);

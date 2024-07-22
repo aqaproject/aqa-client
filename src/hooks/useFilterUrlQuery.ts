@@ -1,12 +1,14 @@
 import { FilterArgs, Role, useProfileQuery } from "@/gql/graphql";
 import { useAuth } from "@/stores/auth.store";
 import withQuery from "@/utils/withQuery";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 export function useFilterUrlQuery() {
 	const router = useRouter();
 	const params = useSearchParams();
+
+	const currentPathname = usePathname();
 
 	const { authData } = useAuth();
 	const { data } = useProfileQuery();
@@ -32,7 +34,7 @@ export function useFilterUrlQuery() {
 
 	const setUrlQuery = useCallback(
 		(pathname: string, newQuery: Partial<FilterArgs> = {}, queryParams = {}) => {
-			setQuery({ ...query, ...newQuery });
+			// if (pathname === currentPathname) setQuery({ ...query, ...newQuery });
 			router.push(
 				withQuery(pathname, {
 					...Object.fromEntries(params.entries()),

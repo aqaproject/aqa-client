@@ -8,11 +8,11 @@ export const HOME_INTRODUCTION: IFeatureIntroduction[] = [
 		navigation_links: [
 			{
 				displayName: "Tìm kiếm môn học",
-				link: "/subject/find",
+				link: "/subject",
 			},
 			{
 				displayName: "Xem bảng xếp hạng các môn học",
-				link: "/subject/rank",
+				link: "/subject/average-point",
 			},
 		],
 	},
@@ -22,7 +22,12 @@ export const HOME_INTRODUCTION: IFeatureIntroduction[] = [
 			link: "/comment",
 		},
 		description: "Thống kê bình luận của sinh viên",
-		navigation_links: [],
+		navigation_links: [
+			{
+				displayName: "Xem tất cả bình luận",
+				link: "/comment",
+			},
+		],
 	},
 	{
 		title: {
@@ -32,8 +37,12 @@ export const HOME_INTRODUCTION: IFeatureIntroduction[] = [
 		description: "Thống kê điểm đánh giá theo từng tiêu chí",
 		navigation_links: [
 			{
-				displayName: "Xem bảng xếp hạng các môn học",
-				link: "/subject/rank",
+				displayName: "Xem danh sách tiêu chí",
+				link: "/criteria",
+			},
+			{
+				displayName: "Điểm đánh giá qua từng học kỳ",
+				link: "/criteria/detail",
 			},
 		],
 	},
