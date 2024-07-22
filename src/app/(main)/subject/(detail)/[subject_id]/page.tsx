@@ -7,11 +7,12 @@ import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
 export default function Page() {
 	const { query, setUrlQuery } = useFilterUrlQuery();
 
-	const { data } = useAllLecturersQuery({ variables: { filter: query } });
+	const { data, loading } = useAllLecturersQuery({ variables: { filter: query } });
 
 	return (
 		<div>
 			<ChildrenItems
+				loading={loading}
 				items={[
 					{
 						display_name: "Tất cả các giảng viên",

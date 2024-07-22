@@ -8,11 +8,12 @@ import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
 export default function Page({ params }: { params: any }) {
 	const { query, setUrlQuery } = useFilterUrlQuery();
 
-	const { data } = useAllClassesQuery({ variables: { filter: query } });
+	const { data, loading } = useAllClassesQuery({ variables: { filter: query } });
 
 	return (
 		<FilterProvider>
 			<ChildrenItems
+				loading={loading}
 				items={[
 					{
 						display_name: "Tất cả các lớp",

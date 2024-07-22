@@ -18,7 +18,7 @@ type Props = {
 export default function ChildrenItems({ items, loading, isSort = true }: Props) {
 	return (
 		<div className=" flex-1 py-6 flex flex-col items-start gap-4">
-			{loading ? (
+			{loading !== false ? (
 				<Loading />
 			) : items.length > 1 ||
 			  (items.length === 1 && items.at(0)?.value !== "all") ? (

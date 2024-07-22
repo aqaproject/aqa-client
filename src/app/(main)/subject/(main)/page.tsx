@@ -12,7 +12,7 @@ export default function Page({ params }: { params: any }) {
 	const { query, setUrlQuery } = useFilterUrlQuery();
 
 	const [keyword, setKeyword] = useState("");
-	const { data } = useAllSubjectsQuery({
+	const { data, loading } = useAllSubjectsQuery({
 		variables: { filter: { ...query, keyword } },
 	});
 
@@ -30,6 +30,7 @@ export default function Page({ params }: { params: any }) {
 				className="w-full"
 			/>
 			<ChildrenItems
+				loading={loading}
 				items={[
 					{
 						display_name: "Tất cả các môn học",

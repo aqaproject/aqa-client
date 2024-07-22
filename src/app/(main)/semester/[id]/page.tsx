@@ -10,12 +10,13 @@ export default function Page({ params }: { params: any }) {
 	const semester_id = params.id;
 	const { query, setUrlQuery } = useFilterUrlQuery();
 
-	const { data } = useFacultiesQuery();
+	const { data, loading } = useFacultiesQuery();
 
 	return (
 		<FilterProvider>
 			<p className=" mt-5 font-semibold text-base">Chọn khoa/bộ môn</p>
 			<ChildrenItems
+				loading={loading}
 				items={[
 					{
 						display_name: "Tất cả các khoa/bộ môn",

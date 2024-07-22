@@ -14,12 +14,15 @@ export default function Page({
 }) {
 	const { setUrlQuery } = useFilterUrlQuery();
 
-	const { data } = useDetailCriteriaQuery({ variables: { id: criteria_id } });
+	const { data, loading } = useDetailCriteriaQuery({
+		variables: { id: criteria_id },
+	});
 
 	return (
 		<div>
 			<ChildrenItems
 				isSort={false}
+				loading={loading}
 				items={[
 					{
 						display_name: "Tất cả học kỳ",

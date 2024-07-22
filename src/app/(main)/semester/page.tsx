@@ -11,13 +11,14 @@ export default function Page({ params }: { params: any }) {
 	const semester_id = params.id;
 	const { setUrlQuery } = useFilterUrlQuery();
 
-	const { data } = useSemestersQuery();
+	const { data, loading } = useSemestersQuery();
 
 	return (
 		<FilterProvider>
 			<h1 className="font-semibold text-3xl text-slate-500">Học kỳ</h1>
 			<BreadCrumb />
 			<ChildrenItems
+				loading={loading}
 				isSort={false}
 				items={[
 					{

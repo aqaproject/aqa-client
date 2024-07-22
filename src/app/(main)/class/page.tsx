@@ -9,13 +9,14 @@ import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
 export default function Page({ params }: { params: any }) {
 	const { query, setUrlQuery } = useFilterUrlQuery();
 
-	const { data } = useAllClassesQuery({ variables: { filter: query } });
+	const { data, loading } = useAllClassesQuery({ variables: { filter: query } });
 
 	return (
 		<FilterProvider>
 			<h1 className="font-semibold text-3xl text-slate-500">Lớp</h1>
 			<BreadCrumb />
 			<ChildrenItems
+				loading={loading}
 				items={[
 					...(data?.classes.data.map(({ display_name, class_id }) => ({
 						display_name: display_name || "",
