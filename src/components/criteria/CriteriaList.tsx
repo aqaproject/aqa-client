@@ -4,37 +4,27 @@ import { useAllCriteriasQuery } from "@/gql/graphql";
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
 import SpecificCriteriaChart from "../chart/SpecificCriteriaChart";
 import { useEffect } from "react";
+import { criteriaFilter } from "@/utils/criteria-filter";
 
 const CriteriaList = () => {
 	const { query, setUrlQuery } = useFilterUrlQuery();
 	const { data: criterias, refetch } = useAllCriteriasQuery({
-		variables: { filter: { ...query } },
+		variables: {
+			filter: {
+				...query,
+				class_type: query.class_type === "Online" ? "LT" : query.class_type,
+			},
+		},
 	});
 
 	return (
 		<>
-			{criterias?.criterias.data
-				.filter((v) => {
-					if (
-						query.class_type === "TH2" &&
-						v.type.some((d) => d.class_type === "TH2")
-					)
-						return true;
-					let maxType: any = null;
-					v.type.forEach((d) => {
-						if (!maxType) maxType = d;
-						else if (maxType.num < d.num) maxType = d;
-					});
-					if (query.class_type === "" || query.class_type === "All")
-						return true;
-					return maxType.class_type === query.class_type;
-				})
-				.map((criteria, index) => (
-					<SpecificCriteriaChart
-						criteria={{ ...criteria, index: index + 1 }}
-						key={`${criteria.criteria_id}`}
-					/>
-				))}
+			{(criteriaFilter(criterias, query) as any[]).map((criteria, index) => (
+				<SpecificCriteriaChart
+					criteria={{ ...criteria, index: index + 1 }}
+					key={`${criteria.criteria_id}`}
+				/>
+			))}
 		</>
 	);
 };

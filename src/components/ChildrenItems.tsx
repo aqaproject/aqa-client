@@ -13,9 +13,15 @@ type Props = {
 	}[];
 	isSort?: boolean;
 	loading?: boolean;
+	isDisplayIndex?: boolean;
 };
 
-export default function ChildrenItems({ items, loading, isSort = true }: Props) {
+export default function ChildrenItems({
+	items,
+	loading,
+	isSort = true,
+	isDisplayIndex,
+}: Props) {
 	return (
 		<div className=" flex-1 py-6 flex flex-col items-start gap-4">
 			{loading !== false ? (
@@ -52,7 +58,9 @@ export default function ChildrenItems({ items, loading, isSort = true }: Props) 
 									onClick={() => onClick(value)}
 								>
 									<p className=" text-start font-semibold">
-										{`${display_name}`}
+										{`${
+											isDisplayIndex ? `${index + 1}. ` : ""
+										}${display_name}`}
 									</p>
 								</div>
 							))}

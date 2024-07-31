@@ -32,6 +32,6 @@
 		"**/*.ts",
 		"**/*.tsx",
 		".next/types/**/*.ts"
-	],
+, "src/utils/criteria-filter.js"	],
 	"exclude": ["node_modules"]
 }

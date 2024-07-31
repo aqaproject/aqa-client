@@ -42,6 +42,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 					<Tab key="LT" title="Lý thuyết" />
 					<Tab key="TH1" title="Thực hành 1" />
 					<Tab key="TH2" title="Thực hành 2" />
+					<Tab key="Online" title="Học online" />
 				</Tabs>
 			</div>
 			<div className=" w-full mt-4 p-0 h-[420px]">{children}</div>

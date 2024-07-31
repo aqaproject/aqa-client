@@ -3,6 +3,7 @@
 import ChildrenItems from "@/components/ChildrenItems";
 import { useAllCriteriasQuery } from "@/gql/graphql";
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
+import { criteriaFilter } from "@/utils/criteria-filter";
 import { Input } from "@nextui-org/react";
 import { useState } from "react";
 
@@ -12,7 +13,13 @@ export default function Page() {
 	const [keyword, setKeyword] = useState("");
 
 	const { data, loading } = useAllCriteriasQuery({
-		variables: { filter: { ...query, keyword } },
+		variables: {
+			filter: {
+				...query,
+				keyword,
+				class_type: query.class_type === "Online" ? "LT" : query.class_type,
+			},
+		},
 	});
 
 	return (
@@ -30,6 +37,7 @@ export default function Page() {
 			/>
 			<ChildrenItems
 				loading={loading}
+				isDisplayIndex
 				items={[
 					{
 						display_name: "Chọn tất cả tiêu chí",
@@ -40,26 +48,8 @@ export default function Page() {
 							});
 						},
 					},
-					...(data?.criterias.data
-						.filter((v) => {
-							if (
-								query.class_type === "TH2" &&
-								v.type.some((d) => d.class_type === "TH2")
-							)
-								return true;
-							let maxType: any = null;
-							v.type.forEach((d) => {
-								if (!maxType) maxType = d;
-								else if (maxType.num < d.num) maxType = d;
-							});
-							if (
-								query.class_type === "" ||
-								query.class_type === "All"
-							)
-								return true;
-							return maxType.class_type === query.class_type;
-						})
-						.map(({ display_name, criteria_id }, index) => ({
+					...(criteriaFilter(data, query) as any[]).map(
+						({ display_name, criteria_id }, index) => ({
 							display_name: `${display_name}`,
 							value: criteria_id,
 							onClick() {
@@ -67,7 +57,8 @@ export default function Page() {
 									criteria_id,
 								});
 							},
-						})) || []),
+						})
+					),
 				]}
 			/>
 		</div>
