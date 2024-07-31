@@ -2,18 +2,13 @@ import { ONLINE_CRITERIA } from "@/constants/criteria";
 
 export function criteriaFilter(data, query) {
 	return (
-		data?.criterias.data.filter?.((v) => {
+		data?.criterias?.data?.filter?.((v) => {
 			if (
 				query.class_type === "TH2" &&
 				v.type.some((d) => d.class_type === "TH2")
 			)
 				return true;
-			console.log(
-				ONLINE_CRITERIA.includes(v.display_name),
-				v.display_name,
-				v.type
-			);
-			if (ONLINE_CRITERIA.includes(v.display_name.trim()))
+			if (ONLINE_CRITERIA.includes(v.display_name?.trim?.()))
 				if (query.class_type === "Online") return true;
 				else return false;
 			let maxType = null;
