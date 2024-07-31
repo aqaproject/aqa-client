@@ -34,7 +34,7 @@ export default function PointTable({ data }: IProps) {
 					<TableRow key={point.id}>
 						<TableCell>{index + 1}</TableCell>
 						<TableCell>{point.display_name}</TableCell>
-						<TableCell>{point.average_point * 4}</TableCell>
+						<TableCell>{(point.average_point * 4).toFixed(1)}</TableCell>
 					</TableRow>
 				))}
 			</TableBody>

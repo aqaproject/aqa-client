@@ -229,6 +229,7 @@ export default function BreadCrumb() {
 						faculty_id: "",
 						subjects: undefined,
 						lecturer_id: "",
+						class_type: "",
 						class_id: "",
 						//@ts-expect-error
 						[currentPageKey]: query?.[currentPageKey] as any,

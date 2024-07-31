@@ -15,6 +15,7 @@ export default function Page({ params }: { params: any }) {
 		variables: {
 			filter: { ...query, faculty_id: params.id, criteria_id: "", keyword },
 		},
+		fetchPolicy: "network-only",
 	});
 
 	return (
