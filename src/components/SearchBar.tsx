@@ -33,7 +33,7 @@ export default function SearchBar() {
 	return (
 		<>
 			<Button
-				className=" w-[500px] rounded-xl shadow-xl absolute left-1/2 -translate-x-1/2 top-8 bg-foreground-100"
+				className=" w-[500px] rounded-xl z-10 shadow-xl absolute left-1/2 -translate-x-1/2 top-8 bg-foreground-100"
 				onClick={() => onOpen()}
 				startContent={<BsSearch size={16} />}
 			>
