@@ -104,7 +104,7 @@ export default function AddLecturerUser() {
 										selectionMode="multiple"
 										selectionBehavior={"toggle"}
 										selectedKeys={selectedKeys}
-										onSelectionChange={(keys: Selection) => {
+										onSelectionChange={(keys: any) => {
 											//@ts-ignore
 											setSelectedKeys(keys);
 										}}
