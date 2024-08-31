@@ -124,7 +124,7 @@ export default function AddLecturerUser() {
 												})
 											)}
 										>
-											{(item: Lecturer) => (
+											{(item: any) => (
 												<TableRow key={item.lecturer_id}>
 													{(columnKey) => (
 														<TableCell>
