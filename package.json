@@ -21,6 +21,7 @@
     "@types/node": "20.4.8",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
+    "@types/uuid": "^10.0.0",
     "apollo-cache-persist": "^0.1.1",
     "apollo3-cache-persist": "^0.15.0",
     "autoprefixer": "10.4.14",
