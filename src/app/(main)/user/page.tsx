@@ -1,5 +1,6 @@
 "use client";
 
+import AddLecturerUser from "@/components/AddLecturerUser";
 import AddUserButton from "@/components/AddUserButton";
 import UpdateUserModal from "@/components/UpdateUserModal";
 import { ROLE_ENUM } from "@/constants/role";
@@ -68,7 +69,10 @@ export default function Page() {
 		<div className=" flex-1 flex flex-col gap-8">
 			<div className=" flex justify-between items-center">
 				<h1 className="font-semibold text-3xl">Quản lý tài khoản</h1>
-				<AddUserButton refetch={refetch} />
+				<div className=" flex gap-4">
+					<AddLecturerUser />
+					<AddUserButton refetch={refetch} />
+				</div>
 			</div>
 			<div className=" flex flex-col gap-2">
 				<h2 className=" font-semibold text-base">Danh sách tài khoản</h2>
