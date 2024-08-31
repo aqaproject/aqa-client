@@ -1,37 +1,28 @@
 "use client";
 
-import { ROLE_DESCRIPTION_ENUM, ROLE_ENUM } from "@/constants/role";
 import {
 	Lecturer,
 	Role,
 	useAllLecturersQuery,
-	useAllLecturersSuspenseQuery,
 	useRegisterUserMutation,
 } from "@/gql/graphql";
 import {
 	Button,
-	Input,
+	getKeyValue,
 	Modal,
 	ModalBody,
 	ModalContent,
 	ModalFooter,
-	ModalHeader,
-	useDisclosure,
-	Select,
-	SelectItem,
 	Table,
-	getKeyValue,
 	TableBody,
 	TableCell,
 	TableColumn,
 	TableHeader,
 	TableRow,
+	useDisclosure,
 } from "@nextui-org/react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
-import FacultySelector from "./selectors/FacultySelector";
-import { FilterProvider, useFilter } from "@/contexts/FilterContext";
-import LecturerSelector from "./LecturerSelector";
 import { v4 as uuidv4 } from "uuid";
 
 const columns = [
@@ -113,7 +104,10 @@ export default function AddLecturerUser() {
 										selectionMode="multiple"
 										selectionBehavior={"toggle"}
 										selectedKeys={selectedKeys}
-										onSelectionChange={setSelectedKeys}
+										onSelectionChange={(keys: Selection) => {
+											//@ts-ignore
+											setSelectedKeys(keys);
+										}}
 									>
 										<TableHeader columns={columns}>
 											{(column) => (
