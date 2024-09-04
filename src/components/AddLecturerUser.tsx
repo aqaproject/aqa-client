@@ -9,10 +9,12 @@ import {
 import {
 	Button,
 	getKeyValue,
+	Input,
 	Modal,
 	ModalBody,
 	ModalContent,
 	ModalFooter,
+	ModalHeader,
 	Table,
 	TableBody,
 	TableCell,
@@ -23,6 +25,7 @@ import {
 } from "@nextui-org/react";
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
+import { useDebounce } from "usehooks-ts";
 import { v4 as uuidv4 } from "uuid";
 
 const columns = [
@@ -42,10 +45,14 @@ type Props = {
 
 export default function AddLecturerUser() {
 	const [selectedKeys, setSelectedKeys] = useState(new Set([]));
+	const [searchText, setSearchText] = useState("");
+
+	const keyword = useDebounce(searchText, 500);
+
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
 	const { data } = useAllLecturersQuery({
-		variables: { filter: {}, sort: {} },
+		variables: { filter: { keyword }, sort: {} },
 	});
 
 	const [mutate] = useRegisterUserMutation();
@@ -97,8 +104,32 @@ export default function AddLecturerUser() {
 				<ModalContent>
 					{(onClose) => (
 						<>
+							<ModalHeader>
+								<p>Thêm tài khoản giảng viên</p>
+							</ModalHeader>
 							<ModalBody>
 								<div className=" max-h-[600px] overflow-auto">
+									<Input
+										value={searchText}
+										onChange={(e) =>
+											setSearchText(e.target.value)
+										}
+										onKeyDown={(e) => {
+											if (e.key === "Enter") {
+												setSearchText(searchText);
+												// setIsLoading(true);
+											}
+										}}
+										onClear={() => {
+											setSearchText("");
+										}}
+										isClearable
+										type="text"
+										size="md"
+										placeholder="Nhập tên giảng viên cần tìm..."
+										variant="bordered"
+										className="w-full mt-4"
+									/>
 									<Table
 										aria-label="Lecturer table"
 										selectionMode="multiple"
