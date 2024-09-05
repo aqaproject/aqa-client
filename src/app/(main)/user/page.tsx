@@ -6,9 +6,8 @@ import { ROLE_ENUM } from "@/constants/role";
 import {
 	Role,
 	useProfileQuery,
-	UserDto,
 	UserEntity,
-	useUsersQuery,
+	useUsersQuery
 } from "@/gql/graphql";
 import { timeDiffString } from "@/utils/timeDiff";
 import {
@@ -23,7 +22,7 @@ import {
 	useDisclosure,
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const tabs = [
 	{
@@ -102,7 +101,7 @@ export default function Page() {
 										displayName,
 										role,
 										username,
-										id,
+										user_id,
 										lastAccess,
 									}) => (
 										<TableRow
@@ -110,13 +109,13 @@ export default function Page() {
 											onClick={() => {
 												onOpen();
 												setSelectedUser({
-													id,
+													user_id,
 													displayName,
 													role,
 													username,
 												});
 											}}
-											key={id}
+											key={user_id}
 										>
 											<TableCell>
 												<p className=" font-semibold">

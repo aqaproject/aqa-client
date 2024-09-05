@@ -10,7 +10,7 @@ const LOGIN_QUERY = gql`
 		login(password: $password, username: $username) {
 			access_token
 			user {
-				id
+				user_id
 				role
 				username
 				displayName
@@ -38,14 +38,14 @@ const providers: Provider[] = [
 					variables: credentials,
 				});
 				const user: {
-					id: string;
+					user_id: string;
 					username: string;
 					role: "ADMIN" | "FACULTY" | "LECTURER";
 					displayName: string;
 				} = response.data.login.user;
 
 				return {
-					id: user.id,
+					user_id: user.user_id,
 					username: user.username,
 					role: user.role,
 					displayName: user.displayName,

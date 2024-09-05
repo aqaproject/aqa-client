@@ -4,7 +4,6 @@ import { useLoginMutation, useProfileQuery } from "@/gql/graphql";
 import { useAuth } from "@/stores/auth.store";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { setCookie, getCookie } from "cookies-next";
 import toast from "react-hot-toast";
 
 export default function Page() {
@@ -17,10 +16,10 @@ export default function Page() {
 		onError(error, clientOptions) {
 			toast.error(
 				<div className=" flex flex-col gap-2">
-					<p className=" text-sm font-medium text-foreground-700">
+					<p className=" text-sm font-medium text-foreground-700 text-red-700">
 						Lỗi đăng nhập
 					</p>
-					<p className=" font-semibold text-foreground-900">
+					<p className=" font-semilight text-foreground-900 text-red-500">
 						Tên đăng nhập hoặc mật khẩu không đúng
 					</p>
 				</div>
@@ -34,8 +33,11 @@ export default function Page() {
 		const res = await login({ variables: { username, password } });
 		console.log({ res });
 		if (res.data?.login) {
+			console.log("Login successful:", res.data.login);
 			authLogin(res.data.login);
-			router.push("/");
+			router.replace("/");
+		} else {
+			console.log("Login failed: No login data returned");
 		}
 	}, [login, username, password, authLogin, router]);
 
@@ -46,7 +48,10 @@ export default function Page() {
 	// }, [isLogin, router]);
 
 	useEffect(() => {
-		if (loading === false && data) {
+		console.log("Loading:", loading);
+		console.log("Profile data:", data);
+		if (!loading && data) {
+			console.log("Profile loaded, redirecting to home:", data);
 			router.replace("/");
 		}
 	}, [data, loading, router]);

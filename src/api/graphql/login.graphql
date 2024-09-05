@@ -2,10 +2,30 @@ mutation Login($username: String!, $password: String!) {
 	login(password: $password, username: $username) {
 		access_token
 		user {
+			auth
+			city
+			confirmed
+			country
+			department
 			displayName
+			email
+			firstaccess
+			fullname
 			id
+			isDefault
+			lang
+			lastAccess
+			lastaccess
+			mailformat
 			password
+			profileimageurl
+			profileimageurlsmall
 			role
+			suspended
+			theme
+			timezone
+			token
+			user_id
 			username
 			faculty {
 				display_name
@@ -14,6 +34,7 @@ mutation Login($username: String!, $password: String!) {
 				is_displayed
 			}
 			lecturer {
+				birth_date
 				display_name
 				email
 				faculty_id
