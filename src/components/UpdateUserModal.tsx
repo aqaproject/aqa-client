@@ -59,7 +59,7 @@ function UpdateUserModalInner({ refetch, isOpen, onOpenChange, user }: Props) {
 				const promise = mutate({
 					variables: {
 						user: {
-							id: user?.id || "",
+							user_id: user?.user_id || "",
 							displayName,
 							facultyId: faculty?.faculty_id,
 							role,
@@ -75,7 +75,7 @@ function UpdateUserModalInner({ refetch, isOpen, onOpenChange, user }: Props) {
 				callback?.();
 			} catch (error) {}
 		},
-		[displayName, faculty?.faculty_id, mutate, refetch, role, user?.id]
+		[displayName, faculty?.faculty_id, mutate, refetch, role, user?.user_id]
 	);
 
 	useEffect(() => {
@@ -194,9 +194,9 @@ function UpdateUserModalInner({ refetch, isOpen, onOpenChange, user }: Props) {
 									color={"danger"}
 									variant={"solid"}
 									onPress={async () => {
-										if (user?.id) {
+										if (user?.user_id) {
 											const promise = removeUser({
-												variables: { id: user.id || "" },
+												variables: { id: user.user_id || "" },
 											});
 											toast.promise(promise, {
 												loading: "Đang xóa tài khoản...",
