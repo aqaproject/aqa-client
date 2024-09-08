@@ -87,17 +87,18 @@ export type CriteriaProperty = {
 	num: Scalars["Int"]["output"];
 };
 
-export type Faculty = {
-	__typename?: "Faculty";
-	display_name: Scalars["String"]["output"];
-	faculty_id: Scalars["String"]["output"];
-	full_name?: Maybe<Scalars["String"]["output"]>;
-	is_displayed?: Maybe<Scalars["Boolean"]["output"]>;
-	lecturers?: Maybe<PaginatedLecturer>;
-	points?: Maybe<PaginatedGroupedPoint>;
-	subjects?: Maybe<PaginatedSubject>;
-	total_point?: Maybe<GroupedPoint>;
-};
+export type Faculty =
+	| {
+			__typename?: "Faculty" | "FacultyDto";
+			display_name: Scalars["String"]["output"];
+			faculty_id: Scalars["String"]["output"];
+			full_name?: Maybe<Scalars["String"]["output"]>;
+			is_displayed?: Maybe<Scalars["Boolean"]["output"]>;
+			lecturers?: Maybe<PaginatedLecturer>;
+			points?: Maybe<PaginatedGroupedPoint>;
+			subjects?: Maybe<PaginatedSubject>;
+			total_point?: Maybe<GroupedPoint>;
+	  }
 
 export type FacultyLecturersArgs = {
 	filter?: InputMaybe<FilterArgs>;
