@@ -17,6 +17,7 @@ type Props = {
 	legend?: string;
 	selectors?: ReactNode;
 	query?: FilterArgs;
+	displayAverage?: boolean;
 };
 
 function InnerPointEachSemester({
@@ -24,10 +25,11 @@ function InnerPointEachSemester({
 	legend = "Điểm",
 	selectors = <></>,
 	query = {},
+	displayAverage = true,
 }: Props) {
 	const filter = useFilter();
 
-	const [data, setData] = useState<GroupedPoint[]>([]);
+	const [data, setData] = useState<(GroupedPoint & { all_average: number })[]>([]);
 	const [loading, setLoading] = useState(false);
 
 	const variables: FilterArgs & { groupEntity: string } = {
@@ -58,7 +60,21 @@ function InnerPointEachSemester({
 				},
 				fetchPolicy: "cache-and-network",
 			});
-			setData(response.data?.groupedPoints.data || []);
+			const averageResponse = await fetchFunction({
+				variables: {
+					groupEntity: "Semester",
+				},
+				fetchPolicy: "cache-and-network",
+			});
+			const averageData = averageResponse.data?.groupedPoints.data;
+			setData(
+				(response.data?.groupedPoints.data || []).map((data) => ({
+					...data,
+					all_average:
+						averageData?.find((d) => d.id === data.id)?.average_point ||
+						0,
+				}))
+			);
 			setLoading(false);
 		})();
 	}, [JSON.stringify(query), JSON.stringify(variables)]);
@@ -106,12 +122,13 @@ function InnerPointEachSemester({
 									})
 									.map((point) => ({
 										Điểm: point.average_point * 4,
+										"Trung bình": point.all_average * 4,
 										semester_name: point.display_name,
 									})) || []
 					}
 					index="semester_name"
-					categories={["Điểm"]}
-					colors={["sky"]}
+					categories={displayAverage ? ["Điểm", "Trung bình"] : ["Điểm"]}
+					colors={["sky", "fuchsia"]}
 					yAxisWidth={80}
 					minValue={3.3}
 					showAnimation
