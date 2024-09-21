@@ -26,9 +26,12 @@ importers:
       '@parcel/watcher':
         specifier: ^2.4.1
         version: 2.4.1
+      '@remixicon/react':
+        specifier: ^4.2.0
+        version: 4.2.0(react@18.2.0)
       '@tremor/react':
-        specifier: ^3.16.1
-        version: 3.18.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.3.3)
+        specifier: ^3.18.2
+        version: 3.18.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.3.3)
       '@types/node':
         specifier: 20.4.8
         version: 20.4.8
@@ -128,6 +131,9 @@ importers:
       react-use:
         specifier: ^17.5.0
         version: 17.5.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      recharts:
+        specifier: ^2.12.7
+        version: 2.12.7(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       swr:
         specifier: ^2.2.1
         version: 2.2.5(react@18.2.0)
@@ -2149,6 +2155,11 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0
 
+  '@remixicon/react@4.2.0':
+    resolution: {integrity: sha512-eGhKpZ88OU0qkcY9pJu6khBmItDV82nU130E6C68yc+FbljueHlUYy/4CrJsmf860RIDMay2Rpzl27OSJ81miw==}
+    peerDependencies:
+      react: '>=18.2.0'
+
   '@repeaterjs/repeater@3.0.6':
     resolution: {integrity: sha512-Javneu5lsuhwNCryN+pXH93VPQ8g0dBX7wItHFgYiwQmzE1sVdg5tWHiOgHywzL2W21XQopa7IwIEnNbmeUJYA==}
 
@@ -2173,8 +2184,8 @@ packages:
   '@tanstack/virtual-core@3.10.6':
     resolution: {integrity: sha512-1giLc4dzgEKLMx5pgKjL6HlG5fjZMgCjzlKAlpr7yoUtetVPELgER1NtephAI910nMwfPTHNyWKSFmJdHkz2Cw==}
 
-  '@tremor/react@3.18.0':
-    resolution: {integrity: sha512-fyzFbV9DPRbAdba2EXeELVK3oJhJB+/Q+Fv5iNEZ5A5K8WHYIMFCnOs+rrAl0ZnHBxdfKI+OCPZFtJilPrRMnw==}
+  '@tremor/react@3.18.2':
+    resolution: {integrity: sha512-TKwqPLpfNL3ipro99XO4H0H3jqL89LjCtjS+x6FYiSZ3Di/tVRioiq7rqBilaPBDLRSsEoGTTJkGAhMKAvsY+Q==}
     peerDependencies:
       react: ^18.0.0
       react-dom: '>=16.6.0'
@@ -8308,6 +8319,10 @@ snapshots:
       '@react-types/shared': 3.24.1(react@18.2.0)
       react: 18.2.0
 
+  '@remixicon/react@4.2.0(react@18.2.0)':
+    dependencies:
+      react: 18.2.0
+
   '@repeaterjs/repeater@3.0.6': {}
 
   '@rushstack/eslint-patch@1.10.4': {}
@@ -8331,7 +8346,7 @@ snapshots:
 
   '@tanstack/virtual-core@3.10.6': {}
 
-  '@tremor/react@3.18.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.3.3)':
+  '@tremor/react@3.18.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.3.3)':
     dependencies:
       '@floating-ui/react': 0.19.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@headlessui/react': 1.7.19(react-dom@18.2.0(react@18.2.0))(react@18.2.0)

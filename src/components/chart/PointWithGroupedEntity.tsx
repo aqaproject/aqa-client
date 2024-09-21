@@ -13,6 +13,7 @@ import Loading from "@components/Loading";
 import NoData from "@components/NoData";
 import { BarChart } from "@tremor/react";
 import { ReactNode, useEffect, useState } from "react";
+import { ComboChart } from "../ComboChart";
 
 type Props = {
 	title: string;
@@ -21,6 +22,7 @@ type Props = {
 	selectors?: ReactNode;
 	query?: FilterArgs;
 	xTitle?: string;
+	averageTitle?: string;
 	onClick?: (item: GroupedPoint) => any;
 };
 
@@ -30,6 +32,7 @@ function InnerPointWithGroupedEntity({
 	selectors = <></>,
 	query = {},
 	xTitle = "Điểm",
+	averageTitle = "Trung bình",
 	groupEntity,
 	onClick = () => {},
 }: Props) {
@@ -78,6 +81,19 @@ function InnerPointWithGroupedEntity({
 		})();
 	}, [JSON.stringify(query), JSON.stringify(variables), profile]);
 
+	const averagePoint =
+		data.reduce((total, value) => (total += value.average_point * 4), 0) /
+		data.length;
+
+	const chartData =
+		[...data]
+			.sort((a, b) => b.average_point - a.average_point)
+			.map((point) => ({
+				[xTitle]: point.average_point * 4,
+				[averageTitle]: averagePoint,
+				name: point.display_name,
+			})) || [];
+
 	return (
 		<div className=" h-[400px]">
 			<ChartLayout
@@ -90,7 +106,36 @@ function InnerPointWithGroupedEntity({
 				isFullWidth
 				handlerButtons={selectors}
 			>
-				<BarChart
+				<ComboChart
+					data={chartData}
+					index="name"
+					enableBiaxial={true}
+					barSeries={{
+						categories: [xTitle],
+						yAxisLabel: "",
+						colors: ["sky"],
+						minValue: 3,
+						maxValue: 4,
+						yAxisWidth: 80,
+						valueFormatter: (number: number) => {
+							return `${number.toFixed(2)}`;
+						},
+					}}
+					lineSeries={{
+						categories: [averageTitle],
+						showYAxis: true,
+						yAxisLabel: "",
+						colors: ["amber"],
+						minValue: 3,
+						maxValue: 4,
+						yAxisWidth: 60,
+						valueFormatter: (number: number) => {
+							return `${number.toFixed(2)}`;
+						},
+					}}
+				/>
+
+				{/* <BarChart
 					className=" h-full mt-4"
 					data={
 						[...data]
@@ -124,7 +169,7 @@ function InnerPointWithGroupedEntity({
 					showLegend
 					//@ts-ignore
 					noDataText={loading ? <Loading /> : <NoData />}
-				/>
+				/> */}
 			</ChartLayout>
 		</div>
 	);
