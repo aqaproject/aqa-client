@@ -154,10 +154,10 @@ export default function ChartLayout({
 							colors={colors}
 						/>
 					) : null}
-					<div className=" relative pb-5 h-full w-full overflow-x-auto overflow-y-hidden flex flex-col justify-stretch flex-grow">
+					<div className=" relative pb-5 h-full w-full overflow-x-auto flex flex-col justify-stretch flex-grow">
 						<div
 							id="chart"
-							className=" pt-2 pb-2 h-full pr-4 basis-full flex flex-col flex-grow"
+							className=" pt-2 pb-2 pr-4 flex flex-col flex-grow"
 							style={{ width }}
 						>
 							{children}

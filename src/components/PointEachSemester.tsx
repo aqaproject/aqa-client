@@ -11,6 +11,7 @@ import { ReactNode, useEffect, useState } from "react";
 import ChartLayout from "./chart/ChartLayout";
 import Loading from "./Loading";
 import NoData from "./NoData";
+import { useDeepCompareEffect } from "react-use";
 
 type Props = {
 	title?: string;
@@ -47,7 +48,9 @@ function InnerPointEachSemester({
 
 	const [fetchFunction] = usePointsEachSemesterLazyQuery();
 
-	useEffect(() => {
+	useDeepCompareEffect(() => {
+		let isAbort = false;
+
 		(async () => {
 			setLoading(true);
 			const response = await fetchFunction({
@@ -60,24 +63,28 @@ function InnerPointEachSemester({
 				},
 				fetchPolicy: "cache-and-network",
 			});
+			const currentData = response.data?.groupedPoints.data || [];
 			const averageResponse = await fetchFunction({
 				variables: {
 					groupEntity: "Semester",
 				},
-				fetchPolicy: "cache-and-network",
+				fetchPolicy: "no-cache",
 			});
 			const averageData = averageResponse.data?.groupedPoints.data;
-			setData(
-				(response.data?.groupedPoints.data || []).map((data) => ({
-					...data,
-					all_average:
-						averageData?.find((d) => d.id === data.id)?.average_point ||
-						0,
-				}))
-			);
+			const newData = currentData.map((data) => ({
+				...data,
+				all_average:
+					averageData?.find((d) => d.id === data.id)?.average_point || 0,
+			}));
+			if (isAbort) return;
+			setData(newData);
 			setLoading(false);
 		})();
-	}, [JSON.stringify(query), JSON.stringify(variables)]);
+
+		return () => {
+			isAbort = true;
+		};
+	}, [query, variables]);
 
 	return (
 		<div className=" h-[400px]">
@@ -90,7 +97,7 @@ function InnerPointEachSemester({
 				handlerButtons={selectors}
 			>
 				<AreaChart
-					className=" h-full mt-4"
+					className=" h-full"
 					data={
 						loading
 							? []
@@ -135,7 +142,7 @@ function InnerPointEachSemester({
 					rotateLabelX={{
 						angle: 0,
 						verticalShift: 30,
-						xAxisHeight: 50,
+						xAxisHeight: 60,
 					}}
 					valueFormatter={(number: number) => {
 						return `${number.toFixed(2)}`;

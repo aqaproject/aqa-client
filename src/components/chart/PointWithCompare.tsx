@@ -146,7 +146,7 @@ function InnerPointWithCompare({
 						rotateLabelX={{
 							angle: 0,
 							verticalShift: 30,
-							xAxisHeight: 50,
+							xAxisHeight: 60,
 						}}
 						onValueChange={() => {}}
 						// onValueChange={(v) => {
