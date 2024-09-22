@@ -126,7 +126,7 @@ function InnerPointWithGroupedEntity({
 						categories: [averageTitle],
 						showYAxis: true,
 						yAxisLabel: "",
-						colors: ["amber"],
+						colors: ["pink"],
 						minValue: 3,
 						maxValue: 4,
 						valueFormatter: (number: number) => {
