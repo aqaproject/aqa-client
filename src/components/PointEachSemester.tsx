@@ -129,20 +129,20 @@ function InnerPointEachSemester({
 									})
 									.map((point) => ({
 										Điểm: point.average_point * 4,
-										"Trung bình": point.all_average * 4,
+										"Trung bình toàn trường": point.all_average * 4,
 										semester_name: point.display_name,
 									})) || []
 					}
 					index="semester_name"
-					categories={displayAverage ? ["Điểm", "Trung bình"] : ["Điểm"]}
+					categories={displayAverage ? ["Điểm", "Trung bình toàn trường"] : ["Điểm"]}
 					colors={["sky", "fuchsia"]}
 					yAxisWidth={80}
 					minValue={3.3}
 					showAnimation
 					rotateLabelX={{
 						angle: 0,
-						verticalShift: 30,
-						xAxisHeight: 60,
+						verticalShift: 10,
+						xAxisHeight: 40,
 					}}
 					valueFormatter={(number: number) => {
 						return `${number.toFixed(2)}`;

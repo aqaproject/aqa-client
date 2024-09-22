@@ -95,7 +95,7 @@ function InnerPointWithGroupedEntity({
 			})) || [];
 
 	return (
-		<div className=" h-[400px]">
+		<div className="">
 			<ChartLayout
 				primaryTitle={title}
 				secondaryTitle={""}
@@ -109,14 +109,15 @@ function InnerPointWithGroupedEntity({
 				<ComboChart
 					data={chartData}
 					index="name"
-					enableBiaxial={true}
+					enableBiaxial={false}
+					showLegend={false}
 					barSeries={{
 						categories: [xTitle],
 						yAxisLabel: "",
 						colors: ["sky"],
 						minValue: 3,
 						maxValue: 4,
-						yAxisWidth: 80,
+						yAxisWidth: 60,
 						valueFormatter: (number: number) => {
 							return `${number.toFixed(2)}`;
 						},
@@ -128,7 +129,6 @@ function InnerPointWithGroupedEntity({
 						colors: ["amber"],
 						minValue: 3,
 						maxValue: 4,
-						yAxisWidth: 60,
 						valueFormatter: (number: number) => {
 							return `${number.toFixed(2)}`;
 						},
