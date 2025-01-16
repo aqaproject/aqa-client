@@ -68,10 +68,10 @@ function Inner({ defaultFilter, selectors }: Props) {
 			<CommentSearchBar isLoading={isLoading} />
 			<Card className="mt-8 mb-20 w-full p-5">
 				{comments.map(
-					({ comment_id, display_name, type, class: class_ }) => (
+					({ comment_id, content: content, type, class: class_ }) => (
 						<CommentItem
 							key={comment_id}
-							content={display_name}
+							content={content}
 							type={type}
 							comment_id={comment_id}
 							class_id={class_?.class_id}

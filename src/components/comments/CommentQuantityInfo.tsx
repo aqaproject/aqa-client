@@ -23,7 +23,7 @@ export default function CommentQuantityInfo({ query }: Props) {
 	const data = useRememberValue(commentQuantity);
 
 	return (
-		<>
+		<div className="flex flex-row gap-5">
 			<InfoTab
 				type="all"
 				icon={ALL_COMMENT_ICON}
@@ -45,6 +45,6 @@ export default function CommentQuantityInfo({ query }: Props) {
 				isLoading={isLoading}
 				number={data?.negative.quantity}
 			/>
-		</>
+		</div>
 	);
 }

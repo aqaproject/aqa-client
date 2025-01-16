@@ -22,6 +22,7 @@ export default function CommentItem({
 	content,
 	type,
 	classData,
+	aspect,
 }: {
 	content: string;
 	type: string;
@@ -29,6 +30,7 @@ export default function CommentItem({
 	class_id?: string;
 	isLast: boolean;
 	classData?: DeepPartial<Class> | null;
+	aspect?: string;
 }) {
 	const { setUrlQuery } = useFilterUrlQuery();
 	const [isOpen, setIsOpen] = useState(false);
@@ -71,7 +73,11 @@ export default function CommentItem({
 							}`}
 						>
 							<p className=" capitalize font-medium text-sm py-1">
-								{type == "positive" ? "Tích cực" : "Tiêu cực"}
+								{type === "positive"
+									? "Tích cực"
+									: type === "negative"
+									? "Tiêu cực"
+									: "Trung tính"}
 							</p>
 						</Card>
 					</div>
@@ -128,6 +134,15 @@ export default function CommentItem({
 											);
 										}}
 									/>
+									{/* <CommentModalItem
+										title="Test Aspect"
+										value={aspect}
+										onClick={() => {
+											setUrlQuery(
+												`/${classData?.lecturer?.lecturer_id}`
+											);
+										}}
+									/> */}
 								</div>
 							</ModalBody>
 							<ModalFooter>

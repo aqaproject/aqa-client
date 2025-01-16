@@ -15,6 +15,7 @@ type Props = {
 	faculty?: string;
 	program?: string;
 	subjectId?: string;
+	aspect?: string;
 };
 
 export default function CommentList({
@@ -24,6 +25,7 @@ export default function CommentList({
 	faculty,
 	program,
 	subjectId,
+	aspect,
 }: Props) {
 	const { setIsLoading } = useFilter();
 
@@ -41,6 +43,7 @@ export default function CommentList({
 			program,
 			faculty_name: faculty,
 			subject_id: subjectId,
+			aspect: aspect,
 		},
 	});
 
