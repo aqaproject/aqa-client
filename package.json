@@ -11,6 +11,8 @@
     "codegen": "graphql-codegen --watch --config codegen.ts"
   },
   "dependencies": {
+    "@ant-design/charts": "^2.2.6",
+    "@ant-design/plots": "^2.3.3",
     "@apollo/client": "^3.11.5",
     "@auth/core": "^0.31.0",
     "@emotion/react": "^11.13.3",

@@ -1,11 +1,11 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import formidable, { File } from "formidable";
+import formidable from "formidable";
 import fs from "fs";
+import { NextApiRequest, NextApiResponse } from "next";
 import path from "path";
 
 export const config = {
 	api: {
-		bodyParser: false, // Tắt bodyParser để sử dụng formidable
+		bodyParser: false,
 	},
 };
 
@@ -22,20 +22,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			return res.status(500).json({ message: "File upload failed" });
 		}
 
-		// Kiểm tra và xử lý nếu files.file là một mảng hoặc undefined
 		const uploadedFiles = files.file;
 
-		// Nếu không có file nào được upload
 		if (!uploadedFiles) {
 			return res.status(400).json({ message: "No file uploaded" });
 		}
 
-		// Đảm bảo uploadedFiles là một mảng
 		const filesArray = Array.isArray(uploadedFiles)
 			? uploadedFiles
 			: [uploadedFiles];
 
-		// Xử lý từng file trong mảng
 		try {
 			filesArray.forEach((file) => {
 				const tempPath = file.filepath;
@@ -45,10 +41,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 					file.originalFilename || "unknown_file"
 				);
 
-				// Đảm bảo thư mục tồn tại
 				fs.mkdirSync(path.dirname(targetPath), { recursive: true });
 
-				// Di chuyển file đến thư mục đích
 				fs.renameSync(tempPath, targetPath);
 			});
 

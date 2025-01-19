@@ -1,59 +1,32 @@
 "use client";
 
-import { SemesterSelectorWithSearchParam } from "@/components/selectors/SemesterSelector";
-
-import CommentQuantityInfo from "@/components/comments/CommentQuantityInfo";
+import CommentChart from "@/components/comments/CommentChart";
+import CommentList from "@/components/comments/CommentList";
 import CommentSearchBar from "@/components/comments/CommentSearchBar";
+import ImportButton from "@/components/comments/ImportButton";
 import { FacultySelectorWithSearchParams } from "@/components/selectors/FacultySelector";
 import { ProgramSelectorWithSearchParam } from "@/components/selectors/ProgramSelector";
+import { SemesterSelectorWithSearchParam } from "@/components/selectors/SemesterSelector";
 import { SingleSubjectSelectorWithSearchParam } from "@/components/selectors/SingleSubjectSelector";
-import { FilterArgs, useCommentListLazyQuery } from "@/gql/graphql";
-import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
-import { Card } from "@nextui-org/react";
-import { useSearchParams } from "next/navigation";
-import Loading from "../Loading";
-import CommentItem from "./CommentItem";
-import { useRememberValue } from "@/hooks/useRememberValue";
-import ImportButton from "./ImportButton";
-import AspectTag from "./AspectTag";
-import { useState } from "react";
-import { Modal, Box, Typography, Button } from "@mui/material";
+import { Button, Modal, Tab, Tabs, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import { useEffect, useState } from "react";
+
+import { ImportModal } from "./ImportModal";
 
 export default function CommentPage({ defaultFilter = {}, selectors = [] }: IProps) {
-	const searchParams = useSearchParams();
-	const query = {
+	const [query, setQuery] = useState({
 		...defaultFilter,
-		keyword: searchParams.get("keyword"),
-		semester_id: selectors.includes("semester")
-			? searchParams.get("semester")
-			: undefined,
-		program: selectors.includes("program")
-			? searchParams.get("program")
-			: undefined,
-		faculty_id: selectors.includes("faculty")
-			? searchParams.get("faculty")
-			: undefined,
-		subjects: selectors.includes("single-subject")
-			? searchParams.get("subject_id")
-				? [searchParams.get("subject_id")]
-				: undefined
-			: undefined,
-		aspect: searchParams.get("aspect"),
-	};
-
-	const [getCommentList, { data, loading: isLoading }] = useCommentListLazyQuery({
-		fetchPolicy: "cache-and-network",
-	});
-	const { dataList: comments, bottomRef } = useInfiniteScroll({
-		queryFunction: getCommentList,
-		variables: { filter: query, type: searchParams.get("type") },
-		isLoading,
-		data: data?.comments.data,
-		meta: data?.comments.meta,
+		keyword: "",
+		semester_id: selectors.includes("semester") ? "" : undefined,
+		program: selectors.includes("program") ? "" : undefined,
+		faculty_id: selectors.includes("faculty") ? "" : undefined,
+		subjects: selectors.includes("single-subject") ? [] : undefined,
 	});
 
-	const metadata = useRememberValue(data?.comments.meta);
-
+	const [isLoading, setIsLoading] = useState(false);
+	const [comments, setComments] = useState([]);
+	const [activeTab, setActiveTab] = useState(0);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [file, setFile] = useState<File | null>(null);
 
@@ -65,7 +38,38 @@ export default function CommentPage({ defaultFilter = {}, selectors = [] }: IPro
 			setFile(event.target.files[0]);
 		}
 	};
+	// Fetch comments data
+	const fetchComments = async () => {
+		setIsLoading(true);
+		try {
+			const response = await fetch(`http://localhost:4001/comments`);
+			const data = await response.json();
+			setComments(data.data || []);
+		} catch (error) {
+			console.error("Error fetching comments:", error);
+		} finally {
+			setIsLoading(false);
+		}
+	};
 
+	useEffect(() => {
+		fetchComments();
+	}, [query]);
+
+	// Handle search
+	const handleSearch = (keyword: string) => {
+		setQuery((prev: QueryType) => ({
+			...prev,
+			keyword,
+		}));
+	};
+
+	// Handle tab change
+	const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+		setActiveTab(newValue);
+	};
+
+	// Handle file import
 	const handleImportFile = async () => {
 		if (!file) {
 			alert("Vui lòng chọn một file để import.");
@@ -86,6 +90,8 @@ export default function CommentPage({ defaultFilter = {}, selectors = [] }: IPro
 			}
 
 			alert("Import thành công!");
+			setIsModalVisible(false);
+			fetchComments();
 		} catch (error) {
 			console.error("Error during import:", error);
 			alert("Import thất bại, vui lòng thử lại.");
@@ -94,11 +100,10 @@ export default function CommentPage({ defaultFilter = {}, selectors = [] }: IPro
 		}
 	};
 	return (
-		<div>
-			<div className="rounded-md flex flex-row overflow-hidden">
-				<CommentQuantityInfo query={query} />
-			</div>
-			<div className="flex flex-col xl:flex-row gap-8 xl:gap-0 items-center ">
+		<div className="p-6 bg-gray-50 min-h-screen">
+			{/* Header */}
+			<div className="flex flex-col xl:flex-row gap-8 xl:gap-0 items-center">
+				{/* Filters */}
 				<div className="flex flex-wrap gap-4 items-center">
 					{selectors.includes("semester") && (
 						<SemesterSelectorWithSearchParam />
@@ -116,7 +121,11 @@ export default function CommentPage({ defaultFilter = {}, selectors = [] }: IPro
 					)}
 				</div>
 			</div>
-			<Modal open={isModalVisible} onClose={handleCloseModal}>
+			<Modal
+				open={isModalVisible}
+				onClose={handleCloseModal}
+				closeAfterTransition
+			>
 				<Box
 					sx={{
 						position: "absolute",
@@ -124,7 +133,7 @@ export default function CommentPage({ defaultFilter = {}, selectors = [] }: IPro
 						left: "50%",
 						transform: "translate(-50%, -50%)",
 						width: 400,
-						bgcolor: "background.paper",
+						bgcolor: "white",
 						boxShadow: 24,
 						p: 4,
 						borderRadius: "16px",
@@ -185,87 +194,48 @@ export default function CommentPage({ defaultFilter = {}, selectors = [] }: IPro
 				</Box>
 			</Modal>
 			<div className="flex flex-row gap-5">
-				<CommentSearchBar isLoading={!data} />
+				<CommentSearchBar isLoading={isLoading} onSearch={handleSearch} />
 				<ImportButton handleClick={handleOpenModal} />
 			</div>
-
-			<div className="flex flex-row gap-5">
-				<AspectTag
-					isLoading={!data}
-					childrenName={"Tất cả"}
-					onClick={() => {
-						const params = new URLSearchParams(searchParams.toString());
-						params.set("aspect", "null");
-						window.location.search = params.toString();
-					}}
-				></AspectTag>
-				<AspectTag
-					isLoading={!data}
-					childrenName={"Cơ sở vật chất"}
-					onClick={() => {
-						const params = new URLSearchParams(searchParams.toString());
-						params.set("aspect", "FACILITY");
-						window.location.search = params.toString();
-					}}
-				></AspectTag>
-				<AspectTag
-					isLoading={!data}
-					childrenName={"Giảng viên"}
-					onClick={() => {
-						const params = new URLSearchParams(searchParams.toString());
-						params.set("aspect", "PROFESSIONALISM");
-						window.location.search = params.toString();
-					}}
-				></AspectTag>
-				<AspectTag
-					isLoading={!data}
-					childrenName={"Tài liệu học tập"}
-					onClick={() => {
-						const params = new URLSearchParams(searchParams.toString());
-						params.set("aspect", "MATERIAL");
-						window.location.search = params.toString();
-					}}
-				></AspectTag>
-
-				<AspectTag
-					isLoading={!data}
-					childrenName={"Khác"}
-					onClick={() => {
-						const params = new URLSearchParams(searchParams.toString());
-						params.set("aspect", "OTHERS");
-						window.location.search = params.toString();
-					}}
-				></AspectTag>
-			</div>
-			<Card className="mt-8 mb-20 w-full p-5">
-				{comments.map(
-					({ comment_id, content: content, type, class: class_ }) => (
-						<CommentItem
-							key={comment_id}
-							content={content}
-							type={type}
-							comment_id={comment_id}
-							class_id={class_?.class_id}
-							isLast={false}
-							classData={class_}
-						/>
-					)
-				)}
-				{metadata?.hasNext ? <Loading /> : null}
-				{!metadata?.hasNext && !isLoading ? (
-					<div className="w-full flex flex-col pt-6 pb-4 items-center">
-						<p className="w-fit text-lg font-semibold">
-							Không còn bình luận nào
-						</p>
-					</div>
-				) : null}
-				<div ref={bottomRef} key={"bottom-comment"} />
-			</Card>
+			{/* Modal nhập dữ liệu
+			<ImportModal
+				isVisible={isModalVisible}
+				onClose={() => setIsModalVisible(false)}
+				onImport={handleImportFile}
+			/> */}
+			{/* Tabs */}
+			<Box sx={{ borderBottom: 1, borderColor: "divider", marginTop: "20px" }}>
+				<Tabs
+					value={activeTab}
+					onChange={handleTabChange}
+					aria-label="Comment tabs"
+				>
+					<Tab label="Biểu đồ" />
+					<Tab label="Danh sách bình luận" />
+				</Tabs>
+			</Box>
+			{/* Nội dung của từng tab */}
+			{activeTab === 0 && (
+				<div className="mt-4">
+					<CommentChart response={{ data: comments }} />
+				</div>
+			)}
+			{activeTab === 1 && (
+				<div className="mt-4">
+					<CommentList data={comments} />
+				</div>
+			)}
 		</div>
 	);
 }
 
 interface IProps {
-	defaultFilter?: FilterArgs;
-	selectors?: SelectorType[];
+	defaultFilter?: any;
+	selectors?: string[];
+}
+
+interface QueryType {
+	keyword?: string;
+	semester_id?: number | null;
+	aspect?: string;
 }
