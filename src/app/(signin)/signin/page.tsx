@@ -42,18 +42,8 @@ export default function Page() {
 		}
 	}, [data, loading, router]);
 
-	// const handleSignIn = useCallback(() => {
-	// 	if (username && password) {
-	// 		toast.success("Đăng nhập thành công!");
-	// 		router.push("/");
-	// 	} else {
-	// 		toast.error("Vui lòng nhập đầy đủ thông tin đăng nhập!");
-	// 	}
-	// }, [username, password, router]);
-
 	return (
 		<div className="flex h-screen w-full">
-			{/* Cột bên trái */}
 			<div className="w-2/3 h-full relative overflow-hidden">
 				<Image
 					src="https://assets.isu.pub/document-structure/230127072523-431714e764cebb42fd8c475555e65eba/v1/efcf20b81b132459315df78e828ef26a.jpeg"
@@ -64,10 +54,8 @@ export default function Page() {
 				/>
 			</div>
 
-			{/* Cột bên phải */}
 			<div className="w-1/3 flex items-center justify-center bg-white">
 				<div className="w-full max-w-md px-8 flex flex-col items-center">
-					{/* Logo */}
 					<Image
 						src="https://www.uit.edu.vn/sites/vi/files/banner_uit.png"
 						alt="Logo trường UIT"
@@ -75,7 +63,6 @@ export default function Page() {
 						height={200}
 						className="mb-6"
 					/>
-					{/* Form */}
 					<h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
 						Website Feedback Analysis
 					</h1>
