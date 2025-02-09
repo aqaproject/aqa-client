@@ -24,7 +24,7 @@ export default function Page() {
 						.map((lecturer) => ({
 							...query,
 							lecturer_id: lecturer.lecturer_id,
-							name: lecturer.display_name,
+							name: lecturer.mscb?.toString(),
 						})) || []),
 				]}
 				groupEntity="Semester"
@@ -33,7 +33,7 @@ export default function Page() {
 				{lecturers.lecturers.data.map((lecturer) => (
 					<Checkbox
 						key={lecturer.lecturer_id}
-						aria-label={lecturer.display_name || ""}
+						aria-label={lecturer.mscb?.toString() || ""}
 						classNames={{
 							base: cn(
 								"inline-flex w-full max-w-3xl bg-content1 !m-0",
@@ -56,7 +56,7 @@ export default function Page() {
 						}
 					>
 						<div className="w-full flex justify-between gap-2">
-							<p>{lecturer.display_name}</p>
+							<p>{lecturer.mscb?.toString()}</p>
 						</div>
 					</Checkbox>
 				))}

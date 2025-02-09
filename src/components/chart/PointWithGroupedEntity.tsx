@@ -9,9 +9,6 @@ import {
 	usePointsWithGroupByLazyQuery,
 	useProfileQuery,
 } from "@/gql/graphql";
-import Loading from "@components/Loading";
-import NoData from "@components/NoData";
-import { BarChart } from "@tremor/react";
 import { ReactNode, useEffect, useState } from "react";
 import { ComboChart } from "../ComboChart";
 
@@ -134,42 +131,6 @@ function InnerPointWithGroupedEntity({
 						},
 					}}
 				/>
-
-				{/* <BarChart
-					className=" h-full mt-4"
-					data={
-						[...data]
-							.sort((a, b) => b.average_point - a.average_point)
-							.map((point) => ({
-								[xTitle]: point.average_point * 4,
-								name: point.display_name,
-							})) || []
-					}
-					index="name"
-					categories={[xTitle]}
-					colors={["sky"]}
-					minValue={3.5}
-					rotateLabelX={{
-						angle: 0,
-						verticalShift: 20,
-						xAxisHeight: 40,
-					}}
-					yAxisWidth={80}
-					showAnimation
-					valueFormatter={(number: number) => {
-						return `${number.toFixed(2)}`;
-					}}
-					onValueChange={(v) => {
-						const item = data.find(
-							(point) => point.display_name == v?.name
-						);
-						if (item) onClick?.(item);
-					}}
-					enableLegendSlider
-					showLegend
-					//@ts-ignore
-					noDataText={loading ? <Loading /> : <NoData />}
-				/> */}
 			</ChartLayout>
 		</div>
 	);

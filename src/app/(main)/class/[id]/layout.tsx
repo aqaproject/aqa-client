@@ -26,7 +26,7 @@ export default function DetailClassPage({
 			<h2 className="mt-3 text-gray-600 dark:text-gray-300">
 				Giảng viên{" "}
 				<TextLink href={`/lecturer/${classInfo?.lecturer.lecturer_id}`}>
-					{classInfo?.lecturer.display_name}
+					{classInfo?.lecturer.mscb}
 				</TextLink>
 			</h2>
 			<BreadCrumb />

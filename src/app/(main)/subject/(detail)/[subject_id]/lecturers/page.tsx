@@ -81,34 +81,6 @@ function Page_({ subject_id }: { subject_id: string }) {
 		})();
 	}, [query, sort, variables]);
 
-	// const mappedData = useMemo<
-	// 	{
-	// 		point: number;
-	// 		num: number;
-	// 		display_name: string;
-	// 		id: string;
-	// 		class_num: string;
-	// 	}[]
-	// >(() => {
-	// 	const mapped = new Map();
-	// 	data.forEach((d) => {
-	// 		if (mapped.has(d.id)) {
-	// 			mapped.set(d.id, {
-	// 				...d,
-	// 				point: mapped.get(d.id).point + d.average_point,
-	// 				num: mapped.get(d.id).num + 1,
-	// 			});
-	// 		} else {
-	// 			mapped.set(d.id, {
-	// 				...d,
-	// 				point: d.average_point,
-	// 				num: 1,
-	// 			});
-	// 		}
-	// 	});
-	// 	return Array.from(mapped.entries()).map(([key, value]) => value);
-	// }, [data]);
-
 	return (
 		<>
 			<ChartLayout

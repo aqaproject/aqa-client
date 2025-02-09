@@ -68,11 +68,11 @@ export default function LecturerSelector({ lecturer, setLecturer }: Props) {
 				{(data?.lecturers.data || []).map((lecturer) => (
 					<SelectItem
 						key={lecturer.lecturer_id}
-						textValue={lecturer.display_name || ""}
+						textValue={lecturer.mscb?.toString() || ""}
 					>
 						<div className=" py-1 flex flex-col gap-1">
 							<p className=" font-semibold text-foreground-900">
-								{lecturer.display_name || ""}
+								{lecturer.mscb?.toString() || ""}
 							</p>
 						</div>
 					</SelectItem>
