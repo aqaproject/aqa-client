@@ -15,7 +15,7 @@ const CommentList: React.FC<CommentListProps> = ({ data = [] }) => {
 							<strong>{comment.aspect}</strong>: {comment.display_name}
 						</p>
 						<p>
-							<strong>Loại:</strong>{" "}
+							<strong>Cảm xúc:</strong>{" "}
 							{comment.sentiment === "positive"
 								? "Tích cực"
 								: comment.sentiment === "negative"

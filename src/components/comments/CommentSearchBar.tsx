@@ -29,8 +29,8 @@ export default function CommentSearchBar({
 			<Card className="w-fit" shadow="md">
 				<Input
 					value={searchText}
-					onChange={(e) => setSearchText(e.target.value)} // Cập nhật từ khóa tìm kiếm
-					onKeyDown={handleKeyDown} // Gọi tìm kiếm khi nhấn Enter
+					onChange={(e) => setSearchText(e.target.value)}
+					onKeyDown={handleKeyDown}
 					isClearable
 					type="text"
 					size="md"
@@ -40,8 +40,8 @@ export default function CommentSearchBar({
 				/>
 			</Card>
 			<Button
-				onPress={handleSearch} // Gọi tìm kiếm khi nhấn nút
-				disabled={isLoading || searchText.trim() === ""} // Vô hiệu hóa khi đang tải hoặc từ khóa rỗng
+				onPress={handleSearch}
+				disabled={isLoading || searchText.trim() === ""}
 				className=""
 				variant="shadow"
 				color="primary"

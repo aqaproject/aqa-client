@@ -1,7 +1,8 @@
-export const API_BASE_URL = "https://aqa-api.hoanghy.space";
+// export const API_BASE_URL = "https://aqa-api.hoanghy.space";
 // export const API_BASE_URL = "http://127.0.0.1:5001";
-export const API_URL_V2 = "https://aqa-server.hoanghy.space/graphql";
-// export const API_URL_V2 = "http://localhost:3001/graphql";
+// export const API_URL_V2 = "https://aqa-server.hoanghy.space/graphql";
+export const API_URL_V2 = "http://localhost:4001/graphql";
+export const API_BASE_URL = "http://localhost:4001";
 
 export const GET_SEMESTER_LIST = `${API_BASE_URL}/semesters`;
 
@@ -30,3 +31,5 @@ export const GET_PROGRAM_LIST = `${API_BASE_URL}/programs`;
 export const GET_FACULTY_LIST = `${API_BASE_URL}/faculties`;
 
 export const GET_CLASSES = `${API_BASE_URL}/classes`;
+
+export const IMPORT = `${API_BASE_URL}/files/import`;

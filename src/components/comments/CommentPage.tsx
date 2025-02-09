@@ -12,8 +12,6 @@ import { Button, Modal, Tab, Tabs, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 
-import { ImportModal } from "./ImportModal";
-
 export default function CommentPage({ defaultFilter = {}, selectors = [] }: IProps) {
 	const [query, setQuery] = useState({
 		...defaultFilter,
@@ -197,13 +195,7 @@ export default function CommentPage({ defaultFilter = {}, selectors = [] }: IPro
 				<CommentSearchBar isLoading={isLoading} onSearch={handleSearch} />
 				<ImportButton handleClick={handleOpenModal} />
 			</div>
-			{/* Modal nhập dữ liệu
-			<ImportModal
-				isVisible={isModalVisible}
-				onClose={() => setIsModalVisible(false)}
-				onImport={handleImportFile}
-			/> */}
-			{/* Tabs */}
+
 			<Box sx={{ borderBottom: 1, borderColor: "divider", marginTop: "20px" }}>
 				<Tabs
 					value={activeTab}
@@ -214,7 +206,6 @@ export default function CommentPage({ defaultFilter = {}, selectors = [] }: IPro
 					<Tab label="Danh sách bình luận" />
 				</Tabs>
 			</Box>
-			{/* Nội dung của từng tab */}
 			{activeTab === 0 && (
 				<div className="mt-4">
 					<CommentChart response={{ data: comments }} />

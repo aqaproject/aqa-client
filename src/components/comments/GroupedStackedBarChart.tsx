@@ -16,8 +16,8 @@ const CombinedBarLineChart = ({ data }: { data: Comment[] }) => {
 			acc[key].value += 1;
 		}
 		return acc;
-	}, {});
-	// Convert and sort barChartData
+	});
+
 	const barChartData = Object.values(barData).sort((a, b) =>
 		a.semester.localeCompare(b.semester)
 	);
@@ -37,7 +37,6 @@ const CombinedBarLineChart = ({ data }: { data: Comment[] }) => {
 		}
 		return acc;
 	}, {});
-	// Convert and sort lineChartData
 	const lineChartData = Object.values(lineData).sort((a, b) =>
 		a.semester.localeCompare(b.semester)
 	);
@@ -53,27 +52,31 @@ const CombinedBarLineChart = ({ data }: { data: Comment[] }) => {
 				type: "interval",
 				yField: "value",
 				colorField: "aspect",
-				group: true,
-				style: { maxWidth: 80 },
-				interaction: { elementHighlight: { background: true } },
+				isGroup: true,
+				seriesField: "aspect",
+				tooltip: {
+					fields: ["semester", "aspect", "value"],
+					showTitle: true,
+				},
 			},
 			{
 				data: lineChartData,
 				type: "line",
 				yField: "value",
-				shapeField: "smooth",
 				colorField: "sentiment",
-				style: { lineWidth: 2 },
-				axis: { y: { position: "right" } },
-				scale: { series: { independent: true } },
-				interaction: {
-					tooltip: {
-						crosshairs: false,
-						marker: false,
-					},
+				smooth: true,
+				tooltip: {
+					fields: ["semester", "sentiment", "value"],
+					showTitle: true,
 				},
 			},
 		],
+		legend: {
+			position: "top",
+		},
+		tooltip: {
+			shared: true,
+		},
 	};
 	return (
 		<div style={{ width: "100%", height: "400px" }}>

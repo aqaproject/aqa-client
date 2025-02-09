@@ -22,7 +22,7 @@ query CommentList($filter: FilterArgs, $page: Int, $sort: SortArgs, $type: Strin
 	) {
 		data {
 			comment_id
-			display_name
+			content
 			type
 			class {
 				class_id

@@ -5,7 +5,7 @@ declare type Semester = {
 
 declare type IComment = {
 	content: string;
-	type: "positive" | "negative";
+	sentiment: "positive" | "negative" | "neutral";
 	comment_id: string;
 	teach_id: string;
 };

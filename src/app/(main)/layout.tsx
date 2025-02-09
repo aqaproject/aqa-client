@@ -9,7 +9,6 @@ import { useAuth } from "@/stores/auth.store";
 import CommentIcon from "@assets/CommentIcon";
 import CriteriaIcon from "@assets/CriteriaIcon";
 import HomeIcon from "@assets/HomeIcon";
-import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { Suspense, useEffect } from "react";
 
@@ -23,12 +22,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 	const { isFaculty } = useIsFaculty();
 	const { isLecturer } = useIsLecturer();
 
-	// useEffect(() => {
-	// 	if (!!getCookie("isLogin") == false) {
-	// 		router.replace("/signin");
-	// 	}
-	// }, [isLogin, router]);
-
 	useEffect(() => {
 		if (loading === false && !data) {
 			router.replace("/signin");
@@ -40,32 +33,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 			<NavigationDrawer>
 				<NavItem title="Trang chủ" link="/" icon={HomeIcon} />
 				{isFullAcess ? (
-					<NavItem
-						title="Bình luận"
-						link="/comment"
-						icon={CommentIcon}
-						subItems={[
-							{
-								title: "Tất cả",
-								link: "/comment",
-							},
-							{
-								title: "Tích cực",
-								link: "/comment?type=positive",
-							},
-							{
-								title: "Tiêu cực",
-								link: "/comment?type=negative",
-							},
-						]}
-					/>
+					<NavItem title="Bình luận" link="/comment" icon={CommentIcon} />
 				) : null}
-				{/* <NavItem title="Môn học" link="/subject" icon={SubjectIcon} /> */}
-				{/* <NavItem
-					title="Giảng viên"
-					link="/lecturer"
-					icon={LecturerNavIcon}
-				/> */}
 				{isFullAcess || isFaculty ? (
 					<NavItem
 						title="Tra cứu dữ liệu"
@@ -79,7 +48,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 						icon={CriteriaIcon}
 					/>
 				) : null}
-				{isAdmin ? (
+				{isAdmin || isFullAcess ? (
 					<NavItem
 						title="Quản lý tài khoản"
 						link="/user"

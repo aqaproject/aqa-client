@@ -19,10 +19,6 @@ export function useFilterUrlQuery() {
 			: {
 					criteria_id: "",
 					semester_id: "",
-					// faculty_id:
-					// 	authData?.user.role === Role.Faculty
-					// 		? authData.user.faculty?.faculty_id
-					// 		: "",
 					faculty_id: "",
 					subjects: undefined,
 					lecturer_id: "",
@@ -34,7 +30,6 @@ export function useFilterUrlQuery() {
 
 	const setUrlQuery = useCallback(
 		(pathname: string, newQuery: Partial<FilterArgs> = {}, queryParams = {}) => {
-			// if (pathname === currentPathname) setQuery({ ...query, ...newQuery });
 			router.push(
 				withQuery(pathname, {
 					...Object.fromEntries(params.entries()),
@@ -50,11 +45,6 @@ export function useFilterUrlQuery() {
 		if (params.has("tree"))
 			setQuery(JSON.parse(decodeURI(params.get("tree")?.toString() || "")));
 	}, [params]);
-
-	// useEffect(() => {
-	// 	if (authData?.user.role === Role.Faculty)
-	// 		setQuery({ faculty_id: authData.user.faculty?.faculty_id });
-	// }, [authData?.user.faculty?.faculty_id, authData?.user.role]);
 
 	return {
 		query: {
