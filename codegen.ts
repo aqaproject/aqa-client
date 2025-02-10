@@ -18,10 +18,6 @@ const config: CodegenConfig = {
 				withRefetchFn: true,
 				withMutationFn: true,
 			},
-			// config: {
-			// 	enumsAsTypes: true,
-			// 	futureProofEnums: true,
-			// },
 		},
 	},
 };
