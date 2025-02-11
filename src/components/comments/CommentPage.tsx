@@ -13,6 +13,8 @@ import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 
 export default function CommentPage({ defaultFilter = {}, selectors = [] }: IProps) {
+	const URL = process.env.BASE_API_URL;
+
 	const [query, setQuery] = useState({
 		...defaultFilter,
 		keyword: "",
@@ -40,7 +42,7 @@ export default function CommentPage({ defaultFilter = {}, selectors = [] }: IPro
 	const fetchComments = async () => {
 		setIsLoading(true);
 		try {
-			const response = await fetch(`http://localhost:4001/comments`);
+			const response = await fetch(`${URL}/comments`);
 			const data = await response.json();
 			setComments(data.data || []);
 		} catch (error) {
@@ -78,7 +80,7 @@ export default function CommentPage({ defaultFilter = {}, selectors = [] }: IPro
 			const formData = new FormData();
 			formData.append("file", file);
 
-			const response = await fetch("http://localhost:4001/files/import", {
+			const response = await fetch(`${URL}/files/import`, {
 				method: "POST",
 				body: formData,
 			});

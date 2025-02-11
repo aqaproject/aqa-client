@@ -1,8 +1,11 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const config: CodegenConfig = {
 	overwrite: true,
-	schema: "https://aqa-server.hoanghy.space/graphql",
+	schema: `${process.env.GRAPHQL_API_URL}` || "",
 	documents: "src/**/*.graphql",
 	// ignoreNoDocuments: true,
 	generates: {
