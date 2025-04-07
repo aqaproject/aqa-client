@@ -1,7 +1,7 @@
 "use client";
 
 import { IFeatureIntroduction } from "@/constants/home_introduction";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
 import Link from "next/link";
 
 export default function FeatureCard({

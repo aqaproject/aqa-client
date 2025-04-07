@@ -4,7 +4,7 @@ import { Color, Legend } from "@tremor/react";
 
 import DownloadIcon from "@assets/DownloadIcon";
 import BaseChart from "@components/chart/BaseChart";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import Extensible from "../Extensible";
 
@@ -23,7 +23,7 @@ import {
 	ModalFooter,
 	ModalHeader,
 	useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 export default function ChartLayout({
 	primaryTitle,

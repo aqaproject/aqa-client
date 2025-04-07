@@ -2,7 +2,7 @@
 
 import { useCustomApolloClient } from "@/hooks/useCustomApolloClient";
 import { ApolloProvider } from "@apollo/client";
-import { NextUIProvider } from "@nextui-org/react";
+import { HeroUIProvider } from "@heroui/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -12,12 +12,12 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 	const client = useCustomApolloClient();
 
 	return (
-		<NextUIProvider>
+		<HeroUIProvider>
 			<NextThemesProvider attribute="class" defaultTheme="dark">
 				<QueryClientProvider client={queryClient}>
 					<ApolloProvider client={client}>{children}</ApolloProvider>
 				</QueryClientProvider>
 			</NextThemesProvider>
-		</NextUIProvider>
+		</HeroUIProvider>
 	);
 }

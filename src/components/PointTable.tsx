@@ -9,7 +9,7 @@ import {
 	TableHeader,
 	TableRow,
 	getKeyValue,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 interface IProps {
 	data: GroupedPoint[];

@@ -2,7 +2,7 @@
 
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
 import useNavigate from "@/hooks/useNavigate";
-import { Card, Spinner } from "@nextui-org/react";
+import { Card, Spinner } from "@heroui/react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 

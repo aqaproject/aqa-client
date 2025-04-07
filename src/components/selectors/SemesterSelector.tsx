@@ -13,7 +13,7 @@ import {
 	DropdownSection,
 	DropdownTrigger,
 	Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useMemo } from "react";
 

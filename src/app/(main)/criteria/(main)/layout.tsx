@@ -4,7 +4,7 @@ import BreadCrumb from "@/components/BreadCrumb";
 import PageTabs from "@/components/PageTabs";
 import { FilterProvider } from "@/contexts/FilterContext";
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
-import { Tab, Tabs } from "@nextui-org/react";
+import { Tab, Tabs } from "@heroui/react";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 

@@ -9,7 +9,7 @@ import {
 	TableRow,
 	Tooltip,
 	getKeyValue,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import TableSketon from "@/components/TableSkeleton";
 import { Key } from "react";
 

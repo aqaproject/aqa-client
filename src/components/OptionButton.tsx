@@ -1,8 +1,8 @@
 "use client";
 
 import { ReactNode } from "react";
-import { Button, ButtonProps, Tooltip } from "@nextui-org/react";
-import { ButtonVariantProps } from "@nextui-org/react";
+import { Button, ButtonProps, Tooltip } from "@heroui/react";
+import { ButtonVariantProps } from "@heroui/react";
 
 type Props = {
 	children?: ReactNode;

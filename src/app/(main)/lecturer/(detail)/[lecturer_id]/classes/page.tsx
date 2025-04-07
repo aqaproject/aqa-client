@@ -2,7 +2,7 @@
 
 import { FilterProvider } from "@/contexts/FilterContext";
 import Loading from "@components/Loading";
-import { Accordion, AccordionItem, Button } from "@nextui-org/react";
+import { Accordion, AccordionItem, Button } from "@heroui/react";
 import React from "react";
 
 import { useAllClassesQuery, useSemestersQuery } from "@/gql/graphql";

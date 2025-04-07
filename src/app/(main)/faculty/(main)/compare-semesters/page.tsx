@@ -3,7 +3,7 @@
 import PointWithCompare from "@/components/chart/PointWithCompare";
 import { Faculty, useFacultiesQuery } from "@/gql/graphql";
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
-import { Checkbox, cn } from "@nextui-org/react";
+import { Checkbox, cn } from "@heroui/react";
 import { useState } from "react";
 import { useDebounce } from "usehooks-ts";
 

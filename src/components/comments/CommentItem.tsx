@@ -12,7 +12,7 @@ import {
 	ModalContent,
 	ModalFooter,
 	ModalHeader,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { Class } from "@/gql/graphql";
 import { DeepPartial } from "@apollo/client/utilities";
 import CommentModalItem from "./CommentModalItem";

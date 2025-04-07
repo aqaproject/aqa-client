@@ -6,7 +6,7 @@ import {
 	DropdownMenu,
 	DropdownTrigger,
 	Button,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useEffect } from "react";
 import OptionButton from "../OptionButton";
 import SortIcon from "@/assets/SortIcon";

@@ -1,4 +1,4 @@
-import { Card } from "@nextui-org/react";
+import { Card } from "@heroui/react";
 
 type Props = {
 	title: string;

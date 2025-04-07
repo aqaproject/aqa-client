@@ -11,7 +11,7 @@ import {
 	ModalHeader,
 	Spinner,
 	useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import OptionButton from "../OptionButton";

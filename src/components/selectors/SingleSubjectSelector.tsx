@@ -14,7 +14,7 @@ import {
 	ModalHeader,
 	Spinner,
 	useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useDebounce } from "usehooks-ts";

@@ -6,7 +6,7 @@ import {
 	ModalBody,
 	ModalContent,
 	useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 import { ReactNode, useEffect } from "react";
 

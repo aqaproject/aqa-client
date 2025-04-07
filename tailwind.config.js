@@ -1,13 +1,14 @@
 /** @type {import('tailwindcss').Config} */
-const { nextui } = require("@nextui-org/react");
+const { heroui } = require("@heroui/react");
 
 module.exports = {
 	content: [
 		"./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
 		"./src/components/**/*.{js,ts,jsx,tsx,mdx}",
 		"./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-		"./node_modules/@nextui-org/**/*.{js,ts,jsx,tsx}",
+		"./node_modules/@heroui/**/*.{js,ts,jsx,tsx}",
 		"./node_modules/@tremor/**/*.{js,ts,jsx,tsx}", // Tremor module
+		"./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
 	],
 	theme: {
 		transparent: "transparent",
@@ -81,6 +82,9 @@ module.exports = {
 					},
 				},
 			},
+			borderRadius: {
+				large: "16px",
+			},
 			boxShadow: {
 				// light
 				"tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
@@ -138,5 +142,6 @@ module.exports = {
 		},
 	],
 	darkMode: "class",
-	plugins: [nextui(), require("@headlessui/tailwindcss")],
+	// plugins: [heroui(), require("@headlessui/tailwindcss")],
+	plugins: [heroui()],
 };

@@ -11,7 +11,7 @@ import {
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
 import useLecturerInfo from "@/hooks/useLecturerInfo";
 import { useAuth } from "@/stores/auth.store";
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button, Tooltip } from "@heroui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useMemo } from "react";
 import { twMerge } from "tailwind-merge";

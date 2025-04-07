@@ -12,7 +12,7 @@ import {
 	TableRow,
 	getKeyValue,
 	Tooltip,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 import { useLecturerstWithPointsLazyQuery } from "@/gql/graphql";
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";

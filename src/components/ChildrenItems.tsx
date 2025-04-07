@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import Loading from "./Loading";
 import NoData from "./NoData";
 import EmptyDataMessage from "./EmptyDataMessage";

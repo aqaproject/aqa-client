@@ -2,7 +2,7 @@
 
 import { useFilter } from "@/contexts/FilterContext";
 import useNavigate from "@/hooks/useNavigate";
-import { Button, Card, Input, Spinner } from "@nextui-org/react";
+import { Button, Card, Input, Spinner } from "@heroui/react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
