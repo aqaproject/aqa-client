@@ -37,7 +37,7 @@ function ProgramSelector_({
 					color={hasValue ? "primary" : "default"}
 					startContent={
 						<ProgramIcon
-							color={hasValue ? "white" : undefined}
+							color={hasValue ? "white" : "black"}
 							width={20}
 						/>
 					}
