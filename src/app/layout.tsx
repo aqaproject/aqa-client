@@ -5,8 +5,6 @@ import "./globals.css";
 
 import Providers from "./providers";
 
-import { API_BASE_URL } from "@/constants/api_endpoint";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,8 +18,6 @@ export default async function RootLayout({
 	children: React.ReactNode;
 }) {
 	try {
-		// const pingResponse = await fetch(API_BASE_URL);
-
 		return (
 			<html lang="en" suppressHydrationWarning>
 				<body className={inter.className}>
@@ -31,12 +27,6 @@ export default async function RootLayout({
 							<Toaster />
 						</div>
 					</Providers>
-					{/* {pingResponse.status == 200 ? (
-					) : (
-						<div className=" w-screen h-screen grid place-items-center">
-							Trang web đang bảo trì
-						</div>
-					)} */}
 				</body>
 			</html>
 		);

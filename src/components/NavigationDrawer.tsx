@@ -41,7 +41,7 @@ export default function NavigationDrawer({ children }: { children?: ReactNode })
 							alt="Nav icon"
 						/>
 					</Button>
-					<div
+					{/* <div
 						className={`relative h-5 ${
 							open ? "opacity-100" : "opacity-0 invisible"
 						} transition-all`}
@@ -49,7 +49,7 @@ export default function NavigationDrawer({ children }: { children?: ReactNode })
 						<div className=" absolute -right-48">
 							<ThemeSwitcher />
 						</div>
-					</div>
+					</div> */}
 				</div>
 				<div
 					className={`-mt-20 h-full flex flex-col gap-2 ${

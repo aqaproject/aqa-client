@@ -5,29 +5,20 @@ import NavigationDrawer, { NavItem } from "@/components/NavigationDrawer";
 import { useProfileQuery } from "@/gql/graphql";
 import { useIsAdmin, useIsFullAccess, useIsLecturer } from "@/hooks/useIsAdmin";
 import { useIsFaculty } from "@/hooks/useIsFaculty";
-import { useAuth } from "@/stores/auth.store";
 import CommentIcon from "@assets/CommentIcon";
 import CriteriaIcon from "@assets/CriteriaIcon";
 import HomeIcon from "@assets/HomeIcon";
-import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { Suspense, useEffect } from "react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	const router = useRouter();
-	const { authData, isLogin } = useAuth();
 
 	const { data, loading } = useProfileQuery({ fetchPolicy: "network-only" });
 	const { isFullAcess } = useIsFullAccess();
 	const { isAdmin } = useIsAdmin();
 	const { isFaculty } = useIsFaculty();
 	const { isLecturer } = useIsLecturer();
-
-	// useEffect(() => {
-	// 	if (!!getCookie("isLogin") == false) {
-	// 		router.replace("/signin");
-	// 	}
-	// }, [isLogin, router]);
 
 	useEffect(() => {
 		if (loading === false && !data) {
@@ -60,12 +51,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 						]}
 					/>
 				) : null}
-				{/* <NavItem title="Môn học" link="/subject" icon={SubjectIcon} /> */}
-				{/* <NavItem
-					title="Giảng viên"
-					link="/lecturer"
-					icon={LecturerNavIcon}
-				/> */}
 				{isFullAcess || isFaculty ? (
 					<NavItem
 						title="Tra cứu dữ liệu"
