@@ -21,6 +21,7 @@ import NAV_ICON from "@assets/nav.svg";
 import { IoLogInOutline } from "react-icons/io5";
 import { twMerge } from "tailwind-merge";
 import ThemeSwitcher from "./ThemeSwitcher";
+import { UICard } from "./UICard";
 
 export default function NavigationDrawer({ children }: { children?: ReactNode }) {
 	const [open, setOpen] = usePersistentState("nav-open", false);
@@ -52,7 +53,7 @@ export default function NavigationDrawer({ children }: { children?: ReactNode })
 					</div> */}
 				</div>
 				<div
-					className={`-mt-20 h-full flex flex-col gap-2 ${
+					className={`-mt-20 h-full flex flex-col gap-4 ${
 						open ? "justify-center" : "justify-center"
 					}`}
 				>
@@ -84,33 +85,31 @@ export function NavItem({
 
 	const subRef = useRef<HTMLUListElement>(null);
 
+	const isSelected = pathname.split("/")[1] === link.split("/")[1];
+
 	useEffect(() => {
 		router.prefetch(link);
 	}, [link, router]);
 
 	return (
-		<div
-			className={twMerge("group/nav h-fit w-fit", className)}
+		<UICard
+			className={twMerge(
+				"group/nav h-fit w-fit hover:scale-105 transition-all",
+				isSelected ? " bg-transparent" : "",
+				className
+			)}
 			onMouseOver={() => setIsHover(true)}
 			onMouseLeave={() => setTimeout(() => setIsHover(false), 0)}
 		>
 			<Card
 				isPressable
 				onPress={() => router.push(link)}
-				className={`h-fit transition-all hover:bg-slate-100 dark:hover:bg-slate-900 group-hover:shadow-none ${
+				className={`h-fit transition-all bg-transparent shadow-sm ${
 					isOpen ? "shadow-none" : ""
-				} ${
-					pathname.split("/")[1] === link.split("/")[1]
-						? " !bg-blue-600"
-						: ""
-				}`}
-				style={
-					pathname.split("/")[1] === link.split("/")[1]
-						? { color: "white" }
-						: {}
-				}
+				} ${isSelected ? " !bg-navbar-selected" : ""}`}
+				style={isSelected ? { color: "white" } : {}}
 			>
-				<CardBody className="flex flex-col h-fit p-3">
+				<CardBody className="flex flex-col h-fit p-4">
 					<div className={` flex flex-row items-start transition-all`}>
 						<div className="w-[24px] grid place-items-center">
 							{Icon ? (
@@ -130,7 +129,7 @@ export function NavItem({
 								isOpen ? " ml-2 w-48" : "w-0"
 							} h-6 relative overflow-hidden transition-all`}
 						>
-							<p className="whitespace-nowrap font-semibold text-base h-fit w-fit absolute top-0 left-3">
+							<p className="whitespace-nowrap font-semibold text-base h-fit w-fit absolute top-0 left-3 transition-all duration-100`">
 								{title}
 							</p>
 						</div>
@@ -156,9 +155,11 @@ export function NavItem({
 						{subItems?.map(({ title, link }) => (
 							<Link href={link} key={link}>
 								<li
-									className={` my-1 rounded-xl p-2 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer transition-all ${
+									className={` my-1 rounded-xl p-2 ${
+										pathname === link ? "" : "hover:bg-primary-hover"
+									} cursor-pointer transition-all ${
 										pathname === link
-											? " bg-blue-300 dark:bg-blue-900 text-black dark:text-white hover:text-black dark:hover:text-white"
+											? " bg-primary-normal text-black hover:text-black "
 											: ""
 									}`}
 								>
@@ -172,7 +173,7 @@ export function NavItem({
 					</ul>
 				</div>
 			) : null}
-		</div>
+		</UICard>
 	);
 }
 

@@ -21,6 +21,21 @@ module.exports = {
 				grid: "url('/src/assets/grid.svg')",
 			},
 			colors: {
+				card: "#f7f7f7cc",
+				navbar: {
+					normal: "white",
+					hover: "oklch(92.2% 0 0)",
+					"hover-foreground": "oklch(96.8% 0.007 247.896)",
+					selected: "oklch(12.9% 0.042 264.695)",
+				},
+				"primary-normal": "#ffd85f",
+				"primary-hover": "#fae296cc",
+				secondary: {
+					normal: "#fff",
+					hover: "oklch(96.8% 0.007 247.896)",
+					active: "oklch(92.9% 0.013 255.508)",
+					foreground: "oklch(55.4% 0.046 257.417)",
+				},
 				// light mode
 				tremor: {
 					brand: {
@@ -143,5 +158,20 @@ module.exports = {
 	],
 	darkMode: "class",
 	// plugins: [heroui(), require("@headlessui/tailwindcss")],
-	plugins: [heroui()],
+	plugins: [
+		heroui({
+			themes: {
+				light: {
+					colors: {
+						primary: "#ffd85f", // Your custom primary color for light theme
+					},
+				},
+				dark: {
+					colors: {
+						primary: "#ffd85f", // Your custom primary color for dark theme
+					},
+				},
+			},
+		}),
+	],
 };

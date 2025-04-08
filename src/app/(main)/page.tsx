@@ -1,4 +1,5 @@
 import CriteriaOverallChart from "@/components/chart/CriteriaOverallChart";
+import { UICard } from "@/components/UICard";
 import { HOME_INTRODUCTION } from "@/constants/home_introduction";
 import { FilterProvider } from "@/contexts/FilterContext";
 import dynamic from "next/dynamic";

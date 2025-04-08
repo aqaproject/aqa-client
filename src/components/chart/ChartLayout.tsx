@@ -79,7 +79,7 @@ export default function ChartLayout({
 				<div className="w-full px-8">
 					<div className="  w-full mb-6 pl-2 pr-8 pt-5 flex flex-row gap-5 justify-between items-start xl:items-center">
 						<div className=" w-3/4 mt-2">
-							<p className=" text-foreground-900 font-semibold">{primaryTitle}</p>
+							<p className=" text-foreground-900 font-medium text-xl">{primaryTitle}</p>
 							<p className="w-full mt-2 font-normal text-sm">
 								{secondaryTitle}
 							</p>
@@ -138,7 +138,7 @@ export default function ChartLayout({
 										});
 								}}
 							>
-								<DownloadIcon color="white" />
+								<DownloadIcon color="black" />
 							</Button>
 						</div>
 					</div>

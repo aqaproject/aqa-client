@@ -4,6 +4,14 @@ import withQuery from "@/utils/withQuery";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
+function decodeFilter(filterString?: string | null) {
+	return JSON.parse(atob(filterString ?? ""));
+}
+
+function encodeFilter(filter: any) {
+	return btoa(JSON.stringify(filter ?? {}));
+}
+
 export function useFilterUrlQuery() {
 	const router = useRouter();
 	const params = useSearchParams();
@@ -15,14 +23,10 @@ export function useFilterUrlQuery() {
 
 	const [query, setQuery] = useState<FilterArgs>(
 		params.has("tree")
-			? JSON.parse(decodeURI(params.get("tree")?.toString() || ""))
+			? decodeFilter(params.get("tree"))
 			: {
 					criteria_id: "",
 					semester_id: "",
-					// faculty_id:
-					// 	authData?.user.role === Role.Faculty
-					// 		? authData.user.faculty?.faculty_id
-					// 		: "",
 					faculty_id: "",
 					subjects: undefined,
 					lecturer_id: "",
@@ -34,11 +38,10 @@ export function useFilterUrlQuery() {
 
 	const setUrlQuery = useCallback(
 		(pathname: string, newQuery: Partial<FilterArgs> = {}, queryParams = {}) => {
-			// if (pathname === currentPathname) setQuery({ ...query, ...newQuery });
 			router.push(
 				withQuery(pathname, {
 					...Object.fromEntries(params.entries()),
-					tree: encodeURI(JSON.stringify({ ...query, ...newQuery })),
+					tree: encodeFilter({ ...query, ...newQuery }),
 					...queryParams,
 				})
 			);
@@ -48,13 +51,8 @@ export function useFilterUrlQuery() {
 
 	useEffect(() => {
 		if (params.has("tree"))
-			setQuery(JSON.parse(decodeURI(params.get("tree")?.toString() || "")));
+			setQuery(decodeFilter(params.get("tree")?.toString() || ""));
 	}, [params]);
-
-	// useEffect(() => {
-	// 	if (authData?.user.role === Role.Faculty)
-	// 		setQuery({ faculty_id: authData.user.faculty?.faculty_id });
-	// }, [authData?.user.faculty?.faculty_id, authData?.user.role]);
 
 	return {
 		query: {

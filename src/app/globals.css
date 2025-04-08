@@ -1,9 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
 	box-sizing: border-box;
+	font-family: "Montserrat", sans-serif;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -50,10 +53,6 @@
 
 body {
 	color: rgb(var(--foreground-rgb));
-	background: linear-gradient(
-			to bottom,
-			transparent,
-			rgb(var(--background-end-rgb))
-		)
-		rgb(var(--background-start-rgb));
+	background: rgb(228, 229, 231);
+	background: linear-gradient(130deg, #e4e5e7 30%, #eddc98 74%, #e4e5e7 94%);
 }

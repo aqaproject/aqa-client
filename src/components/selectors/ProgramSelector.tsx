@@ -37,7 +37,7 @@ function ProgramSelector_({
 					color={hasValue ? "primary" : "default"}
 					startContent={
 						<ProgramIcon
-							color={hasValue ? "white" : "black"}
+							color={hasValue ? "black" : "oklch(55.4% 0.046 257.417)"}
 							width={20}
 						/>
 					}
@@ -46,7 +46,7 @@ function ProgramSelector_({
 							? ""
 							: isNoBorder
 							? " bg-white dark:bg-zinc-800 border-0 dark:hover:!bg-zinc-700 hover:!bg-zinc-100"
-							: " border-0 bg-slate-100 dark:bg-slate-800 dark:hover:!bg-slate-700 hover:!bg-slate-200"
+							: " border-0 text-secondary-foreground bg-secondary-normal hover:!bg-secondary-hover"
 					} rounded-lg`}
 				>
 					{buttonText}
