@@ -36,8 +36,8 @@ export default function OptionButton({
 						? ""
 						: isNoBorder
 						? " bg-white dark:bg-zinc-800 border-0 dark:hover:!bg-zinc-700 hover:!bg-zinc-100"
-						: " border-0 bg-slate-100 dark:bg-slate-800 dark:hover:!bg-slate-700 hover:!bg-slate-200"
-				} rounded-lg`}
+						: " border-0 text-secondary-foreground bg-secondary-normal hover:!bg-secondary-hover"
+				} rounded-lg shadow-md`}
 				{...props}
 			>
 				{children}

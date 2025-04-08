@@ -140,7 +140,7 @@ function InnerPointEachSemester({
 							? ["Điểm", "Trung bình toàn trường"]
 							: ["Điểm"]
 					}
-					colors={["sky", "emerald"]}
+					colors={["sky", "purple"]}
 					yAxisWidth={80}
 					minValue={3.3}
 					showAnimation
@@ -149,10 +149,11 @@ function InnerPointEachSemester({
 						verticalShift: 10,
 						xAxisHeight: 40,
 					}}
+					margin={{ bottom: 50 }}
 					valueFormatter={(number: number) => {
 						return `${number.toFixed(2)}`;
 					}}
-					showLegend={false}
+					showLegend
 					//@ts-ignore
 					noDataText={loading ? <Loading /> : <NoData />}
 				/>

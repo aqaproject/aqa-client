@@ -15,6 +15,7 @@ import {
 } from "@heroui/react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useMemo } from "react";
+import { SelectorButton } from "./SelectorButton";
 
 function ProgramSelector_({
 	program,
@@ -32,25 +33,17 @@ function ProgramSelector_({
 	return (
 		<Dropdown backdrop="blur" shouldBlockScroll={false}>
 			<DropdownTrigger>
-				<Button
-					variant={hasValue ? "shadow" : "ghost"}
-					color={hasValue ? "primary" : "default"}
+				<SelectorButton
+					hasValue={hasValue}
+					isNoBorder={isNoBorder}
+					buttonText={buttonText}
 					startContent={
 						<ProgramIcon
 							color={hasValue ? "black" : "oklch(55.4% 0.046 257.417)"}
 							width={20}
 						/>
 					}
-					className={`${
-						hasValue
-							? ""
-							: isNoBorder
-							? " bg-white dark:bg-zinc-800 border-0 dark:hover:!bg-zinc-700 hover:!bg-zinc-100"
-							: " border-0 text-secondary-foreground bg-secondary-normal hover:!bg-secondary-hover"
-					} rounded-lg`}
-				>
-					{buttonText}
-				</Button>
+				/>
 			</DropdownTrigger>
 			<DropdownMenu
 				variant="faded"
