@@ -161,12 +161,12 @@ export default function BreadCrumb() {
 						},
 						index
 					) => (
-						<div key={title} className=" flex gap-0 items-center">
-							<Tooltip content={name}>
+						<div key={title} className=" flex gap-1 items-center">
+							<Tooltip content={name ?? "Tất cả"}>
 								<Button
 									variant="light"
 									className={twMerge(
-										" w-fit h-fit",
+										" w-fit h-fit bg-card",
 										name ? className : ""
 									)}
 									onClick={() => {
@@ -193,7 +193,7 @@ export default function BreadCrumb() {
 							</Tooltip>
 							{index !== paths.length - 1 ? (
 								<div
-									className=" rounded-xl grid place-items-center h-full px-2 cursor-pointer bg-background hover:bg-foreground-100 active:bg-foreground-200 duration-200"
+									className=" rounded-xl grid place-items-center h-full px-2 cursor-pointer bg-transparent hover:bg-card active:bg-foreground-200 duration-200"
 									onClick={() => {
 										if (value)
 											setUrlQuery(
