@@ -14,7 +14,7 @@ export default async function Home() {
 				<Suspense fallback={<p>Loading searchbar...</p>}>
 					<SearchBar />
 				</Suspense>
-				<div>
+				<div className=" shadow-2xl rounded-2xl">
 					<CriteriaOverallChart />
 				</div>
 				<div className="text-gray-400 columns-2 gap-14 mt-10 px-20">

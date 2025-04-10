@@ -6,5 +6,5 @@ export default function Layout({ children }: { children: ReactNode }) {
 }
 
 export const metadata: Metadata = {
-	title: "Thống kê bình luận",
+	title: "Thống kê ý kiến",
 };

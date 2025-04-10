@@ -65,7 +65,7 @@ const tabs = [
 	},
 	{
 		link: "comments",
-		title: "Bình luận",
+		title: "Ý kiến",
 	},
 ];
 

@@ -33,11 +33,11 @@ export default function OptionButton({
 				color={hasValue ? "primary" : "default"}
 				className={`${
 					hasValue
-						? ""
+						? " font-medium"
 						: isNoBorder
 						? " bg-white dark:bg-zinc-800 border-0 dark:hover:!bg-zinc-700 hover:!bg-zinc-100"
 						: " border-0 text-secondary-foreground bg-secondary-normal hover:!bg-secondary-hover"
-				} rounded-lg shadow-md`}
+				} rounded-lg shadow-sm`}
 				{...props}
 			>
 				{children}

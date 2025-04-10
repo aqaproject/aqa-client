@@ -38,7 +38,7 @@ export default function Layout({
 					},
 					{
 						link: `comment`,
-						title: "Bình luận",
+						title: "Ý kiến",
 					},
 				]}
 			/>

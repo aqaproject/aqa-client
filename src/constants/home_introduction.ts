@@ -21,13 +21,13 @@ export const HOME_INTRODUCTION: IFeatureIntroduction[] = [
 	},
 	{
 		title: {
-			displayName: "Bình luận",
+			displayName: "Ý kiến",
 			link: "/comment",
 		},
-		description: "Thống kê bình luận của sinh viên",
+		description: "Thống kê ý kiến của sinh viên",
 		navigation_links: [
 			{
-				displayName: "Xem tất cả bình luận",
+				displayName: "Xem tất cả ý kiến",
 				link: "/comment",
 			},
 		],

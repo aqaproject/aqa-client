@@ -40,7 +40,7 @@ export default function DetailClassPage({
 					},
 					{
 						link: "comment",
-						title: "Bình luận",
+						title: "Ý kiến",
 					},
 				]}
 			/>

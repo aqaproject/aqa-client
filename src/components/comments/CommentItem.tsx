@@ -82,7 +82,7 @@ export default function CommentItem({
 					{(onClose) => (
 						<>
 							<ModalHeader className="flex flex-col gap-1">
-								Thông tin chi tiết về bình luận
+								Thông tin chi tiết về ý kiến
 							</ModalHeader>
 							<ModalBody>
 								<div className=" flex flex-col gap-4">

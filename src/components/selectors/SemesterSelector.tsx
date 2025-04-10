@@ -57,12 +57,12 @@ function SemesterSelector_({
 				selectionMode="single"
 				selectedKeys={new Set([semester?.semester_id || ""])}
 				onAction={(key) => {
-					if (key === "")
+					if (key === "") {
 						setSemester?.({
 							display_name: "Tất cả học kỳ",
 							semester_id: "",
 						});
-					else setSemester(semesters.find((v) => v.semester_id === key));
+					} else setSemester(semesters.find((v) => v.semester_id === key));
 				}}
 			>
 				<DropdownSection title="Chọn học kỳ">
@@ -117,7 +117,7 @@ export function SemesterSelectorWithSearchParam({
 			if (semesterId)
 				return semesterList?.find((v) => v.semester_id == semesterId);
 		}
-	}, [semesterId, data?.semesters?.length]);
+	}, [data?.semesters, semesterId]);
 	const semester = useRememberValue(semester_);
 
 	const setSemester = useCallback(

@@ -32,7 +32,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 				<NavItem title="Trang chủ" link="/" icon={HomeIcon} />
 				{isFullAcess ? (
 					<NavItem
-						title="Bình luận"
+						title="Ý kiến"
 						link="/comment"
 						icon={CommentIcon}
 						subItems={[
