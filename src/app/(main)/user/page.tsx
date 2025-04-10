@@ -85,7 +85,7 @@ export default function Page() {
 					size="md"
 					placeholder="Nhập tên tài khoản cần tìm..."
 					variant="bordered"
-					className="w-full"
+					className="w-full bg-background rounded-xl"
 				/>
 				<Skeleton
 					isLoaded={!usersLoading}
