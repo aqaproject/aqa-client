@@ -9,40 +9,6 @@ import { useAllClassesQuery, useSemestersQuery } from "@/gql/graphql";
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
 import PointWithGroupedEntity from "@/components/chart/PointWithGroupedEntity";
 
-function SemesterClass({
-	semester_id,
-	lecturer_id,
-	onPress,
-}: {
-	semester_id: string;
-	lecturer_id: string;
-	onPress: (id: string) => any;
-}) {
-	const { query } = useFilterUrlQuery();
-	const { data } = useAllClassesQuery({
-		variables: { filter: { ...query, semester_id } },
-	});
-	const classesData = data?.classes.data;
-
-	return (
-		<div className=" flex flex-wrap gap-2 pb-2">
-			{classesData?.length ? (
-				classesData?.map?.(({ class_id, display_name }) => (
-					<Button
-						className=" bg-gray-200 dark:bg-zinc-800"
-						key={class_id}
-						onPress={() => onPress(class_id)}
-					>
-						{display_name}
-					</Button>
-				))
-			) : (
-				<p className=" font-medium text-slate-800">Không có dữ liệu</p>
-			)}
-		</div>
-	);
-}
-
 export default function Page({
 	params: { lecturer_id },
 }: {
@@ -77,7 +43,7 @@ export default function Page({
 									aria-label={display_name}
 									title={
 										<p className="py-1 font-medium">
-											{display_name}
+											{`${display_name} (${0})`}
 										</p>
 									}
 								>
@@ -103,5 +69,40 @@ export default function Page({
 				</div>
 			)}
 		</FilterProvider>
+	);
+}
+
+function SemesterClass({
+	semester_id,
+	lecturer_id,
+	onPress,
+}: {
+	semester_id: string;
+	lecturer_id: string;
+	onPress: (id: string) => any;
+}) {
+	const { query } = useFilterUrlQuery();
+	const { data } = useAllClassesQuery({
+		variables: { filter: { ...query, semester_id } },
+	});
+	const classesData = data?.classes.data;
+	console.log({ filter: { ...query, semester_id } });
+
+	return (
+		<div className=" flex flex-wrap gap-2 pb-2">
+			{classesData?.length ? (
+				classesData?.map?.(({ class_id, display_name }) => (
+					<Button
+						className=" bg-gray-200 dark:bg-zinc-800"
+						key={class_id}
+						onPress={() => onPress(class_id)}
+					>
+						{display_name}
+					</Button>
+				))
+			) : (
+				<p className=" font-medium text-slate-800">Không có dữ liệu</p>
+			)}
+		</div>
 	);
 }

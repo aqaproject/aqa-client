@@ -26,7 +26,7 @@ export default function Page({ params }: { params: any }) {
 				size="md"
 				placeholder="Nhập từ khóa cần tìm..."
 				variant="bordered"
-				className="w-full"
+				className="w-full bg-background rounded-xl"
 			/>
 			<ChildrenItems
 				loading={loading}

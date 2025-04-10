@@ -111,14 +111,14 @@ export function SemesterSelectorWithSearchParam({
 	const { data: semesters } = useSemestersQuery();
 	const data = useRememberValue(semesters);
 
-	const semester_ = useMemo<Semester | undefined>(() => {
+	const semester = useMemo<Semester | undefined>(() => {
 		const semesterList = data?.semesters;
 		if (semesterList?.length || 0 > 0) {
 			if (semesterId)
 				return semesterList?.find((v) => v.semester_id == semesterId);
 		}
 	}, [data?.semesters, semesterId]);
-	const semester = useRememberValue(semester_);
+	// const semester = useRememberValue(semester_);
 
 	const setSemester = useCallback(
 		(semester: Semester | undefined) => {

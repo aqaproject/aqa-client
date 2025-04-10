@@ -53,7 +53,7 @@ export default function CommentItem({
 					ease: "easeOut",
 					duration: 0.6,
 				}}
-				className="w-full px-3 py-3 flex items-center gap-4 border-b-1 border-b-slate-400 dark:border-b-slate-600 "
+				className="w-full py-3 flex items-center gap-4 border-b-1 border-b-slate-400"
 			>
 				<div
 					className={` flex h-16 w-2 rounded-md ${

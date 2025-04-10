@@ -20,21 +20,13 @@ export default function Layout({
 	return (
 		<div>
 			<h1 className="font-semibold text-2xl">{lecturer.display_name}</h1>
-			{/* <h2 className="mt-2 text-gray-600 dark:text-gray-300">
-				Khoa{" "}
-				<Link href={`/faculty/${faculty_id}`}>
-					<span className=" underline hover:text-sky-600 hover:dark:text-sky-500">
-						{faculty_name}
-					</span>
-				</Link>
-			</h2> */}
 			{isLecturer ? null : <BreadCrumb />}
 			<PageTabs
 				lastIndex={3}
 				defaultPath={`lecturer/${lecturer_id}`}
 				tabs={tabs}
 			/>
-			<div className="mt-0"> {children}</div>
+			<div className="mt-4"> {children}</div>
 		</div>
 	);
 }
