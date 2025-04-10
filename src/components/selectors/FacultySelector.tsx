@@ -34,7 +34,7 @@ function FacultySelector_({
 
 	const currentSelectedRef = useRef<any>();
 
-	const hasValue = Boolean(faculty?.display_name);
+	const hasValue = Boolean(faculty?.faculty_id);
 	const buttonText = hasValue ? faculty?.display_name : "Chọn khoa";
 
 	useEffect(() => {
