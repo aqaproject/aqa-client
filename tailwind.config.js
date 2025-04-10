@@ -35,6 +35,7 @@ module.exports = {
 					hover: "oklch(96.8% 0.007 247.896)",
 					active: "oklch(92.9% 0.013 255.508)",
 					foreground: "oklch(55.4% 0.046 257.417)",
+					ui: "#148d82",
 				},
 				// light mode
 				tremor: {
@@ -164,11 +165,13 @@ module.exports = {
 				light: {
 					colors: {
 						primary: "#ffd85f", // Your custom primary color for light theme
+						secondary: "#148d82",
 					},
 				},
 				dark: {
 					colors: {
 						primary: "#ffd85f", // Your custom primary color for dark theme
+						secondary: "#148d82",
 					},
 				},
 			},

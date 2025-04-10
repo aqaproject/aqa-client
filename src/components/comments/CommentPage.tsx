@@ -14,13 +14,16 @@ import { useSearchParams } from "next/navigation";
 import Loading from "../Loading";
 import CommentItem from "./CommentItem";
 import { useRememberValue } from "@/hooks/useRememberValue";
+import { useFilter } from "@/contexts/FilterContext";
 
 export default function CommentPage({ defaultFilter = {}, selectors = [] }: IProps) {
 	const searchParams = useSearchParams();
 
+	const { keyword } = useFilter();
+
 	const query = {
 		...defaultFilter,
-		keyword: searchParams.get("keyword"),
+		keyword,
 		semester_id: selectors.includes("semester")
 			? searchParams.get("semester")
 			: undefined,
@@ -52,43 +55,45 @@ export default function CommentPage({ defaultFilter = {}, selectors = [] }: IPro
 	const metadata = useRememberValue(data?.comments.meta);
 
 	return (
-		<div>
-			<div className="flex flex-col xl:flex-row gap-8 xl:gap-0 items-center ">
-				<div className="rounded-md flex flex-row overflow-hidden">
-					<CommentQuantityInfo query={query} />
-				</div>
-				<div className=" flex flex-row gap-3 xl:ml-auto xl:mr-10">
-					{selectors.includes("semester") && (
-						<SemesterSelectorWithSearchParam />
-					)}
-					{selectors.includes("program") && (
-						<ProgramSelectorWithSearchParam />
-					)}
-					{selectors.includes("faculty") && (
-						<FacultySelectorWithSearchParams />
-					)}
-					{selectors.includes("single-subject") && (
-						<SingleSubjectSelectorWithSearchParam
-							defaultFilter={defaultFilter}
-						/>
-					)}
-				</div>
-			</div>
+		<div className="">
 			<CommentSearchBar isLoading={!data} />
 			<Card className="mt-8 mb-20 w-full p-5">
-				{comments.map(
-					({ comment_id, display_name, type, class: class_ }) => (
-						<CommentItem
-							key={comment_id}
-							content={display_name}
-							type={type}
-							comment_id={comment_id}
-							class_id={class_?.class_id}
-							isLast={false}
-							classData={class_}
-						/>
-					)
-				)}
+				<div className="flex flex-col xl:flex-row gap-8 xl:gap-0 items-start ">
+					<div className="rounded-none flex flex-row overflow-hidden">
+						<CommentQuantityInfo query={query} />
+					</div>
+					<div className=" flex flex-row gap-3 xl:ml-auto xl:mr-0">
+						{selectors.includes("semester") && (
+							<SemesterSelectorWithSearchParam />
+						)}
+						{selectors.includes("program") && (
+							<ProgramSelectorWithSearchParam />
+						)}
+						{selectors.includes("faculty") && (
+							<FacultySelectorWithSearchParams />
+						)}
+						{selectors.includes("single-subject") && (
+							<SingleSubjectSelectorWithSearchParam
+								defaultFilter={defaultFilter}
+							/>
+						)}
+					</div>
+				</div>
+				<div className=" mt-10 rounded-xl">
+					{comments.map(
+						({ comment_id, display_name, type, class: class_ }) => (
+							<CommentItem
+								key={comment_id}
+								content={display_name}
+								type={type}
+								comment_id={comment_id}
+								class_id={class_?.class_id}
+								isLast={false}
+								classData={class_}
+							/>
+						)
+					)}
+				</div>
 				{metadata?.hasNext ? <Loading /> : null}
 				{!metadata?.hasNext && !isLoading ? (
 					<div className="w-full flex flex-col pt-6 pb-4 items-center">

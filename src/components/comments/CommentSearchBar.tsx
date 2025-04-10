@@ -1,18 +1,16 @@
 "use client";
 
 import { useFilter } from "@/contexts/FilterContext";
-import useNavigate from "@/hooks/useNavigate";
 import { Button, Card, Input, Spinner } from "@heroui/react";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { IoIosSearch } from "react-icons/io";
+import { useEffect, useState } from "react";
+import { IoIosSearch, IoMdArrowForward } from "react-icons/io";
 
 export default function CommentSearchBar({ isLoading }: { isLoading: boolean }) {
 	const { setKeyword } = useFilter();
 
 	const searchParams = useSearchParams();
 
-	// const [isLoading, setIsLoading] = useState(false);
 	const [searchText, setSearchText] = useState(searchParams.get("keyword") || "");
 
 	const keyword = searchParams.get("keyword") || "";
@@ -22,34 +20,30 @@ export default function CommentSearchBar({ isLoading }: { isLoading: boolean }) 
 
 	return (
 		<div className="flex flex-row items-center mt-12 gap-5">
-			<Card className=" w-fit" shadow="md">
-				<Input
-					value={searchText}
-					onChange={(e) => setSearchText(e.target.value)}
-					onKeyDown={(e) => {
-						if (e.key === "Enter") {
-							setKeyword(searchText);
-							// setIsLoading(true);
-						}
-					}}
-					startContent={<IoIosSearch />}
-					onClear={() => {
-						setSearchText("");
-						setKeyword("");
-					}}
-					isClearable
-					type="text"
-					size="md"
-					placeholder="Nhập từ khóa cần tìm..."
-					variant="bordered"
-					className="w-[500px]"
-				/>
-			</Card>
+			<Input
+				value={searchText}
+				onChange={(e) => setSearchText(e.target.value)}
+				onKeyDown={(e) => {
+					if (e.key === "Enter") {
+						setKeyword(searchText);
+					}
+				}}
+				startContent={<IoIosSearch />}
+				onClear={() => {
+					setSearchText("");
+					setKeyword("");
+				}}
+				isClearable
+				type="text"
+				size="md"
+				placeholder="Nhập từ khóa cần tìm..."
+				variant="bordered"
+				className=" rounded-xl w-full bg-white"
+			/>
 			<Button
 				onPress={() => {
 					if (searchText == "" || isLoading) return;
 					setKeyword(searchText);
-					// setIsLoading(true);
 				}}
 				disabled={isLoading}
 				className=""
@@ -58,9 +52,12 @@ export default function CommentSearchBar({ isLoading }: { isLoading: boolean }) 
 				size="md"
 			>
 				{isLoading ? (
-					<Spinner color="default" size={"sm"} />
+					<Spinner color="success" size={"sm"} />
 				) : (
-					<p className=" font-medium">Tìm kiếm</p>
+					<div className=" flex gap-2 items-center">
+						<p className=" font-medium">Tìm kiếm</p>
+						<IoMdArrowForward size={20} />
+					</div>
 				)}
 			</Button>
 		</div>
