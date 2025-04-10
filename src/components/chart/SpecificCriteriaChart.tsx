@@ -45,7 +45,7 @@ export default function SpecificCriteriaChart({ criteria }: { criteria: Criteria
 					<p className="">{criteria.display_name}</p>
 				</div>
 			</Button>
-			<div className=" h-[400px]">
+			<div className=" h-fit">
 				<PointEachSemester
 					title="Điểm đánh giá trung bình qua từng học kỳ"
 					legend="Điểm đánh giá"

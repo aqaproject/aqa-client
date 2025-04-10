@@ -38,11 +38,11 @@ export default function Layout({ children }: { children: ReactNode }) {
 						setUrlQuery(pathname, { class_type: key.toString() });
 					}}
 				>
-					<Tab key="" title="Tất cả" />
-					<Tab key="LT" title="Lý thuyết" />
-					<Tab key="TH1" title="Thực hành 1" />
-					<Tab key="TH2" title="Thực hành 2" />
-					<Tab key="Online" title="Học online" />
+					<Tab key="" className=" font-medium" title="Tất cả" />
+					<Tab key="LT" className=" font-medium" title="Lý thuyết" />
+					<Tab key="TH1" className=" font-medium" title="Thực hành 1" />
+					<Tab key="TH2" className=" font-medium" title="Thực hành 2" />
+					<Tab key="Online" className=" font-medium" title="Học online" />
 				</Tabs>
 			</div>
 			<div className=" w-full mt-4 p-0 h-[420px]">{children}</div>

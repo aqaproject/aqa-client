@@ -30,7 +30,7 @@ export default function Page({ params }: { params: any }) {
 				size="md"
 				placeholder="Nhập từ khóa cần tìm..."
 				variant="bordered"
-				className="mt-5 w-full"
+				className="mt-5 w-full bg-white rounded-xl"
 			/>
 			<ChildrenItems
 				loading={loading}

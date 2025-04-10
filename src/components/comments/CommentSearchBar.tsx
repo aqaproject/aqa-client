@@ -19,7 +19,7 @@ export default function CommentSearchBar({ isLoading }: { isLoading: boolean }) 
 	}, [keyword]);
 
 	return (
-		<div className="flex flex-row items-center mt-12 gap-5">
+		<div className="flex flex-row items-center mt-8 gap-5">
 			<Input
 				value={searchText}
 				onChange={(e) => setSearchText(e.target.value)}

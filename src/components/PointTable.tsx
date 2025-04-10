@@ -18,11 +18,11 @@ interface IProps {
 export default function PointTable({ data }: IProps) {
 	return (
 		<Table
-			removeWrapper
 			isStriped
 			color="default"
 			selectionMode="single"
 			aria-label="Point table"
+			className=" bg-background rounded-2xl shadow-xl"
 		>
 			<TableHeader>
 				<TableColumn>STT</TableColumn>

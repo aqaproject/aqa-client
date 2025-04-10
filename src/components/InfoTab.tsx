@@ -20,7 +20,6 @@ export default function InfoTab({
 	isLoading: boolean;
 	defaultChecked?: boolean;
 }) {
-	const navigate = useNavigate();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 
@@ -32,7 +31,6 @@ export default function InfoTab({
 				htmlFor={title}
 				className=" w-fit hover:bg-slate-200 dark:hover:bg-slate-700 hover:cursor-pointer transition-all rounded-md pt-2"
 				onClick={() => {
-					// navigate.push({ type });
 					setUrlQuery(pathname, {}, { type });
 				}}
 			>
@@ -48,7 +46,7 @@ export default function InfoTab({
 					onChange={() => {}}
 				/>
 				<div className=" px-4">
-					<div className="flex flex-row items-start gap-2">
+					<div className="flex flex-row items-start gap-2 pr-5 ">
 						<Image src={icon} width={15} height={15} alt="icon" />
 						<p className="text-sm font-medium text-gray-500 dark:text-gray-300">
 							{title}

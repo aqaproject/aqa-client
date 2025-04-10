@@ -147,7 +147,7 @@ export default function BreadCrumb() {
 
 	return (
 		<div className=" w-full mt-5 mb-5 flex flex-col items-start gap-4">
-			<div className=" w-full -ml-5 flex flex-row gap-1">
+			<div className=" w-full flex flex-row gap-1">
 				{paths.map(
 					(
 						{
