@@ -87,7 +87,7 @@ function InnerPointEachSemester({
 	}, [query, variables]);
 
 	return (
-		<div className=" h-[500px]">
+		<div className=" h-[600px]">
 			<ChartLayout
 				primaryTitle={title}
 				secondaryTitle={""}

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import COPY_ICON from "@assets/copy.svg";
 import Image from "next/image";
+import { Chip } from "@heroui/chip";
 import {
 	Button,
 	Card,
@@ -35,7 +36,7 @@ export default function CommentItem({
 
 	return (
 		<>
-			<Card isPressable onClick={() => setIsOpen(true)} shadow="none">
+			<Card isPressable onPress={() => setIsOpen(true)} shadow="none">
 				<motion.div
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
@@ -43,37 +44,29 @@ export default function CommentItem({
 						ease: "easeOut",
 						duration: 0.6,
 					}}
-					className="w-full px-3 py-3 flex flex-row items-center border-b-1 border-b-slate-400 dark:border-b-slate-600"
+					className="w-full px-3 py-3 flex items-center gap-4 border-b-1 border-b-slate-400 dark:border-b-slate-600 hover:bg-slate-100 duration-200"
 				>
-					<p className="font-medium text-sm text-left whitespace-pre-wrap	">
-						{content}
-					</p>
-					<div className="ml-auto w-fit pl-5 flex shrink-0 flex-row gap-5">
-						{/* <Card
-							isPressable
-							shadow="sm"
-							className="p-3 flex flex-row justify-center items-center"
-						>
-							<Image
-								src={COPY_ICON}
-								width={18}
-								height={18}
-								alt="Copy comment"
-							/>
-						</Card> */}
-						<Card
-							isPressable
-							shadow="sm"
-							className={`px-2 py-1 w-24 grid items-center ${
+					<div
+						className={` flex h-16 w-2 rounded-md ${
+							type === "positive" ? "bg-green-300" : "bg-red-300"
+						}`}
+					></div>
+					<div className=" w-full flex flex-col gap-2">
+						<p className="font-medium text-sm text-left whitespace-pre-wrap	">
+							{content}
+						</p>
+						<Chip
+							size="sm"
+							className={`w-24 ${
 								type === "positive"
 									? "bg-green-300 dark:bg-green-700"
 									: "bg-red-300 dark:bg-red-700"
 							}`}
 						>
-							<p className=" capitalize font-medium text-sm py-1">
+							<p className=" px-1 py-1 capitalize font-medium text-xs">
 								{type == "positive" ? "Tích cực" : "Tiêu cực"}
 							</p>
-						</Card>
+						</Chip>
 					</div>
 				</motion.div>
 			</Card>

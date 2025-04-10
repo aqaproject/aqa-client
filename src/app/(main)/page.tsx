@@ -17,7 +17,7 @@ export default async function Home() {
 				<div className=" shadow-2xl rounded-2xl">
 					<CriteriaOverallChart />
 				</div>
-				<div className="text-gray-400 columns-2 gap-14 mt-10 px-20">
+				<div className="text-gray-400 columns-2 gap-14 mt-16 px-20">
 					{HOME_INTRODUCTION.map((introduction) => (
 						<Suspense
 							key={introduction.title.link}

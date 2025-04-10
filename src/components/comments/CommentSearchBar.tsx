@@ -5,6 +5,7 @@ import useNavigate from "@/hooks/useNavigate";
 import { Button, Card, Input, Spinner } from "@heroui/react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { IoIosSearch } from "react-icons/io";
 
 export default function CommentSearchBar({ isLoading }: { isLoading: boolean }) {
 	const { setKeyword } = useFilter();
@@ -19,10 +20,6 @@ export default function CommentSearchBar({ isLoading }: { isLoading: boolean }) 
 		setSearchText(keyword);
 	}, [keyword]);
 
-	// useEffect(() => {
-	// 	if (!defaultLoading) setIsLoading(false);
-	// }, [defaultLoading]);
-
 	return (
 		<div className="flex flex-row items-center mt-12 gap-5">
 			<Card className=" w-fit" shadow="md">
@@ -35,6 +32,7 @@ export default function CommentSearchBar({ isLoading }: { isLoading: boolean }) 
 							// setIsLoading(true);
 						}
 					}}
+					startContent={<IoIosSearch />}
 					onClear={() => {
 						setSearchText("");
 						setKeyword("");

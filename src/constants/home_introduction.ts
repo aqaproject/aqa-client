@@ -1,5 +1,10 @@
+import SUBJECT_ILLUSTRATION from "@assets/illustrations/subject.svg";
+import CRITERIA_ILLUSTRATION from "@assets/illustrations/criteria.svg";
+import COMMENT_ILLUSTRATION from "@assets/illustrations/comment.svg";
+
 export const HOME_INTRODUCTION: IFeatureIntroduction[] = [
 	{
+		icon: SUBJECT_ILLUSTRATION,
 		title: {
 			displayName: "Môn học",
 			link: "/subject",
@@ -20,6 +25,7 @@ export const HOME_INTRODUCTION: IFeatureIntroduction[] = [
 		],
 	},
 	{
+		icon: COMMENT_ILLUSTRATION,
 		title: {
 			displayName: "Ý kiến",
 			link: "/comment",
@@ -33,6 +39,7 @@ export const HOME_INTRODUCTION: IFeatureIntroduction[] = [
 		],
 	},
 	{
+		icon: CRITERIA_ILLUSTRATION,
 		title: {
 			displayName: "Tiêu chí",
 			link: "/criteria",
@@ -54,6 +61,7 @@ export const HOME_INTRODUCTION: IFeatureIntroduction[] = [
 ];
 
 export interface IFeatureIntroduction {
+	icon: any;
 	title: {
 		displayName: string;
 		link: string;
