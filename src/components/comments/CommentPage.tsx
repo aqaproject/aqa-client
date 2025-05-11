@@ -7,7 +7,7 @@ import CommentSearchBar from "@/components/comments/CommentSearchBar";
 import { FacultySelectorWithSearchParams } from "@/components/selectors/FacultySelector";
 import { ProgramSelectorWithSearchParam } from "@/components/selectors/ProgramSelector";
 import { SingleSubjectSelectorWithSearchParam } from "@/components/selectors/SingleSubjectSelector";
-import { FilterArgs, useCommentListLazyQuery } from "@/gql/graphql";
+import { FilterArgs, useCommentListLazyQuery, useProfileQuery } from "@/gql/graphql";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { Card } from "@heroui/react";
 import { useSearchParams } from "next/navigation";
@@ -15,11 +15,26 @@ import Loading from "../Loading";
 import CommentItem from "./CommentItem";
 import { useRememberValue } from "@/hooks/useRememberValue";
 import { useFilter } from "@/contexts/FilterContext";
+import { useIsFaculty } from "@/hooks/useIsFaculty";
+import { useIsLecturer } from "@/hooks/useIsAdmin";
 
 export default function CommentPage({ defaultFilter = {}, selectors = [] }: IProps) {
 	const searchParams = useSearchParams();
 
+	const { data: profile } = useProfileQuery({
+		fetchPolicy: "network-only",
+	});
+	const { isFaculty } = useIsFaculty();
+	const { isLecturer } = useIsLecturer();
+
 	const { keyword } = useFilter();
+
+	const roleFilter =
+		profile?.profile.role === "LECTURER"
+			? { lecturer_id: profile?.profile?.lecturer?.lecturer_id }
+			: profile?.profile.role === "FACULTY"
+			? { faculty_id: profile?.profile?.faculty?.faculty_id }
+			: {};
 
 	const query = {
 		...defaultFilter,
@@ -38,6 +53,7 @@ export default function CommentPage({ defaultFilter = {}, selectors = [] }: IPro
 				? [searchParams.get("subject_id")]
 				: undefined
 			: undefined,
+		...roleFilter,
 	};
 
 	const [getCommentList, { data, loading: isLoading }] = useCommentListLazyQuery({
@@ -69,7 +85,7 @@ export default function CommentPage({ defaultFilter = {}, selectors = [] }: IPro
 						{selectors.includes("program") && (
 							<ProgramSelectorWithSearchParam />
 						)}
-						{selectors.includes("faculty") && (
+						{selectors.includes("faculty") && !(isFaculty || isLecturer) && (
 							<FacultySelectorWithSearchParams />
 						)}
 						{selectors.includes("single-subject") && (

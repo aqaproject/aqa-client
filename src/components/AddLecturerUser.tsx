@@ -53,6 +53,7 @@ export default function AddLecturerUser() {
 
 	const { data } = useAllLecturersQuery({
 		variables: { filter: { keyword }, sort: {} },
+		fetchPolicy: "network-only",
 	});
 
 	const [mutate] = useRegisterUserMutation();

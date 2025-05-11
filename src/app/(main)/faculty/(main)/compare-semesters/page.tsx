@@ -1,7 +1,7 @@
 "use client";
 
 import PointWithCompare from "@/components/chart/PointWithCompare";
-import { Faculty, useFacultiesQuery } from "@/gql/graphql";
+import { useFacultiesQuery } from "@/gql/graphql";
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
 import { Checkbox, cn } from "@heroui/react";
 import { useState } from "react";

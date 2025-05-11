@@ -27,6 +27,7 @@
     "apollo3-cache-persist": "^0.15.0",
     "autoprefixer": "10.4.14",
     "chart.js": "^4.4.4",
+    "clsx": "^2.1.1",
     "cookies-next": "^4.2.1",
     "dom-to-image": "^2.6.0",
     "dom-to-pdf": "^0.3.2",

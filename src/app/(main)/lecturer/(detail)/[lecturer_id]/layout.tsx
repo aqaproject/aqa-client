@@ -19,7 +19,7 @@ export default function Layout({
 
 	return (
 		<div>
-			<h1 className="font-semibold text-2xl">{lecturer.display_name}</h1>
+			<h1 className="font-extrabold text-2xl">{lecturer.display_name}</h1>
 			{isLecturer ? null : <BreadCrumb />}
 			<PageTabs
 				lastIndex={3}

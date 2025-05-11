@@ -20,7 +20,7 @@ export default function DetailClassPage({
 
 	return (
 		<div>
-			<h1 className="font-semibold text-2xl">
+			<h1 className="font-extrabold text-2xl">
 				{classInfo?.display_name} - {classInfo?.subject.display_name}
 			</h1>
 			<h2 className="mt-3 text-gray-600 dark:text-gray-300">

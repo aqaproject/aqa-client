@@ -76,6 +76,7 @@ function AddUserButtonInner({ refetch }: Props) {
 		[
 			displayName,
 			faculty?.faculty_id,
+			lecturer?.lecturer_id,
 			mutate,
 			password,
 			password2,

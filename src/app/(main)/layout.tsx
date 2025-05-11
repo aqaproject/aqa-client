@@ -30,27 +30,25 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 		<>
 			<NavigationDrawer>
 				<NavItem title="Trang chủ" link="/" icon={HomeIcon} />
-				{isFullAcess ? (
-					<NavItem
-						title="Ý kiến"
-						link="/comment"
-						icon={CommentIcon}
-						subItems={[
-							{
-								title: "Tất cả",
-								link: "/comment",
-							},
-							{
-								title: "Tích cực",
-								link: "/comment?type=positive",
-							},
-							{
-								title: "Tiêu cực",
-								link: "/comment?type=negative",
-							},
-						]}
-					/>
-				) : null}
+				<NavItem
+					title="Ý kiến"
+					link="/comment"
+					icon={CommentIcon}
+					subItems={[
+						{
+							title: "Tất cả",
+							link: "/comment",
+						},
+						{
+							title: "Tích cực",
+							link: "/comment?type=positive",
+						},
+						{
+							title: "Tiêu cực",
+							link: "/comment?type=negative",
+						},
+					]}
+				/>
 				{isFullAcess || isFaculty ? (
 					<NavItem
 						title="Tra cứu dữ liệu"

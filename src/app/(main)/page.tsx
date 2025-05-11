@@ -1,5 +1,5 @@
 import CriteriaOverallChart from "@/components/chart/CriteriaOverallChart";
-import { UICard } from "@/components/UICard";
+import UserProfileHome from "@/components/UserProfileHome";
 import { HOME_INTRODUCTION } from "@/constants/home_introduction";
 import { FilterProvider } from "@/contexts/FilterContext";
 import dynamic from "next/dynamic";
@@ -14,6 +14,7 @@ export default async function Home() {
 				<Suspense fallback={<p>Loading searchbar...</p>}>
 					<SearchBar />
 				</Suspense>
+				<UserProfileHome />
 				<div className=" shadow-2xl rounded-2xl">
 					<CriteriaOverallChart />
 				</div>

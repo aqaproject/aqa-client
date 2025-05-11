@@ -43,7 +43,7 @@ export default function Page({
 									aria-label={display_name}
 									title={
 										<p className="py-1 font-medium">
-											{`${display_name} (${0})`}
+											{`${display_name}`}
 										</p>
 									}
 								>
@@ -84,6 +84,7 @@ function SemesterClass({
 	const { query } = useFilterUrlQuery();
 	const { data } = useAllClassesQuery({
 		variables: { filter: { ...query, semester_id } },
+		fetchPolicy: 'network-only'
 	});
 	const classesData = data?.classes.data;
 	console.log({ filter: { ...query, semester_id } });

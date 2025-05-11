@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
 	return (
 		<FilterProvider>
-			<h1 className="font-semibold text-3xl">Tiêu chí</h1>
+			<h1 className="font-extrabold text-3xl">Tiêu chí</h1>
 			<BreadCrumb />
 			<PageTabs
 				defaultPath="criteria"
