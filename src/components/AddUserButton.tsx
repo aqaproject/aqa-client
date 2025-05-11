@@ -13,7 +13,7 @@ import {
 	useDisclosure,
 	Select,
 	SelectItem,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import FacultySelector from "./selectors/FacultySelector";
@@ -76,6 +76,7 @@ function AddUserButtonInner({ refetch }: Props) {
 		[
 			displayName,
 			faculty?.faculty_id,
+			lecturer?.lecturer_id,
 			mutate,
 			password,
 			password2,

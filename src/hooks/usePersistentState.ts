@@ -18,7 +18,7 @@ export default function usePersistentState<T>(
 	}, [defaultValue, name]);
 
 	useEffect(() => {
-		if (data) localStorage.setItem(name, JSON.stringify(data));
+		if (data !== undefined) localStorage.setItem(name, JSON.stringify(data));
 	}, [data, name]);
 
 	return [data, setData];

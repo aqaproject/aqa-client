@@ -20,7 +20,7 @@ export default function Layout({
 		<div>
 			{data?.subject ? (
 				<>
-					<h1 className="font-semibold text-2xl">
+					<h1 className="font-extrabold text-2xl">
 						{data.subject.display_name}
 					</h1>
 					<h2 className="mt-2 text-gray-600 dark:text-gray-300">
@@ -65,7 +65,7 @@ const tabs = [
 	},
 	{
 		link: "comments",
-		title: "Bình luận",
+		title: "Ý kiến",
 	},
 ];
 

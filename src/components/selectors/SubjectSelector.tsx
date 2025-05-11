@@ -17,7 +17,7 @@ import {
 	ModalHeader,
 	Skeleton,
 	useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useDebounce } from "usehooks-ts";

@@ -11,7 +11,7 @@ import {
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
 import useLecturerInfo from "@/hooks/useLecturerInfo";
 import { useAuth } from "@/stores/auth.store";
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button, Tooltip } from "@heroui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useMemo } from "react";
 import { twMerge } from "tailwind-merge";
@@ -146,8 +146,8 @@ export default function BreadCrumb() {
 	);
 
 	return (
-		<div className=" w-full mt-5 mb-5 flex flex-col items-start gap-4">
-			<div className=" w-full -ml-5 flex flex-row gap-1">
+		<div className=" w-full mt-5 mb-5 flex flex-row items-center justify-between gap-4">
+			<div className=" w-fit flex flex-row gap-1">
 				{paths.map(
 					(
 						{
@@ -161,15 +161,15 @@ export default function BreadCrumb() {
 						},
 						index
 					) => (
-						<div key={title} className=" flex gap-0 items-center">
-							<Tooltip content={name}>
+						<div key={title} className=" flex gap-1 items-center">
+							<Tooltip content={name ?? "Tất cả"}>
 								<Button
 									variant="light"
 									className={twMerge(
-										" w-fit h-fit",
+										" w-fit h-fit bg-background",
 										name ? className : ""
 									)}
-									onClick={() => {
+									onPress={() => {
 										setUrlQuery(`/${link}`, {
 											...onClickValue,
 											...defaultValue,
@@ -193,7 +193,7 @@ export default function BreadCrumb() {
 							</Tooltip>
 							{index !== paths.length - 1 ? (
 								<div
-									className=" rounded-xl grid place-items-center h-full px-2 cursor-pointer bg-background hover:bg-foreground-100 active:bg-foreground-200 duration-200"
+									className=" rounded-xl grid place-items-center h-full px-2 cursor-pointer bg-transparent hover:bg-card active:bg-foreground-200 duration-200"
 									onClick={() => {
 										if (value)
 											setUrlQuery(
@@ -217,7 +217,7 @@ export default function BreadCrumb() {
 			<Button
 				variant="flat"
 				color="danger"
-				className={twMerge(" flex-1 h-fit")}
+				className={twMerge(" w-fit h-fit")}
 				onClick={() => {
 					const currentPage = pathname.split("/").at(1);
 					const currentPageKey =

@@ -22,7 +22,7 @@ import {
 	TableHeader,
 	TableRow,
 	useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import { useDebounce } from "usehooks-ts";
@@ -53,6 +53,7 @@ export default function AddLecturerUser() {
 
 	const { data } = useAllLecturersQuery({
 		variables: { filter: { keyword }, sort: {} },
+		fetchPolicy: "network-only",
 	});
 
 	const [mutate] = useRegisterUserMutation();

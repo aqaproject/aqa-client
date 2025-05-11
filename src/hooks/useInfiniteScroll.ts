@@ -67,13 +67,6 @@ export function useInfiniteScroll<T>({
 		}
 	}, [dataList, enabled]);
 
-	// useDeepCompareEffect(() => {
-	// 	if (!isLoading && data) {
-	// 		if (meta?.page === 0) setDataList(data || []);
-	// 		else setDataList((prev) => [...prev, ...(data || [])]);
-	// 	}
-	// }, [isLoading, data, enabled]);
-
 	useDeepCompareEffect(() => {
 		if (meta) {
 			isQuerying.current = false;

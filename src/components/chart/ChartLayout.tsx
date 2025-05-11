@@ -1,14 +1,15 @@
 "use client";
 
+import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { Color, Legend } from "@tremor/react";
+import MediaQuery, { useMediaQuery } from "react-responsive";
+import { Button } from "@heroui/react";
 
 import DownloadIcon from "@assets/DownloadIcon";
 import BaseChart from "@components/chart/BaseChart";
-import { Button } from "@nextui-org/react";
-import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import Extensible from "../Extensible";
 
-import MediaQuery, { useMediaQuery } from "react-responsive";
+import { FcComboChart } from "react-icons/fc";
 
 //@ts-ignore
 import domtoimage from "dom-to-image";
@@ -23,7 +24,7 @@ import {
 	ModalFooter,
 	ModalHeader,
 	useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 export default function ChartLayout({
 	primaryTitle,
@@ -78,11 +79,16 @@ export default function ChartLayout({
 			<Extensible isOpen={isOpen} setIsOpen={setIsOpen}>
 				<div className="w-full px-8">
 					<div className="  w-full mb-6 pl-2 pr-8 pt-5 flex flex-row gap-5 justify-between items-start xl:items-center">
-						<div className=" w-3/4 mt-2">
-							<p className=" text-foreground-900 font-semibold">{primaryTitle}</p>
-							<p className="w-full mt-2 font-normal text-sm">
-								{secondaryTitle}
-							</p>
+						<div className=" w-3/4 mt-2 flex gap-2">
+							<FcComboChart className=" mt-0" size={24} />
+							<div>
+								<p className=" text-foreground-900 font-semibold text-xl">
+									{primaryTitle}
+								</p>
+								<p className="w-full mt-2 font-normal text-sm">
+									{secondaryTitle}
+								</p>
+							</div>
 						</div>
 						<div className="w-fit flex flex-row flex-nowrap gap-4 pr-5">
 							<MediaQuery maxWidth={1280}>
@@ -138,7 +144,7 @@ export default function ChartLayout({
 										});
 								}}
 							>
-								<DownloadIcon color="white" />
+								<DownloadIcon color="black" />
 							</Button>
 						</div>
 					</div>

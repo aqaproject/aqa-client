@@ -12,11 +12,18 @@ import {
 	ModalContent,
 	ModalFooter,
 	ModalHeader,
-} from "@nextui-org/react";
+	Dropdown,
+	DropdownTrigger,
+	DropdownMenu,
+	DropdownSection,
+	DropdownItem,
+	Chip,
+} from "@heroui/react";
 import { Class } from "@/gql/graphql";
 import { DeepPartial } from "@apollo/client/utilities";
 import CommentModalItem from "./CommentModalItem";
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
+import { IoCopyOutline, IoEllipsisVertical } from "react-icons/io5";
 
 export default function CommentItem({
 	content,
@@ -33,56 +40,66 @@ export default function CommentItem({
 	const { setUrlQuery } = useFilterUrlQuery();
 	const [isOpen, setIsOpen] = useState(false);
 
+	function copyToClipboard(text: string) {
+		navigator.clipboard.writeText(text);
+	}
+
 	return (
 		<>
-			<Card isPressable onClick={() => setIsOpen(true)} shadow="none">
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{
-						ease: "easeOut",
-						duration: 0.6,
-					}}
-					className="w-full px-3 py-3 flex flex-row items-center border-b-1 border-b-slate-400 dark:border-b-slate-600"
-				>
+			<motion.div
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				transition={{
+					ease: "easeOut",
+					duration: 0.6,
+				}}
+				className="w-full py-3 flex items-center gap-4 border-b-1 border-b-slate-400"
+			>
+				<div
+					className={` flex h-16 w-2 rounded-md ${
+						type === "positive" ? "bg-green-300" : "bg-red-300"
+					}`}
+				></div>
+				<div className=" mr-auto w-full flex flex-col gap-2">
 					<p className="font-medium text-sm text-left whitespace-pre-wrap	">
 						{content}
 					</p>
-					<div className="ml-auto w-fit pl-5 flex shrink-0 flex-row gap-5">
-						{/* <Card
-							isPressable
-							shadow="sm"
-							className="p-3 flex flex-row justify-center items-center"
-						>
-							<Image
-								src={COPY_ICON}
-								width={18}
-								height={18}
-								alt="Copy comment"
-							/>
-						</Card> */}
-						<Card
-							isPressable
-							shadow="sm"
-							className={`px-2 py-1 w-24 grid items-center ${
-								type === "positive"
-									? "bg-green-300 dark:bg-green-700"
-									: "bg-red-300 dark:bg-red-700"
-							}`}
-						>
-							<p className=" capitalize font-medium text-sm py-1">
-								{type == "positive" ? "Tích cực" : "Tiêu cực"}
-							</p>
-						</Card>
-					</div>
-				</motion.div>
-			</Card>
+					<Chip
+						size="sm"
+						className={`w-24 ${
+							type === "positive"
+								? "bg-green-300 dark:bg-green-700"
+								: "bg-red-300 dark:bg-red-700"
+						}`}
+					>
+						<p className=" px-1 py-1 capitalize font-medium text-xs">
+							{type == "positive" ? "Tích cực" : "Tiêu cực"}
+						</p>
+					</Chip>
+				</div>
+				<Button
+					isIconOnly
+					aria-label="Like"
+					variant="flat"
+					onPress={() => copyToClipboard(content)}
+				>
+					<IoCopyOutline />
+				</Button>
+				<Button
+					isIconOnly
+					aria-label="Like"
+					variant="flat"
+					onPress={() => setIsOpen(true)}
+				>
+					<IoEllipsisVertical />
+				</Button>
+			</motion.div>
 			<Modal isOpen={isOpen} onOpenChange={setIsOpen}>
 				<ModalContent>
 					{(onClose) => (
 						<>
 							<ModalHeader className="flex flex-col gap-1">
-								Thông tin chi tiết về bình luận
+								Thông tin chi tiết về ý kiến
 							</ModalHeader>
 							<ModalBody>
 								<div className=" flex flex-col gap-4">

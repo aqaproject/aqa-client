@@ -1,6 +1,6 @@
 import { useFilter } from "@/contexts/FilterContext";
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { useEffect, useRef } from "react";
 import PointEachSemester from "../PointEachSemester";
 
@@ -45,7 +45,7 @@ export default function SpecificCriteriaChart({ criteria }: { criteria: Criteria
 					<p className="">{criteria.display_name}</p>
 				</div>
 			</Button>
-			<div className=" h-[400px]">
+			<div className=" h-fit">
 				<PointEachSemester
 					title="Điểm đánh giá trung bình qua từng học kỳ"
 					legend="Điểm đánh giá"

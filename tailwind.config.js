@@ -1,13 +1,14 @@
 /** @type {import('tailwindcss').Config} */
-const { nextui } = require("@nextui-org/react");
+const { heroui } = require("@heroui/react");
 
 module.exports = {
 	content: [
 		"./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
 		"./src/components/**/*.{js,ts,jsx,tsx,mdx}",
 		"./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-		"./node_modules/@nextui-org/**/*.{js,ts,jsx,tsx}",
+		"./node_modules/@heroui/**/*.{js,ts,jsx,tsx}",
 		"./node_modules/@tremor/**/*.{js,ts,jsx,tsx}", // Tremor module
+		"./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
 	],
 	theme: {
 		transparent: "transparent",
@@ -20,6 +21,22 @@ module.exports = {
 				grid: "url('/src/assets/grid.svg')",
 			},
 			colors: {
+				card: "#f7f7f7cc",
+				navbar: {
+					normal: "white",
+					hover: "oklch(92.2% 0 0)",
+					"hover-foreground": "oklch(96.8% 0.007 247.896)",
+					selected: "oklch(12.9% 0.042 264.695)",
+				},
+				"primary-normal": "#ffd85f",
+				"primary-hover": "#fae296cc",
+				secondary: {
+					normal: "#fff",
+					hover: "oklch(96.8% 0.007 247.896)",
+					active: "oklch(92.9% 0.013 255.508)",
+					foreground: "oklch(55.4% 0.046 257.417)",
+					ui: "#148d82",
+				},
 				// light mode
 				tremor: {
 					brand: {
@@ -81,6 +98,9 @@ module.exports = {
 					},
 				},
 			},
+			borderRadius: {
+				large: "16px",
+			},
 			boxShadow: {
 				// light
 				"tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
@@ -138,5 +158,23 @@ module.exports = {
 		},
 	],
 	darkMode: "class",
-	plugins: [nextui(), require("@headlessui/tailwindcss")],
+	// plugins: [heroui(), require("@headlessui/tailwindcss")],
+	plugins: [
+		heroui({
+			themes: {
+				light: {
+					colors: {
+						primary: "#ffd85f", // Your custom primary color for light theme
+						secondary: "#148d82",
+					},
+				},
+				dark: {
+					colors: {
+						primary: "#ffd85f", // Your custom primary color for dark theme
+						secondary: "#148d82",
+					},
+				},
+			},
+		}),
+	],
 };

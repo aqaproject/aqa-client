@@ -31,10 +31,10 @@ export default function SemesterIcon({
 					fill="none"
 				>
 					<rect x="3" y="6" width="18" height="15" rx="2" stroke={color} />
-					<path d="M3 11L21 11" stroke={color} stroke-linecap="round" />
-					<path d="M9 16H15" stroke={color} stroke-linecap="round" />
-					<path d="M8 3L8 7" stroke={color} stroke-linecap="round" />
-					<path d="M16 3L16 7" stroke={color} stroke-linecap="round" />
+					<path d="M3 11L21 11" stroke={color} strokeLinecap="round" />
+					<path d="M9 16H15" stroke={color} strokeLinecap="round" />
+					<path d="M8 3L8 7" stroke={color} strokeLinecap="round" />
+					<path d="M16 3L16 7" stroke={color} strokeLinecap="round" />
 				</svg>
 			) : null}
 		</>

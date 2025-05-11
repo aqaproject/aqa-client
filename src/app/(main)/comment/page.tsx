@@ -23,13 +23,13 @@ export function generateMetadata({ searchParams: { type } }: Props): Metadata {
 function generateTitle(type?: string) {
 	if (type == "negative")
 		return {
-			title: "Bình luận tiêu cực",
+			title: "Ý kiến tiêu cực",
 		};
 	else if (type == "positive")
 		return {
-			title: "Bình luận tích cực",
+			title: "Ý kiến tích cực",
 		};
 	return {
-		title: "Tất cả bình luận",
+		title: "Tất cả ý kiến",
 	};
 }

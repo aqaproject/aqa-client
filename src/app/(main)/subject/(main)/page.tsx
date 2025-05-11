@@ -4,7 +4,7 @@ import ChildrenItems from "@/components/ChildrenItems";
 import { FilterProvider } from "@/contexts/FilterContext";
 import { useAllSubjectsQuery } from "@/gql/graphql";
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
-import { Input } from "@nextui-org/react";
+import { Input } from "@heroui/react";
 import { useState } from "react";
 
 export default function Page({ params }: { params: any }) {
@@ -27,7 +27,7 @@ export default function Page({ params }: { params: any }) {
 				size="md"
 				placeholder="Nhập từ khóa cần tìm..."
 				variant="bordered"
-				className="w-full"
+				className="w-full bg-background rounded-xl"
 			/>
 			<ChildrenItems
 				loading={loading}

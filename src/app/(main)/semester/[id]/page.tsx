@@ -3,14 +3,33 @@
 import BreadCrumb from "@/components/BreadCrumb";
 import ChildrenItems from "@/components/ChildrenItems";
 import { FilterProvider } from "@/contexts/FilterContext";
-import { useFacultiesQuery } from "@/gql/graphql";
+import { useFacultiesQuery, useProfileQuery } from "@/gql/graphql";
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
+import { useEffect } from "react";
 
 export default function Page({ params }: { params: any }) {
 	const semester_id = params.id;
 	const { query, setUrlQuery } = useFilterUrlQuery();
 
+	const { data: profile, loading: profileLoading } = useProfileQuery({
+		fetchPolicy: "network-only",
+	});
+
 	const { data, loading } = useFacultiesQuery();
+
+	console.log({ profile });
+
+	useEffect(() => {
+		if (profile) {
+			if (profile?.profile.role === "FACULTY") {
+				setUrlQuery(`/faculty/${profile?.profile?.faculty?.faculty_id}`, {
+					faculty_id: profile?.profile?.faculty?.faculty_id,
+				});
+			} else {
+				setUrlQuery(`/faculty`, {});
+			}
+		}
+	}, [profile, setUrlQuery]);
 
 	return (
 		<FilterProvider>

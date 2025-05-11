@@ -1,8 +1,8 @@
 "use client";
 
 import { ReactNode } from "react";
-import { Button, ButtonProps, Tooltip } from "@nextui-org/react";
-import { ButtonVariantProps } from "@nextui-org/react";
+import { Button, ButtonProps, Tooltip } from "@heroui/react";
+import { ButtonVariantProps } from "@heroui/react";
 
 type Props = {
 	children?: ReactNode;
@@ -33,11 +33,11 @@ export default function OptionButton({
 				color={hasValue ? "primary" : "default"}
 				className={`${
 					hasValue
-						? ""
+						? " font-medium"
 						: isNoBorder
 						? " bg-white dark:bg-zinc-800 border-0 dark:hover:!bg-zinc-700 hover:!bg-zinc-100"
-						: " border-0 bg-slate-100 dark:bg-slate-800 dark:hover:!bg-slate-700 hover:!bg-slate-200"
-				} rounded-lg`}
+						: " border-0 text-secondary-foreground bg-secondary-normal hover:!bg-secondary-hover"
+				} rounded-lg shadow-sm`}
 				{...props}
 			>
 				{children}

@@ -1,6 +1,6 @@
 "use client";
 import { useFilter } from "@/contexts/FilterContext";
-import { Button, Card, Input } from "@nextui-org/react";
+import { Button, Card, Input } from "@heroui/react";
 import { useRef } from "react";
 import FacultySelector from "../selectors/FacultySelector";
 import ProgramSelector from "../selectors/ProgramSelector";

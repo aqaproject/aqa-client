@@ -64,7 +64,7 @@ export default function CommentList({
 			{!hasMore && !isLoading ? (
 				<div className="w-full flex flex-col pt-6 pb-4 items-center">
 					<p className="w-fit text-lg font-semibold">
-						Không còn bình luận nào
+						Không còn ý kiến nào
 					</p>
 				</div>
 			) : null}

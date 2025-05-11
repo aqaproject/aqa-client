@@ -13,9 +13,10 @@ import {
 	DropdownSection,
 	DropdownTrigger,
 	Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useMemo } from "react";
+import { SelectorButton } from "./SelectorButton";
 
 type FilterType = {
 	lecturer_id?: string;
@@ -37,33 +38,17 @@ function SemesterSelector_({
 	return (
 		<Dropdown backdrop="blur" shouldBlockScroll={false}>
 			<DropdownTrigger>
-				<Button
-					variant={hasValue ? "shadow" : "ghost"}
-					color={hasValue ? "primary" : "default"}
+				<SelectorButton
+					hasValue={hasValue}
+					isNoBorder={isNoBorder}
+					buttonText={buttonText}
 					startContent={
 						<SemesterIcon
-							color={hasValue ? "white" : undefined}
+							color={hasValue ? "black" : "oklch(55.4% 0.046 257.417)"}
 							width={20}
 						/>
 					}
-					className={`${
-						hasValue
-							? ""
-							: isNoBorder
-							? " bg-white dark:bg-zinc-800 border-0 dark:hover:!bg-zinc-700 hover:!bg-zinc-100"
-							: " border-0 bg-slate-100 dark:bg-slate-800 dark:hover:!bg-slate-700 hover:!bg-slate-200"
-					} rounded-lg`}
-				>
-					{semesters.length ? (
-						buttonText
-					) : (
-						<Spinner
-							className={hasValue ? " text-white" : ""}
-							color={hasValue ? "default" : "primary"}
-							size="sm"
-						/>
-					)}
-				</Button>
+				/>
 			</DropdownTrigger>
 			<DropdownMenu
 				variant="faded"
@@ -72,12 +57,12 @@ function SemesterSelector_({
 				selectionMode="single"
 				selectedKeys={new Set([semester?.semester_id || ""])}
 				onAction={(key) => {
-					if (key === "")
+					if (key === "") {
 						setSemester?.({
 							display_name: "Tất cả học kỳ",
 							semester_id: "",
 						});
-					else setSemester(semesters.find((v) => v.semester_id === key));
+					} else setSemester(semesters.find((v) => v.semester_id === key));
 				}}
 			>
 				<DropdownSection title="Chọn học kỳ">
@@ -126,14 +111,14 @@ export function SemesterSelectorWithSearchParam({
 	const { data: semesters } = useSemestersQuery();
 	const data = useRememberValue(semesters);
 
-	const semester_ = useMemo<Semester | undefined>(() => {
+	const semester = useMemo<Semester | undefined>(() => {
 		const semesterList = data?.semesters;
 		if (semesterList?.length || 0 > 0) {
 			if (semesterId)
 				return semesterList?.find((v) => v.semester_id == semesterId);
 		}
-	}, [semesterId, data?.semesters?.length]);
-	const semester = useRememberValue(semester_);
+	}, [data?.semesters, semesterId]);
+	// const semester = useRememberValue(semester_);
 
 	const setSemester = useCallback(
 		(semester: Semester | undefined) => {

@@ -19,7 +19,7 @@ export default function Layout({
 
 	return (
 		<FilterProvider>
-			<h1 className="font-semibold text-3xl text-slate-500">
+			<h1 className="font-extrabold text-3xl">
 				{faculty?.faculty?.display_name}
 			</h1>
 			<BreadCrumb />
@@ -37,7 +37,7 @@ export default function Layout({
 					},
 					{
 						link: `comment`,
-						title: "Bình luận",
+						title: "Ý kiến",
 					},
 				]}
 			/>

@@ -9,7 +9,7 @@ import {
 	ModalContent,
 	ModalHeader,
 	useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";

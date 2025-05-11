@@ -87,7 +87,7 @@ function InnerPointEachSemester({
 	}, [query, variables]);
 
 	return (
-		<div className=" h-[400px]">
+		<div className=" h-[600px]">
 			<ChartLayout
 				primaryTitle={title}
 				secondaryTitle={""}
@@ -129,13 +129,18 @@ function InnerPointEachSemester({
 									})
 									.map((point) => ({
 										Điểm: point.average_point * 4,
-										"Trung bình toàn trường": point.all_average * 4,
+										"Trung bình toàn trường":
+											point.all_average * 4,
 										semester_name: point.display_name,
 									})) || []
 					}
 					index="semester_name"
-					categories={displayAverage ? ["Điểm", "Trung bình toàn trường"] : ["Điểm"]}
-					colors={["sky", "fuchsia"]}
+					categories={
+						displayAverage
+							? ["Điểm", "Trung bình toàn trường"]
+							: ["Điểm"]
+					}
+					colors={["sky", "purple"]}
 					yAxisWidth={80}
 					minValue={3.3}
 					showAnimation
@@ -144,10 +149,11 @@ function InnerPointEachSemester({
 						verticalShift: 10,
 						xAxisHeight: 40,
 					}}
+					margin={{ bottom: 50 }}
 					valueFormatter={(number: number) => {
 						return `${number.toFixed(2)}`;
 					}}
-					showLegend={false}
+					showLegend
 					//@ts-ignore
 					noDataText={loading ? <Loading /> : <NoData />}
 				/>

@@ -22,7 +22,7 @@ import {
 	TableHeader,
 	TableRow,
 	useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 
@@ -85,7 +85,7 @@ export default function Page() {
 					size="md"
 					placeholder="Nhập tên tài khoản cần tìm..."
 					variant="bordered"
-					className="w-full"
+					className="w-full bg-background rounded-xl"
 				/>
 				<Skeleton
 					isLoaded={!usersLoading}

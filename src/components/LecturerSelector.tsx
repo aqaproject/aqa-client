@@ -1,7 +1,7 @@
 "use client";
 
 import { Lecturer, useAllLecturersQuery } from "@/gql/graphql";
-import { Input, Select, SelectItem } from "@nextui-org/react";
+import { Input, Select, SelectItem } from "@heroui/react";
 import { useEffect, useRef, useState } from "react";
 
 type Props = {

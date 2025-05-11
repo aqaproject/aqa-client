@@ -133,7 +133,7 @@ function InnerPointWithCompare({
 						data={sortSemester(data)}
 						index="display_name"
 						categories={legends}
-						curveType={"natural"}
+						curveType={"linear"}
 						enableLegendSlider
 						colors={COLORS}
 						yAxisWidth={80}

@@ -15,7 +15,7 @@ import {
 	ModalHeader,
 	Skeleton,
 	useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -34,7 +34,7 @@ function CriteriaSelector_({ criteria, criteria_name, setCriteria }: Props) {
 	const [keyword, setKeyword] = useState("");
 	const debouncedKeyword = useDebounce<string>(keyword || "", 500);
 
-	const hasValue = Boolean(criteria?.index || criteria_name);
+	const hasValue = Boolean(criteria?.criteria_id || criteria_name);
 	const buttonText = hasValue ? `Tiêu chí` : "Tiêu chí";
 
 	const [getCriterias, { data, loading: isLoading, error }] =
@@ -63,7 +63,7 @@ function CriteriaSelector_({ criteria, criteria_name, setCriteria }: Props) {
 				onPress={onOpen}
 				startContent={
 					<CriteriaIcon
-						color={hasValue ? "white" : undefined}
+						color={hasValue ? "black" : undefined}
 						width={20}
 					/>
 				}

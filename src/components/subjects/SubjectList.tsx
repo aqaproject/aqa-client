@@ -18,7 +18,7 @@ import {
 	TableRow,
 	getKeyValue,
 	Tooltip,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";

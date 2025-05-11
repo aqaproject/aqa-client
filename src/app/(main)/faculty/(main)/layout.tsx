@@ -30,7 +30,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
 	return (
 		<>
-			<h1 className="font-semibold text-3xl text-slate-500">Khoa/Bộ môn</h1>
+			<h1 className="font-extrabold text-3xl">Khoa/Bộ môn</h1>
 			<BreadCrumb />
 			<PageTabs defaultPath="faculty" tabs={tabs} />
 			<div className=" w-full mt-5 p-0 h-auto">
