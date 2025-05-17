@@ -8,6 +8,7 @@ import React from "react";
 import { useAllClassesQuery, useSemestersQuery } from "@/gql/graphql";
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
 import PointWithGroupedEntity from "@/components/chart/PointWithGroupedEntity";
+import SingleSubjectSelector from "@/components/selectors/SingleSubjectSelector";
 
 export default function Page({
 	params: { lecturer_id },
@@ -33,7 +34,11 @@ export default function Page({
 								subjects: [item.id],
 							});
 						}}
-						selectors={<></>}
+						selectors={
+							<>
+								<SingleSubjectSelector filter={query} />
+							</>
+						}
 					/>
 					<Accordion variant="splitted" selectionMode="multiple" isCompact>
 						{semesters?.semesters?.map(
@@ -84,7 +89,7 @@ function SemesterClass({
 	const { query } = useFilterUrlQuery();
 	const { data } = useAllClassesQuery({
 		variables: { filter: { ...query, semester_id } },
-		fetchPolicy: 'network-only'
+		fetchPolicy: "network-only",
 	});
 	const classesData = data?.classes.data;
 	console.log({ filter: { ...query, semester_id } });

@@ -13,9 +13,9 @@ query DetailSubject($id: String!) {
 	}
 }
 
-query Subjects($keyword: String, $isAscending: Boolean, $page: Int) {
+query Subjects($filter: FilterArgs, $isAscending: Boolean, $page: Int) {
 	subjects(
-		filter: { keyword: $keyword }
+		filter: $filter,
 		pagination: { page: $page, size: 10 }
 		sort: { isAscending: $isAscending }
 	) {

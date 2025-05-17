@@ -646,7 +646,7 @@ export type DetailSubjectQueryVariables = Exact<{
 export type DetailSubjectQuery = { __typename?: 'Query', subject?: { __typename?: 'Subject', display_name?: string | null, faculty_id?: string | null, subject_id: string, total_point?: number | null, faculty?: { __typename?: 'Faculty', display_name: string, faculty_id: string, full_name?: string | null, is_displayed?: boolean | null } | null } | null };
 
 export type SubjectsQueryVariables = Exact<{
-  keyword?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<FilterArgs>;
   isAscending?: InputMaybe<Scalars['Boolean']['input']>;
   page?: InputMaybe<Scalars['Int']['input']>;
 }>;
@@ -1850,9 +1850,9 @@ export function refetchDetailSubjectQuery(variables: DetailSubjectQueryVariables
       return { query: DetailSubjectDocument, variables: variables }
     }
 export const SubjectsDocument = gql`
-    query Subjects($keyword: String, $isAscending: Boolean, $page: Int) {
+    query Subjects($filter: FilterArgs, $isAscending: Boolean, $page: Int) {
   subjects(
-    filter: {keyword: $keyword}
+    filter: $filter
     pagination: {page: $page, size: 10}
     sort: {isAscending: $isAscending}
   ) {
@@ -1891,7 +1891,7 @@ export const SubjectsDocument = gql`
  * @example
  * const { data, loading, error } = useSubjectsQuery({
  *   variables: {
- *      keyword: // value for 'keyword'
+ *      filter: // value for 'filter'
  *      isAscending: // value for 'isAscending'
  *      page: // value for 'page'
  *   },

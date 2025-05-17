@@ -1,7 +1,7 @@
 "use client";
 
 import { FilterProvider, useFilter } from "@/contexts/FilterContext";
-import { Subject, useSubjectsLazyQuery } from "@/gql/graphql";
+import { FilterArgs, Subject, useSubjectsLazyQuery } from "@/gql/graphql";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import useNavigate from "@/hooks/useNavigate";
 import { useRememberValue } from "@/hooks/useRememberValue";
@@ -29,7 +29,7 @@ type Props = {
 
 type FilterType = {
 	lecturer_id?: string;
-	defaultFilter?: IFilter;
+	defaultFilter?: FilterArgs;
 };
 
 function SingleSubjectSelector_({ subjectId, setSubject, defaultFilter }: Props) {
@@ -40,7 +40,9 @@ function SingleSubjectSelector_({ subjectId, setSubject, defaultFilter }: Props)
 
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-	const [getSubjects, { data, loading: isLoading }] = useSubjectsLazyQuery();
+	const [getSubjects, { data, loading: isLoading }] = useSubjectsLazyQuery({
+		variables: { filter: defaultFilter },
+	});
 	const { dataList, bottomRef } = useInfiniteScroll({
 		queryFunction: getSubjects,
 		variables: { keyword: debouncedKeyword, isAscending: sort != "desc" },
@@ -167,8 +169,10 @@ function SingleSubjectSelector_({ subjectId, setSubject, defaultFilter }: Props)
 
 export default function SingleSubjectSelector({
 	onSelect,
+	filter = {},
 }: {
 	onSelect?: (d: Subject) => any;
+	filter?: FilterArgs;
 }) {
 	const { subjects, setSubjects } = useFilter();
 
@@ -181,6 +185,7 @@ export default function SingleSubjectSelector({
 		<SingleSubjectSelector_
 			subjectId={Array.from(subjects.values())?.[0]?.subject_id || ""}
 			setSubject={setSubject}
+			defaultFilter={filter}
 		/>
 	);
 }
