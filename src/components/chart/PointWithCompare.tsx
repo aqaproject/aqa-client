@@ -39,11 +39,11 @@ function InnerPointWithCompare({
 		criteria_id: filter.criteria?.criteria_id,
 		faculty_id: filter.faculty?.faculty_id,
 		semester_id: filter.semester?.semester_id,
-		subjects: Array.from(filter.subjects.values()).length
-			? Array.from(filter.subjects.values()).map(
-					(subject) => subject.subject_id
-			  )
-			: undefined,
+		// subjects: Array.from(filter.subjects.values()).length
+		// 	? Array.from(filter.subjects.values()).map(
+		// 			(subject) => subject.subject_id
+		// 	  )
+		// 	: undefined,
 		program: filter.program,
 		groupEntity: "Semester",
 	};

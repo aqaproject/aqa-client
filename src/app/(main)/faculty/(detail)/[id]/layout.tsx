@@ -39,6 +39,10 @@ export default function Layout({
 						link: `comment`,
 						title: "Ý kiến",
 					},
+					{
+						link: `compare`,
+						title: "So sánh các môn học",
+					},
 				]}
 			/>
 			<div className=" w-full mt-5 p-0 h-[420px]">{children}</div>
