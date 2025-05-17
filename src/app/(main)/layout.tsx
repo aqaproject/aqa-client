@@ -62,6 +62,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 						icon={CriteriaIcon}
 					/>
 				) : null}
+				{isFullAcess || isAdmin ? (
+					<NavItem
+						title="Khảo sát giảng viên"
+						link="/staff-survey"
+						icon={CriteriaIcon}
+					/>
+				) : null}
 				{isAdmin ? (
 					<NavItem
 						title="Quản lý tài khoản"
