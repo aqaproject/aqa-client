@@ -31,6 +31,7 @@
     "cookies-next": "^4.2.1",
     "dom-to-image": "^2.6.0",
     "dom-to-pdf": "^0.3.2",
+    "dotenv": "^16.5.0",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
     "framer-motion": "^10.18.0",

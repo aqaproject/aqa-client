@@ -1,0 +1,19 @@
+mutation AddStaffSurveyData($data: StaffSurveySheetDTO!) {
+	addNewStaffSurveyData(data: $data) {
+		batch {
+			display_name
+			staff_survey_batch_id
+			updated_at
+		}
+	}
+}
+
+mutation AddListStaffSurveyData($data: [StaffSurveySheetDTO!]!) {
+	addListStaffSurveyData(data: $data) {
+		batch {
+			display_name
+			staff_survey_batch_id
+			updated_at
+		}
+	}
+}

@@ -1,26 +1,249 @@
 "use client";
 
-import { Button, Checkbox } from "@heroui/react";
-import { useEffect, useRef, useState } from "react";
+import { Button, Checkbox, Input } from "@heroui/react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import readXlsxFile from "read-excel-file";
 import {} from "react-icons";
 import { UICard } from "@/components/UICard";
-import { set } from "lodash";
+import _, { add, map, set } from "lodash";
+import UploadingFilePreview from "@/components/staff-survey/UploadingFilePreview";
+import ChooseFileMapping, {
+	MappingItem,
+} from "@/components/staff-survey/ChooseFileMapping";
+import {
+	useAddListStaffSurveyDataMutation,
+	useAddStaffSurveyDataMutation,
+} from "@/gql/graphql";
 
 export default function Page() {
 	const [file, setFile] = useState<File | null>(null);
 	const [data, setData] = useState<any[]>([]);
-	const [step, setStep] = useState(0);
+	const [surveyName, setSurveyName] = useState<string>("");
 	const [isReadingFile, setIsReadingFile] = useState(false);
-	const [selectedColumns, setSelectedColumns] = useState<string[]>([]);
-	const [selectedStart, setSelectedStart] = useState<number>(0);
-	const [selectedEnd, setSelectedEnd] = useState<number>(0);
+	const [isAddingRows, setIsAddingRows] = useState(false);
+	const [addedRows, setAddedRows] = useState<number>(0);
+
+	const [additionalMapping, setAdditionalMapping] = useState<MappingItem[]>([]);
+
+	const [addSurveyData] = useAddStaffSurveyDataMutation({
+		fetchPolicy: "no-cache",
+	});
+	const [addListSurveyData] = useAddListStaffSurveyDataMutation({
+		fetchPolicy: "no-cache",
+	});
 
 	const fileRef = useRef<HTMLInputElement>(null);
+
+	const pointMapping = useMemo<
+		{ category: string; criterias: { name: string; original: string }[] }[]
+	>(() => {
+		const pointColumnRegex = /(.*?)\s*\[\d+\.\s*(.*?)\]/;
+
+		const columns = data?.[0] ?? [];
+		const pointColumns = columns
+			.filter((column: string) => column.match(pointColumnRegex))
+			.map((column: string) => column.match(pointColumnRegex));
+
+		const pointMapping = new Map<string, { name: string; original: string }[]>();
+
+		pointColumns.forEach((match: string) => {
+			const pointCategory = match[1].trim();
+			const pointName = match[2].trim();
+
+			if (!pointMapping.has(pointCategory)) {
+				pointMapping.set(pointCategory, []);
+			}
+			pointMapping.set(pointCategory, [
+				...(pointMapping.get(pointCategory) ?? []),
+				{
+					name: pointName,
+					original: match[0].trim(),
+				},
+			]);
+		});
+
+		return Array.from(pointMapping.entries()).map(([key, value]) => ({
+			category: key,
+			criterias: value,
+		}));
+	}, [data]);
+
+	const facultyMapping = useMemo<{
+		category: string;
+		criterias: { name: string; original: string }[];
+	}>(() => {
+		const pointColumnRegex = /(.*?)\s*\[\s*(.*?)\]/;
+
+		const columns = data?.[0] ?? [];
+		const pointColumns = columns
+			.filter((column: string) => column.match(pointColumnRegex))
+			.map((column: string) => column.match(pointColumnRegex));
+
+		const pointMapping = new Map<string, { name: string; original: string }[]>();
+
+		pointColumns.forEach((match: string) => {
+			const pointCategory = match[1].trim();
+			const pointName = match[2].trim();
+
+			if (!pointMapping.has(pointCategory)) {
+				pointMapping.set(pointCategory, []);
+			}
+			pointMapping.set(pointCategory, [
+				...(pointMapping.get(pointCategory) ?? []),
+				{
+					name: pointName,
+					original: match[0].trim(),
+				},
+			]);
+		});
+
+		return (
+			Array.from(pointMapping.entries())
+				.map(([key, value]) => ({
+					category: key,
+					criterias: value,
+				}))
+				.filter((item) =>
+					item.category.toUpperCase().includes("ĐƠN VỊ")
+				)[0] ?? {
+				category: "Đơn vị",
+				criterias: [],
+			}
+		);
+	}, [data]);
+
+	const additionalCommentsMapping = useMemo<{
+		category: string;
+		criterias: number[];
+	}>(() => {
+		const pointColumnRegex = /(.*?)\s*\[\s*(.*?)\]/;
+
+		const columns = data?.[0] ?? [];
+		const pointColumns = columns
+			.map((column: string, index: number) => ({
+				match: column.match(pointColumnRegex),
+				column,
+				index,
+			}))
+			.filter(({ match }: { match: any }) => match);
+
+		const pointMapping = new Map<string, number[]>();
+
+		pointColumns.forEach(
+			({ match, index }: { match: string[]; index: number }) => {
+				const pointCategory = match[1].trim();
+
+				if (!pointMapping.has(pointCategory)) {
+					pointMapping.set(pointCategory, []);
+				}
+				pointMapping.set(pointCategory, [
+					...(pointMapping.get(pointCategory) ?? []),
+					index,
+				]);
+			}
+		);
+
+		return (
+			Array.from(pointMapping.entries())
+				.map(([key, value]) => ({
+					category: key,
+					criterias: value,
+				}))
+				.filter((item) =>
+					item.category.toUpperCase().startsWith("Ý KIẾN")
+				)?.[0] ?? {
+				category: "Ý kiến",
+				criterias: [],
+			}
+		);
+	}, [data]);
 
 	useEffect(() => {
 		console.log(data);
 	}, [data]);
+
+	const handleImport = useCallback(async () => {
+		setIsAddingRows(true);
+
+		const columns = data?.[0] ?? [];
+		const rows = data.slice(1);
+		console.log({ rows });
+		console.log({ additionalMapping });
+		console.log({ pointMapping, facultyMapping, additionalCommentsMapping });
+		console.log({ surveyName });
+
+		const criteriaList = pointMapping
+			.map((point) =>
+				point.criterias.map((criteria, index: number) => ({
+					...criteria,
+					category: point.category,
+					index,
+				}))
+			)
+			.flat();
+		console.log({ criteriaList });
+
+		const sheetDataList = rows.map((row) => {
+			const rowData = Object.fromEntries(
+				columns.map((column: string, index: number) => [column, row[index]])
+			);
+			return {
+				survey_name: surveyName,
+				...Object.fromEntries(
+					additionalMapping.map((d) => [d.name, rowData[d.column]])
+				),
+				points: [
+					...criteriaList.map((criteria, index: number) => ({
+						max_point: 5,
+						point: rowData[criteria.original] ?? 0,
+						comment:
+							row[additionalCommentsMapping.criterias[index]] ?? "",
+						criteria_name: criteria.name,
+						criteria_category: criteria.category,
+						criteria_index: criteria.index,
+					})),
+					...facultyMapping.criterias.map((criteria, index: number) => ({
+						max_point: 5,
+						point: row[criteria.original] ?? 0,
+						comment:
+							rowData[
+								additionalCommentsMapping.criterias[
+									index + criteriaList.length
+								]
+							] ?? "",
+						criteria_name: criteria.name,
+						criteria_category: facultyMapping.category,
+						criteria_index: index,
+					})),
+				],
+			};
+		});
+
+		console.log({ pointsData: sheetDataList });
+
+		const CHUNK_SIZE = 5;
+		await Promise.all(
+			_.chunk(sheetDataList, CHUNK_SIZE).map((d) => {
+				return addListSurveyData({
+					variables: {
+						data: d,
+					},
+					onCompleted: () => {
+						setAddedRows((prev) => prev + CHUNK_SIZE);
+					},
+				});
+			})
+		);
+		setIsAddingRows(false);
+	}, [
+		data,
+		additionalMapping,
+		pointMapping,
+		facultyMapping,
+		additionalCommentsMapping,
+		surveyName,
+		addListSurveyData,
+	]);
 
 	return (
 		<div>
@@ -43,6 +266,9 @@ export default function Page() {
 					onChange={async (e) => {
 						const file = e.target.files?.[0];
 						setIsReadingFile(true);
+						setSurveyName(
+							file?.name.split(".").slice(0, -1).join(".") ?? ""
+						);
 						if (file) {
 							setFile(file);
 							readXlsxFile(file).then((rows) => {
@@ -54,114 +280,72 @@ export default function Page() {
 					accept=".xlsx, .xls, .csv"
 				/>
 			</div>
+			{data.length > 0 ? (
+				<UploadingFilePreview data={data} className=" mt-6" />
+			) : null}
 			{file ? (
-				<div className=" mt-5">
-					{step === 0 ? (
+				<div className=" mt-5 flex flex-col gap-8">
+					<div>
 						<div>
-							<div>
-								<h1 className=" text-xl font-semibold">
-									Bước 1: Chọn các trường dữ liệu điểm đánh giá
-								</h1>
-								<p> Chọn các trường chứa điểm đánh giá</p>
-							</div>
-							<UICard className=" mt-4 px-6 py-4 max-h-[400px] overflow-y-auto">
-								{data[0]?.map((column: string, index: number) => (
-									<Checkbox
-										className=" block"
-										key={index}
-										isSelected={
-											(index >= selectedStart &&
-												index <= selectedEnd) ||
-											index === selectedStart
-										}
-										onChange={() => {
-											if (
-												selectedStart === 0 &&
-												selectedEnd === 0
-											) {
-												setSelectedStart(index);
-											} else if (
-												selectedStart !== 0 &&
-												selectedEnd === 0
-											) {
-												setSelectedEnd(index);
-											}
-										}}
-									>
-										{column}
-									</Checkbox>
-								))}
-							</UICard>
+							<h1 className=" text-xl font-semibold">
+								Bước 1: Chọn các trường dữ liệu
+							</h1>
+							<p> Chọn các trường chứa các thông tin thêm</p>
 						</div>
-					) : step === 1 ? (
+						<UICard className=" mt-4 px-6 py-4 max-h-[400px] overflow-y-auto">
+							<ChooseFileMapping
+								columns={data?.[0]}
+								setMapping={(mapping) =>
+									setAdditionalMapping(mapping)
+								}
+							/>
+						</UICard>
+					</div>
+					<div>
 						<div>
-							<div>
-								<h1 className=" text-xl font-semibold">
-									Bước 2: Chọn các trường dữ liệu thông tin giảng viên
-								</h1>
-								<p>Chọn các trường dữ liệu chứa thông tin giảng viên đang đánh giá</p>
-							</div>
-							<UICard className=" mt-4 px-6 py-4 max-h-[400px] overflow-y-auto">
-								{data[0]?.map((column: string, index: number) => (
-									<Checkbox
-										className=" block"
-										key={index}
-										isSelected={
-											(index >= selectedStart &&
-												index <= selectedEnd) ||
-											index === selectedStart
-										}
-										onChange={() => {
-											if (
-												selectedStart === 0 &&
-												selectedEnd === 0
-											) {
-												setSelectedStart(index);
-											} else if (
-												selectedStart !== 0 &&
-												selectedEnd === 0
-											) {
-												setSelectedEnd(index);
-											}
-										}}
-									>
-										{column}
-									</Checkbox>
-								))}
-							</UICard>
+							<h1 className=" text-xl font-semibold">
+								Bước 2: Tải dữ liệu lên hệ thống
+							</h1>
+							<p>Kiểm tra thông tin và tải dữ liệu lên hệ thống</p>
 						</div>
-					) : null}
-                    <div className=" mt-4 flex items-center justify-end">
-                        <Button
-                            className=" "
-                            onPress={() => {
-                                if (step === 0) {
-                                    setStep(1);
-                                } else if (step === 1) {
-                                    setStep(2);
-                                }
-                            }}
-                        >
-                            Tiếp theo
-                        </Button>
-                    </div>
+						<UICard className=" mt-4 px-6 py-4 max-h-[400px] overflow-y-auto flex flex-col gap-4">
+							<p className=" px-4">
+								Đã tìm thấy{" "}
+								<span className=" font-semibold">
+									{data.length - 1}
+								</span>{" "}
+								dòng dữ liệu trong file
+							</p>
+							<Input
+								label="Tên khảo sát"
+								placeholder="Nhập tên khảo sát (để phân biệt với các khảo sát khác)"
+								required
+								value={surveyName}
+								onChange={(e) => setSurveyName(e.target.value)}
+							/>
+							<div className=" flex gap-4 items-center">
+								<Button
+									color="primary"
+									className=" w-fit"
+									onPress={handleImport}
+									isLoading={isAddingRows}
+								>
+									<p>Tải dữ liệu vào hệ thống </p>
+								</Button>
+
+								{isAddingRows ? (
+									<p>
+										Đang thêm{" "}
+										<b>
+											{addedRows} / {data.length - 1}
+										</b>
+									</p>
+								) : null}
+							</div>
+						</UICard>
+					</div>
 				</div>
 			) : null}
 		</div>
 	);
 }
-
-const MAPPING_DATA = {
-	basicInfo: [
-		{
-			field: "first_name",
-			default: "Họ",
-		},
-		{
-			field: "last_name",
-			default: "Tên",
-		},
-		{},
-	],
-	point: {},
-};

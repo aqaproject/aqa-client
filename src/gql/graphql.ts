@@ -191,10 +191,24 @@ export type LecturerPointsArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Add new staff survey data */
+  addListStaffSurveyData: Array<StaffSurveySheet>;
+  /** Add new staff survey data */
+  addNewStaffSurveyData: StaffSurveySheet;
   login: AuthDto;
   registerUser: UserEntity;
   removeUser: Scalars['Boolean']['output'];
   updateUser: UserEntity;
+};
+
+
+export type MutationAddListStaffSurveyDataArgs = {
+  data: Array<StaffSurveySheetDto>;
+};
+
+
+export type MutationAddNewStaffSurveyDataArgs = {
+  data: StaffSurveySheetDto;
 };
 
 
@@ -440,6 +454,57 @@ export type SortFieldArgs = {
   type?: Scalars['String']['input'];
 };
 
+export type StaffSurveyBatch = {
+  __typename?: 'StaffSurveyBatch';
+  display_name?: Maybe<Scalars['String']['output']>;
+  staff_survey_batch_id: Scalars['String']['output'];
+  updated_at?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type StaffSurveyCriteria = {
+  __typename?: 'StaffSurveyCriteria';
+  category: Scalars['String']['output'];
+  display_name: Scalars['String']['output'];
+  index?: Maybe<Scalars['Int']['output']>;
+  staff_survery_criteria_id: Scalars['String']['output'];
+};
+
+export type StaffSurveyPointDto = {
+  comment?: InputMaybe<Scalars['String']['input']>;
+  criteria_category?: InputMaybe<Scalars['String']['input']>;
+  criteria_index?: InputMaybe<Scalars['Int']['input']>;
+  criteria_name?: InputMaybe<Scalars['String']['input']>;
+  max_point: Scalars['Int']['input'];
+  point: Scalars['Int']['input'];
+};
+
+export type StaffSurveySheet = {
+  __typename?: 'StaffSurveySheet';
+  academic_degree?: Maybe<Scalars['String']['output']>;
+  academic_title?: Maybe<Scalars['String']['output']>;
+  additional_comment?: Maybe<Scalars['String']['output']>;
+  batch?: Maybe<StaffSurveyBatch>;
+  birth?: Maybe<Scalars['String']['output']>;
+  display_name?: Maybe<Scalars['String']['output']>;
+  faculty?: Maybe<Scalars['String']['output']>;
+  gender?: Maybe<Scalars['Boolean']['output']>;
+  mscb?: Maybe<Scalars['String']['output']>;
+  staff_survey_sheet_id: Scalars['String']['output'];
+};
+
+export type StaffSurveySheetDto = {
+  academic_degree?: InputMaybe<Scalars['String']['input']>;
+  academic_title?: InputMaybe<Scalars['String']['input']>;
+  additional_comment?: InputMaybe<Scalars['String']['input']>;
+  birth?: InputMaybe<Scalars['String']['input']>;
+  display_name?: InputMaybe<Scalars['String']['input']>;
+  faculty?: InputMaybe<Scalars['String']['input']>;
+  gender?: InputMaybe<Scalars['Boolean']['input']>;
+  mscb?: InputMaybe<Scalars['String']['input']>;
+  points: Array<StaffSurveyPointDto>;
+  survey_name?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Subject = {
   __typename?: 'Subject';
   display_name?: Maybe<Scalars['String']['output']>;
@@ -637,6 +702,20 @@ export type SemestersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SemestersQuery = { __typename?: 'Query', semesters?: Array<{ __typename?: 'Semester', display_name: string, semester_id: string, type?: string | null, year?: string | null }> | null };
+
+export type AddStaffSurveyDataMutationVariables = Exact<{
+  data: StaffSurveySheetDto;
+}>;
+
+
+export type AddStaffSurveyDataMutation = { __typename?: 'Mutation', addNewStaffSurveyData: { __typename?: 'StaffSurveySheet', batch?: { __typename?: 'StaffSurveyBatch', display_name?: string | null, staff_survey_batch_id: string, updated_at?: any | null } | null } };
+
+export type AddListStaffSurveyDataMutationVariables = Exact<{
+  data: Array<StaffSurveySheetDto> | StaffSurveySheetDto;
+}>;
+
+
+export type AddListStaffSurveyDataMutation = { __typename?: 'Mutation', addListStaffSurveyData: Array<{ __typename?: 'StaffSurveySheet', batch?: { __typename?: 'StaffSurveyBatch', display_name?: string | null, staff_survey_batch_id: string, updated_at?: any | null } | null }> };
 
 export type DetailSubjectQueryVariables = Exact<{
   id: Scalars['String']['input'];
@@ -1797,6 +1876,80 @@ export type SemestersQueryResult = Apollo.QueryResult<SemestersQuery, SemestersQ
 export function refetchSemestersQuery(variables?: SemestersQueryVariables) {
       return { query: SemestersDocument, variables: variables }
     }
+export const AddStaffSurveyDataDocument = gql`
+    mutation AddStaffSurveyData($data: StaffSurveySheetDTO!) {
+  addNewStaffSurveyData(data: $data) {
+    batch {
+      display_name
+      staff_survey_batch_id
+      updated_at
+    }
+  }
+}
+    `;
+export type AddStaffSurveyDataMutationFn = Apollo.MutationFunction<AddStaffSurveyDataMutation, AddStaffSurveyDataMutationVariables>;
+
+/**
+ * __useAddStaffSurveyDataMutation__
+ *
+ * To run a mutation, you first call `useAddStaffSurveyDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddStaffSurveyDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addStaffSurveyDataMutation, { data, loading, error }] = useAddStaffSurveyDataMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useAddStaffSurveyDataMutation(baseOptions?: Apollo.MutationHookOptions<AddStaffSurveyDataMutation, AddStaffSurveyDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddStaffSurveyDataMutation, AddStaffSurveyDataMutationVariables>(AddStaffSurveyDataDocument, options);
+      }
+export type AddStaffSurveyDataMutationHookResult = ReturnType<typeof useAddStaffSurveyDataMutation>;
+export type AddStaffSurveyDataMutationResult = Apollo.MutationResult<AddStaffSurveyDataMutation>;
+export type AddStaffSurveyDataMutationOptions = Apollo.BaseMutationOptions<AddStaffSurveyDataMutation, AddStaffSurveyDataMutationVariables>;
+export const AddListStaffSurveyDataDocument = gql`
+    mutation AddListStaffSurveyData($data: [StaffSurveySheetDTO!]!) {
+  addListStaffSurveyData(data: $data) {
+    batch {
+      display_name
+      staff_survey_batch_id
+      updated_at
+    }
+  }
+}
+    `;
+export type AddListStaffSurveyDataMutationFn = Apollo.MutationFunction<AddListStaffSurveyDataMutation, AddListStaffSurveyDataMutationVariables>;
+
+/**
+ * __useAddListStaffSurveyDataMutation__
+ *
+ * To run a mutation, you first call `useAddListStaffSurveyDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddListStaffSurveyDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addListStaffSurveyDataMutation, { data, loading, error }] = useAddListStaffSurveyDataMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useAddListStaffSurveyDataMutation(baseOptions?: Apollo.MutationHookOptions<AddListStaffSurveyDataMutation, AddListStaffSurveyDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddListStaffSurveyDataMutation, AddListStaffSurveyDataMutationVariables>(AddListStaffSurveyDataDocument, options);
+      }
+export type AddListStaffSurveyDataMutationHookResult = ReturnType<typeof useAddListStaffSurveyDataMutation>;
+export type AddListStaffSurveyDataMutationResult = Apollo.MutationResult<AddListStaffSurveyDataMutation>;
+export type AddListStaffSurveyDataMutationOptions = Apollo.BaseMutationOptions<AddListStaffSurveyDataMutation, AddListStaffSurveyDataMutationVariables>;
 export const DetailSubjectDocument = gql`
     query DetailSubject($id: String!) {
   subject(id: $id) {
