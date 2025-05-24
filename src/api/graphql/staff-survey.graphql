@@ -17,3 +17,12 @@ mutation AddListStaffSurveyData($data: [StaffSurveySheetDTO!]!) {
 		}
 	}
 }
+
+query GetStaffSurveyCriteriaList {
+	staffSurveyCriteriaList {
+		staff_survey_criteria_id
+		display_name
+		category
+		index
+	}
+}

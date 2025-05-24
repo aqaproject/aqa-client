@@ -5,7 +5,10 @@ import { Key, useEffect, useState } from "react";
 
 export type MappingItem = {
 	name: string;
-	column: string;
+	column?: string;
+	selected?: string;
+	options?: string[];
+	optionTitle?: string;
 };
 
 type PropTypes = {
@@ -29,6 +32,13 @@ const defaultColumns = [
 		name: "faculty",
 		column: "attribute_6",
 	},
+	{
+		label: "Học kỳ",
+		name: "semester",
+		selected: "2025",
+		options: ["2020", "2021", "2022", "2023", "2024", "2025"],
+		optionTitle: "Chọn học kỳ",
+	},
 ];
 
 export default function ChooseFileMapping({
@@ -48,9 +58,10 @@ export default function ChooseFileMapping({
 			{mapping.map((item) => (
 				<ColumnSelect
 					key={item.label}
-					columns={columns}
+					columns={item.column ? columns : item.options || []}
+					title={item.optionTitle}
 					label={item.label}
-					value={item.column}
+					value={item.column ?? item.selected}
 					onChange={(value) => {
 						setMappingState((prev: any) => {
 							const newMapping = [...prev];
@@ -79,18 +90,20 @@ function ColumnSelect({
 	label,
 	value,
 	onChange,
+	title = "Chọn cột dữ liệu",
 }: {
 	columns: string[];
 	label: string;
 	value?: string;
 	onChange?: (value: string) => void;
+	title?: string;
 }) {
 	return (
 		<div className="flex items-center gap-4">
 			<label className="w-1/3">{label}</label>
 			<Select
 				className="max-w-[600px]"
-				label="Chọn cột chứa dữ liệu"
+				label={title}
 				selectedKeys={[value as Key]}
 				onChange={(e) => onChange?.(e.target.value)}
 			>

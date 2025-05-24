@@ -1,21 +1,24 @@
 "use client";
 
-import { Button, Checkbox, Input } from "@heroui/react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import readXlsxFile from "read-excel-file";
-import {} from "react-icons";
-import { UICard } from "@/components/UICard";
-import _, { add, map, set } from "lodash";
-import UploadingFilePreview from "@/components/staff-survey/UploadingFilePreview";
 import ChooseFileMapping, {
 	MappingItem,
 } from "@/components/staff-survey/ChooseFileMapping";
+import UploadingFilePreview from "@/components/staff-survey/UploadingFilePreview";
+import { UICard } from "@/components/UICard";
 import {
 	useAddListStaffSurveyDataMutation,
 	useAddStaffSurveyDataMutation,
 } from "@/gql/graphql";
+import { Button, Input } from "@heroui/react";
+import _ from "lodash";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {} from "react-icons";
+import readXlsxFile from "read-excel-file";
 
 export default function Page() {
+	const router = useRouter();
+
 	const [file, setFile] = useState<File | null>(null);
 	const [data, setData] = useState<any[]>([]);
 	const [surveyName, setSurveyName] = useState<string>("");
@@ -190,7 +193,10 @@ export default function Page() {
 			return {
 				survey_name: surveyName,
 				...Object.fromEntries(
-					additionalMapping.map((d) => [d.name, rowData[d.column]])
+					additionalMapping.map((d) => [
+						d.name,
+						d.column ? rowData[d.column] : d.selected,
+					])
 				),
 				points: [
 					...criteriaList.map((criteria, index: number) => ({
@@ -235,6 +241,7 @@ export default function Page() {
 			})
 		);
 		setIsAddingRows(false);
+		router.push("/staff-survey");
 	}, [
 		data,
 		additionalMapping,
@@ -242,6 +249,7 @@ export default function Page() {
 		facultyMapping,
 		additionalCommentsMapping,
 		surveyName,
+		router,
 		addListSurveyData,
 	]);
 
