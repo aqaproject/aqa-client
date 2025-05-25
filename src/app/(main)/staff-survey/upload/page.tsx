@@ -176,11 +176,11 @@ export default function Page() {
 		console.log({ surveyName });
 
 		const criteriaList = pointMapping
-			.map((point) =>
+			.map((point, pointIndex: number) =>
 				point.criterias.map((criteria, index: number) => ({
 					...criteria,
 					category: point.category,
-					index,
+					index: pointIndex * 100 + index,
 				}))
 			)
 			.flat();

@@ -19,10 +19,19 @@ mutation AddListStaffSurveyData($data: [StaffSurveySheetDTO!]!) {
 }
 
 query GetStaffSurveyCriteriaList {
-	staffSurveyCriteriaList {
-		staff_survey_criteria_id
-		display_name
+	getCriteriaList {
 		category
+		display_name
 		index
+		semesters
+		staff_survery_criteria_id
+	}
+}
+
+query GetStaffSurveyBatchList {
+	getBatchList {
+		display_name
+		staff_survey_batch_id
+		updated_at
 	}
 }

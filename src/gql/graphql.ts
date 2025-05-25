@@ -312,6 +312,8 @@ export type Query = {
   faculties: PaginatedFaculty;
   /** Get detail information of a faculty and its lecturer list */
   faculty?: Maybe<Faculty>;
+  getBatchList: Array<StaffSurveyBatch>;
+  getCriteriaList: Array<StaffSurveyCriteria>;
   /** List all points, group by a specific entity */
   groupedPoints: PaginatedGroupedPoint;
   /** View detail information of a specific lecturer */
@@ -466,6 +468,7 @@ export type StaffSurveyCriteria = {
   category: Scalars['String']['output'];
   display_name: Scalars['String']['output'];
   index?: Maybe<Scalars['Int']['output']>;
+  semesters: Array<Scalars['String']['output']>;
   staff_survery_criteria_id: Scalars['String']['output'];
 };
 
@@ -502,6 +505,7 @@ export type StaffSurveySheetDto = {
   gender?: InputMaybe<Scalars['Boolean']['input']>;
   mscb?: InputMaybe<Scalars['String']['input']>;
   points: Array<StaffSurveyPointDto>;
+  semester?: InputMaybe<Scalars['String']['input']>;
   survey_name?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -716,6 +720,16 @@ export type AddListStaffSurveyDataMutationVariables = Exact<{
 
 
 export type AddListStaffSurveyDataMutation = { __typename?: 'Mutation', addListStaffSurveyData: Array<{ __typename?: 'StaffSurveySheet', batch?: { __typename?: 'StaffSurveyBatch', display_name?: string | null, staff_survey_batch_id: string, updated_at?: any | null } | null }> };
+
+export type GetStaffSurveyCriteriaListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetStaffSurveyCriteriaListQuery = { __typename?: 'Query', getCriteriaList: Array<{ __typename?: 'StaffSurveyCriteria', category: string, display_name: string, index?: number | null, semesters: Array<string>, staff_survery_criteria_id: string }> };
+
+export type GetStaffSurveyBatchListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetStaffSurveyBatchListQuery = { __typename?: 'Query', getBatchList: Array<{ __typename?: 'StaffSurveyBatch', display_name?: string | null, staff_survey_batch_id: string, updated_at?: any | null }> };
 
 export type DetailSubjectQueryVariables = Exact<{
   id: Scalars['String']['input'];
@@ -1950,6 +1964,96 @@ export function useAddListStaffSurveyDataMutation(baseOptions?: Apollo.MutationH
 export type AddListStaffSurveyDataMutationHookResult = ReturnType<typeof useAddListStaffSurveyDataMutation>;
 export type AddListStaffSurveyDataMutationResult = Apollo.MutationResult<AddListStaffSurveyDataMutation>;
 export type AddListStaffSurveyDataMutationOptions = Apollo.BaseMutationOptions<AddListStaffSurveyDataMutation, AddListStaffSurveyDataMutationVariables>;
+export const GetStaffSurveyCriteriaListDocument = gql`
+    query GetStaffSurveyCriteriaList {
+  getCriteriaList {
+    category
+    display_name
+    index
+    semesters
+    staff_survery_criteria_id
+  }
+}
+    `;
+
+/**
+ * __useGetStaffSurveyCriteriaListQuery__
+ *
+ * To run a query within a React component, call `useGetStaffSurveyCriteriaListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStaffSurveyCriteriaListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStaffSurveyCriteriaListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStaffSurveyCriteriaListQuery(baseOptions?: Apollo.QueryHookOptions<GetStaffSurveyCriteriaListQuery, GetStaffSurveyCriteriaListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStaffSurveyCriteriaListQuery, GetStaffSurveyCriteriaListQueryVariables>(GetStaffSurveyCriteriaListDocument, options);
+      }
+export function useGetStaffSurveyCriteriaListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStaffSurveyCriteriaListQuery, GetStaffSurveyCriteriaListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStaffSurveyCriteriaListQuery, GetStaffSurveyCriteriaListQueryVariables>(GetStaffSurveyCriteriaListDocument, options);
+        }
+export function useGetStaffSurveyCriteriaListSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStaffSurveyCriteriaListQuery, GetStaffSurveyCriteriaListQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetStaffSurveyCriteriaListQuery, GetStaffSurveyCriteriaListQueryVariables>(GetStaffSurveyCriteriaListDocument, options);
+        }
+export type GetStaffSurveyCriteriaListQueryHookResult = ReturnType<typeof useGetStaffSurveyCriteriaListQuery>;
+export type GetStaffSurveyCriteriaListLazyQueryHookResult = ReturnType<typeof useGetStaffSurveyCriteriaListLazyQuery>;
+export type GetStaffSurveyCriteriaListSuspenseQueryHookResult = ReturnType<typeof useGetStaffSurveyCriteriaListSuspenseQuery>;
+export type GetStaffSurveyCriteriaListQueryResult = Apollo.QueryResult<GetStaffSurveyCriteriaListQuery, GetStaffSurveyCriteriaListQueryVariables>;
+export function refetchGetStaffSurveyCriteriaListQuery(variables?: GetStaffSurveyCriteriaListQueryVariables) {
+      return { query: GetStaffSurveyCriteriaListDocument, variables: variables }
+    }
+export const GetStaffSurveyBatchListDocument = gql`
+    query GetStaffSurveyBatchList {
+  getBatchList {
+    display_name
+    staff_survey_batch_id
+    updated_at
+  }
+}
+    `;
+
+/**
+ * __useGetStaffSurveyBatchListQuery__
+ *
+ * To run a query within a React component, call `useGetStaffSurveyBatchListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStaffSurveyBatchListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStaffSurveyBatchListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStaffSurveyBatchListQuery(baseOptions?: Apollo.QueryHookOptions<GetStaffSurveyBatchListQuery, GetStaffSurveyBatchListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStaffSurveyBatchListQuery, GetStaffSurveyBatchListQueryVariables>(GetStaffSurveyBatchListDocument, options);
+      }
+export function useGetStaffSurveyBatchListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStaffSurveyBatchListQuery, GetStaffSurveyBatchListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStaffSurveyBatchListQuery, GetStaffSurveyBatchListQueryVariables>(GetStaffSurveyBatchListDocument, options);
+        }
+export function useGetStaffSurveyBatchListSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStaffSurveyBatchListQuery, GetStaffSurveyBatchListQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetStaffSurveyBatchListQuery, GetStaffSurveyBatchListQueryVariables>(GetStaffSurveyBatchListDocument, options);
+        }
+export type GetStaffSurveyBatchListQueryHookResult = ReturnType<typeof useGetStaffSurveyBatchListQuery>;
+export type GetStaffSurveyBatchListLazyQueryHookResult = ReturnType<typeof useGetStaffSurveyBatchListLazyQuery>;
+export type GetStaffSurveyBatchListSuspenseQueryHookResult = ReturnType<typeof useGetStaffSurveyBatchListSuspenseQuery>;
+export type GetStaffSurveyBatchListQueryResult = Apollo.QueryResult<GetStaffSurveyBatchListQuery, GetStaffSurveyBatchListQueryVariables>;
+export function refetchGetStaffSurveyBatchListQuery(variables?: GetStaffSurveyBatchListQueryVariables) {
+      return { query: GetStaffSurveyBatchListDocument, variables: variables }
+    }
 export const DetailSubjectDocument = gql`
     query DetailSubject($id: String!) {
   subject(id: $id) {
