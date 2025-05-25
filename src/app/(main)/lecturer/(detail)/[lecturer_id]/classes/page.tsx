@@ -9,6 +9,7 @@ import { useAllClassesQuery, useSemestersQuery } from "@/gql/graphql";
 import { useFilterUrlQuery } from "@/hooks/useFilterUrlQuery";
 import PointWithGroupedEntity from "@/components/chart/PointWithGroupedEntity";
 import SingleSubjectSelector from "@/components/selectors/SingleSubjectSelector";
+import SemesterSelector from "@/components/selectors/SemesterSelector";
 
 export default function Page({
 	params: { lecturer_id },
@@ -36,6 +37,7 @@ export default function Page({
 						}}
 						selectors={
 							<>
+								<SemesterSelector />
 								<SingleSubjectSelector filter={query} />
 							</>
 						}
