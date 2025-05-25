@@ -1,5 +1,6 @@
 "use client";
 
+import { MappingItem } from "@/components/staff-survey/ChooseFileMapping";
 import { ColumnSelect } from "@/components/staff-survey/ColumnSelect";
 import { UICard } from "@/components/UICard";
 import {
@@ -18,11 +19,14 @@ import {
 	Textarea,
 	Button,
 } from "@heroui/react";
-import _, { set } from "lodash";
+import _, { add, set } from "lodash";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 export default function Page() {
+	const router = useRouter();
+	const [isAdding, setIsAdding] = useState<boolean>(false);
 	const [pointData, setPointData] = useState<
 		{ category: string; criteria: string; point: number; comment: string }[]
 	>([]);
@@ -47,6 +51,7 @@ export default function Page() {
 		{
 			label: "Học vị",
 			column: "academic_degree",
+			name: "academic_degree",
 			selected: "ĐH",
 			options: ["ĐH", "ThS", "TS"],
 			optionTitle: "Chọn học vị",
@@ -54,33 +59,94 @@ export default function Page() {
 		{
 			label: "Khoa/Bộ môn",
 			column: "faculty",
+			name: "faculty",
 			selected: undefined,
-			options: ["Công nghệ thông tin", "Khoa học máy tính", "Toán học"],
+			options: [
+				"VPĐU",
+				"BMTL",
+				"P.QHĐN",
+				"P.CTSV",
+				"HTTT",
+				"P.TTPC-ĐBCL",
+				"TT&VTS",
+				"P.DLCNTT",
+				"VP.CTĐB",
+				"PTN.HTTT",
+				"VPĐ",
+				"P.SĐH&KHCN",
+				"KTMT",
+				"P.KHTC",
+				"KHMT",
+				"MMT&TT",
+				"P.ĐTĐH",
+				"KTTT",
+				"THUVIEN",
+				"BGH",
+				"P.QTTB",
+				"VPCĐ",
+				"P.TCHC",
+				"B.QLCS",
+				"TTNN",
+				"PTN.TTĐPT",
+				"CNPM",
+				"PTN.ATTT",
+			],
 			optionTitle: "Chọn khoa/bộ môn",
 		},
-        {
-            label: "Học kỳ",
-            column: "semester",
-            selected: "2025",
-            options: ["2020", "2021", "2022", "2023", "2024", "2025"],
-            optionTitle: "Chọn học kỳ",
-        },
-        {
-            label: "Tên file",
-            column: "file_name",
-            selected: undefined,
-            options: batchList?.getBatchList.map((batch) => batch.display_name) || [],
-            optionTitle: "Chọn tên file",
-        }
+		{
+			label: "Học kỳ",
+			column: "semester",
+			name: "semester",
+			selected: "2025",
+			options: ["2020", "2021", "2022", "2023", "2024", "2025"],
+			optionTitle: "Chọn học kỳ",
+		},
+		{
+			label: "Tên file",
+			column: "file_name",
+			name: "file_name",
+			selected: undefined,
+			options:
+				batchList?.getBatchList.map((batch) => batch.display_name ?? "") ||
+				[],
+			optionTitle: "Chọn tên file",
+		},
 	];
+	const [additionData, setAdditionData] = useState<MappingItem[]>(basicInfoData);
 
-	// const handleAddData = useCallback(() => {
-	// 	addSurveyData({
-	// 		variables: {
-	// 			data: {},
-	// 		},
-	// 	});
-	// }, []);
+	const handleAddData = useCallback(() => {
+		setIsAdding(true);
+		addSurveyData({
+			variables: {
+				data: {
+					survey_name:
+						additionData.find((item) => item.name === "file_name")
+							?.selected || "",
+					semester:
+						additionData.find((item) => item.name === "semester")
+							?.selected || "",
+					academic_degree:
+						additionData.find((item) => item.name === "academic_degree")
+							?.selected || "",
+					faculty:
+						additionData.find((item) => item.name === "faculty")
+							?.selected || "",
+					points: pointData.map((item) => ({
+						criteria_name: item.criteria,
+						criteria_category: item.category,
+						point: item.point,
+						comment: item.comment,
+						max_point: 5,
+					})),
+					additional_comment: additionalComment,
+				},
+			},
+			onCompleted: () => {
+				setIsAdding(false);
+				router.push("/staff-survey");
+			},
+		});
+	}, [addSurveyData, additionData, additionalComment, pointData]);
 
 	useEffect(() => {
 		setPointData(
@@ -92,6 +158,8 @@ export default function Page() {
 			})) || []
 		);
 	}, [criteriaList]);
+
+	console.log(additionData);
 
 	return (
 		<div className="flex flex-col">
@@ -107,12 +175,29 @@ export default function Page() {
 						<ColumnSelect
 							key={item.label}
 							label={item.label}
-							value={item.selected}
-							onChange={(value) => {
-								console.log(`Selected ${item.label}:`, value);
-							}}
+							value={
+								additionData.find((data) => data.name === item.name)
+									?.selected || item.selected
+							}
 							columns={item.options || []}
 							title={item.optionTitle || "Chọn"}
+							onChange={(value) => {
+								setAdditionData((prev: any) => {
+									const newMapping = [...prev];
+									const index = newMapping.findIndex(
+										(m) => m.name === item.name
+									);
+									if (index !== -1) {
+										newMapping[index].selected = value;
+									} else {
+										newMapping.push({
+											name: item.label,
+											selected: value,
+										});
+									}
+									return newMapping;
+								});
+							}}
 						/>
 					))}
 				</UICard>
@@ -211,7 +296,13 @@ export default function Page() {
 					/>
 				</UICard>
 				<div className="flex justify-end">
-					<Button color="primary">Thêm dữ liệu</Button>
+					<Button
+						color="primary"
+						onPress={handleAddData}
+						isLoading={isAdding}
+					>
+						Thêm dữ liệu
+					</Button>
 				</div>
 			</div>
 		</div>
