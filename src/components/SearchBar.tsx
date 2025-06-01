@@ -31,7 +31,7 @@ export default function SearchBar() {
 	}, [isOpen]);
 
 	return (
-		<>
+		<div className={``}>
 			<Button
 				className=" w-[500px] rounded-xl z-10 shadow-xl absolute left-1/2 -translate-x-1/2 top-8 bg-foreground-100"
 				onClick={() => onOpen()}
@@ -100,6 +100,6 @@ export default function SearchBar() {
 					)}
 				</ModalContent>
 			</Modal>
-		</>
+		</div>
 	);
 }

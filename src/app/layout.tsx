@@ -22,7 +22,7 @@ export default async function RootLayout({
 			<html lang="en" suppressHydrationWarning>
 				<body className={inter.className}>
 					<Providers>
-						<div className="h-screen w-screen flex flex-row">
+						<div className=" flex flex-row">
 							{children}
 							<Toaster />
 						</div>

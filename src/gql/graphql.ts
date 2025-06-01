@@ -289,6 +289,18 @@ export type PaginationArgs = {
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export type PointByCategoryDto = {
+  __typename?: 'PointByCategoryDTO';
+  avg_point: Scalars['Float']['output'];
+  category: Scalars['String']['output'];
+};
+
+export type PointByCriteriaDto = {
+  __typename?: 'PointByCriteriaDTO';
+  avg_point: Scalars['Float']['output'];
+  criteria: Scalars['String']['output'];
+};
+
 export type Program = {
   __typename?: 'Program';
   program: Scalars['String']['output'];
@@ -314,6 +326,8 @@ export type Query = {
   faculty?: Maybe<Faculty>;
   getBatchList: Array<StaffSurveyBatch>;
   getCriteriaList: Array<StaffSurveyCriteria>;
+  getPointsByCategory: Array<PointByCategoryDto>;
+  getPointsByCriteria: Array<PointByCriteriaDto>;
   /** List all points, group by a specific entity */
   groupedPoints: PaginatedGroupedPoint;
   /** View detail information of a specific lecturer */
@@ -384,6 +398,11 @@ export type QueryFacultiesArgs = {
 
 export type QueryFacultyArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type QueryGetPointsByCriteriaArgs = {
+  category?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -730,6 +749,11 @@ export type GetStaffSurveyBatchListQueryVariables = Exact<{ [key: string]: never
 
 
 export type GetStaffSurveyBatchListQuery = { __typename?: 'Query', getBatchList: Array<{ __typename?: 'StaffSurveyBatch', display_name?: string | null, staff_survey_batch_id: string, updated_at?: any | null }> };
+
+export type GetPointsByCategoryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPointsByCategoryQuery = { __typename?: 'Query', getPointsByCategory: Array<{ __typename?: 'PointByCategoryDTO', avg_point: number, category: string }> };
 
 export type DetailSubjectQueryVariables = Exact<{
   id: Scalars['String']['input'];
@@ -2053,6 +2077,49 @@ export type GetStaffSurveyBatchListSuspenseQueryHookResult = ReturnType<typeof u
 export type GetStaffSurveyBatchListQueryResult = Apollo.QueryResult<GetStaffSurveyBatchListQuery, GetStaffSurveyBatchListQueryVariables>;
 export function refetchGetStaffSurveyBatchListQuery(variables?: GetStaffSurveyBatchListQueryVariables) {
       return { query: GetStaffSurveyBatchListDocument, variables: variables }
+    }
+export const GetPointsByCategoryDocument = gql`
+    query GetPointsByCategory {
+  getPointsByCategory {
+    avg_point
+    category
+  }
+}
+    `;
+
+/**
+ * __useGetPointsByCategoryQuery__
+ *
+ * To run a query within a React component, call `useGetPointsByCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPointsByCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPointsByCategoryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetPointsByCategoryQuery(baseOptions?: Apollo.QueryHookOptions<GetPointsByCategoryQuery, GetPointsByCategoryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPointsByCategoryQuery, GetPointsByCategoryQueryVariables>(GetPointsByCategoryDocument, options);
+      }
+export function useGetPointsByCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPointsByCategoryQuery, GetPointsByCategoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPointsByCategoryQuery, GetPointsByCategoryQueryVariables>(GetPointsByCategoryDocument, options);
+        }
+export function useGetPointsByCategorySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetPointsByCategoryQuery, GetPointsByCategoryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPointsByCategoryQuery, GetPointsByCategoryQueryVariables>(GetPointsByCategoryDocument, options);
+        }
+export type GetPointsByCategoryQueryHookResult = ReturnType<typeof useGetPointsByCategoryQuery>;
+export type GetPointsByCategoryLazyQueryHookResult = ReturnType<typeof useGetPointsByCategoryLazyQuery>;
+export type GetPointsByCategorySuspenseQueryHookResult = ReturnType<typeof useGetPointsByCategorySuspenseQuery>;
+export type GetPointsByCategoryQueryResult = Apollo.QueryResult<GetPointsByCategoryQuery, GetPointsByCategoryQueryVariables>;
+export function refetchGetPointsByCategoryQuery(variables?: GetPointsByCategoryQueryVariables) {
+      return { query: GetPointsByCategoryDocument, variables: variables }
     }
 export const DetailSubjectDocument = gql`
     query DetailSubject($id: String!) {

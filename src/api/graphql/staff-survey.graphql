@@ -35,3 +35,10 @@ query GetStaffSurveyBatchList {
 		updated_at
 	}
 }
+
+query GetPointsByCategory {
+	getPointsByCategory {
+		avg_point
+		category
+	}
+}

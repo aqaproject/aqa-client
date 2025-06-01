@@ -32,7 +32,7 @@ export default function NavigationDrawer({ children }: { children?: ReactNode })
 
 	return (
 		<NavigationDrawerContext.Provider value={{ isOpen: open }}>
-			<nav className="group w-fit group px-5 pt-12 flex flex-col shadow-none transition-all hover:shadow-2xl">
+			<nav className="fixed h-screen group w-fit group px-5 pt-12 flex flex-col shadow-none transition-all hover:shadow-2xl">
 				<div className="flex flex-row items-center">
 					<Button className="ml-1" isIconOnly onPress={toggleDrawer}>
 						<Image
