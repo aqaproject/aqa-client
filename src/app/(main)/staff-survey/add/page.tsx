@@ -309,7 +309,7 @@ export default function Page() {
 	);
 }
 
-export const CustomRadio = (props: any) => {
+const CustomRadio = (props: any) => {
 	const {
 		Component,
 		children,
